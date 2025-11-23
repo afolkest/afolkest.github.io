@@ -120,9 +120,12 @@ main {
 /* Homepage Layout */
 main.homepage {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
     align-items: center;
+    padding-top: 2rem;
+    min-height: 60vh;
+    /* Ensure vertical centering on larger screens */
 }
 
 /* Homepage Intro */
@@ -131,28 +134,36 @@ main.homepage {
 }
 
 .intro p {
-    font-size: 1.2rem;
-    color: #555;
-    line-height: 1.6;
+    font-size: 1.5rem;
+    /* Larger, more impactful text */
+    color: #333;
+    /* Darker for better contrast */
+    line-height: 1.5;
+    max-width: 35ch;
+    /* Optimal line length for readability */
+    font-weight: 400;
 }
 
 /* Featured Art */
 .featured-art {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    width: 100%;
 }
 
 .featured-art img {
     width: 100%;
-    max-width: 400px;
     height: auto;
     display: block;
     border-radius: 4px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    /* Stronger shadow for depth */
 }
 
 /* Art Page */
 .art-page {
     max-width: 1400px;
+    padding-top: 0;
 }
 
 .art-section {
@@ -188,13 +199,16 @@ main.homepage {
 
 .video-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
 }
@@ -376,6 +390,19 @@ footer {
     main {
         padding: 2rem 1rem;
     }
+
+    /* Mobile Homepage */
+    main.homepage {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        min-height: auto;
+        padding-top: 1rem;
+    }
+
+    .intro {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -391,4 +418,43 @@ footer {
     .bio-text p {
         font-size: 1rem;
     }
+}
+
+/* Full Width Breakout Utility */
+.full-width-breakout {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 0;
+}
+
+.full-width-breakout img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Full Width Row (3 images) */
+.full-width-row {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+}
+
+.full-width-row img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
