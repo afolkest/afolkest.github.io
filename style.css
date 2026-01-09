@@ -429,6 +429,7 @@ footer {
     margin-left: -50vw;
     margin-right: -50vw;
     margin-bottom: 0;
+    padding: 1.5rem 1.5rem 0 1.5rem;
 }
 
 .full-width-breakout img {
@@ -436,6 +437,7 @@ footer {
     height: auto;
     display: block;
     object-fit: cover;
+    box-shadow: 8px 16px 24px rgba(0, 0, 0, 0.45);
 }
 
 /* Full Width Row (3 images) */
@@ -449,8 +451,8 @@ footer {
     margin-bottom: 3rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 0;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    gap: 1.5rem;
+    padding: 1.5rem;
 }
 
 .full-width-row img {
@@ -458,4 +460,5 @@ footer {
     height: 100%;
     display: block;
     object-fit: cover;
+    box-shadow: 8px 16px 24px rgba(0, 0, 0, 0.45);
 }
