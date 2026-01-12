@@ -12,3 +12,4 @@ node_modules/
 vendor
 .idea
 trash/
+.playwright-mcp/
