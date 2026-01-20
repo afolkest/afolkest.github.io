@@ -72,6 +72,7 @@ nav {
 
 /* Main Content */
 main {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 3rem 2rem;
@@ -123,6 +124,7 @@ main {
 
 /* Main Content */
 main {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 3rem 2rem;
@@ -212,6 +214,7 @@ main.homepage {
     display: grid;
     grid-template-columns: 1fr;
     gap: 4rem;
+    width: 100%;
     max-width: 800px;
     margin: 0 auto;
 }
