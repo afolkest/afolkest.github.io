@@ -4,11 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art - Åsmund Folkestad</title>
+    <title>Art & Music - Åsmund Folkestad</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Red+Hat+Display:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=1">
+    <script>
+        if (location.hash === '#music') {
+            history.replaceState(null, '', location.pathname);
+            window.__scrollToMusic = true;
+        }
+    </script>
 </head>
 
 <body class="dark-page">
@@ -21,12 +27,12 @@
                 <a href="research.html">research</a>
                 <a href="art.html" class="active">art</a>
                 <a href="essays.html">essays</a>
-                <a href="music.html">music</a>
             </div>
         </div>
     </nav>
 
     <main class="art-page">
+        <h2 class="art-section-heading">Visual Arts</h2>
         <section class="art-gallery-vertical">
             <div class="art-piece">
                 <img src="images/banded_adam_3k.jpg" alt="Electrogenesis">
@@ -54,6 +60,24 @@
             </div>
             <div class="art-piece">
                 <img src="images/sunsets.jpg" alt="Artwork">
+            </div>
+        </section>
+
+        <section id="music" class="music-section-dark">
+            <h2>Music</h2>
+            <div class="video-grid">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/XOvvEHv6gjc" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/KUwe0ldiJhw" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
             </div>
         </section>
     </main>
@@ -84,6 +108,13 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') lightbox.classList.remove('active');
         });
+
+        // Smooth scroll to music section if arriving via #music link
+        if (window.__scrollToMusic) {
+            setTimeout(() => {
+                document.getElementById('music').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
 
         // Flag for fade transition on destination page
         document.querySelectorAll('a').forEach(link => {
