@@ -46,7 +46,7 @@
                     Outside work I produce electronic music, make visual arts, and write
                     <a href="https://extramediumplease.substack.com/">Mechanics of Aesthetics</a>.
                     I've recently also started tinkering with writing visual arts software and algorithms.
-                    I'm currently writing a drawing program using elliptic boundary value problems as the fundamental
+                    I'm currently writing a <a href="https://github.com/afolkest/elliptica">drawing program</a> using elliptic boundary value problems as the fundamental
                     artistic primitive.
                 </p>
             </div>
@@ -59,6 +59,19 @@
     <footer>
         <p>&copy; 2025 Åsmund Folkestad</p>
     </footer>
+    <script>
+        if (sessionStorage.getItem('from-dark')) {
+            sessionStorage.removeItem('from-dark');
+            document.body.style.backgroundColor = '#1a1a1a';
+            document.querySelector('nav').style.backgroundColor = '#1a1a1a';
+            requestAnimationFrame(() => {
+                document.body.style.transition = 'background-color 0.8s ease';
+                document.querySelector('nav').style.transition = 'background-color 0.8s ease';
+                document.body.style.backgroundColor = '#f5f5f5';
+                document.querySelector('nav').style.backgroundColor = '#f5f5f5';
+            });
+        }
+    </script>
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 

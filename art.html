@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css?v=1">
 </head>
 
-<body>
+<body class="dark-page">
     <nav>
         <div class="nav-container">
             <a href="index.html" class="nav-home">Åsmund Folkestad <span class="page-label">// art</span></a>
@@ -27,25 +27,61 @@
     </nav>
 
     <main class="art-page">
-        <section class="art-section">
-            <!-- Full width image example -->
-            <div class="full-width-breakout">
+        <section class="art-gallery-vertical">
+            <div class="art-piece">
                 <img src="images/banded_adam_3k.jpg" alt="Full width artwork">
             </div>
-
-            <div class="full-width-row">
-                <img src="images/man_vs_annulus.jpg" alt="Artwork 1">
-                <img src="images/sunsets.jpg" alt="Artwork 2">
-                <img src="images/medium_monk4_elliptica_7168x7168_20251228_214733.jpg" alt="Artwork 3">
+            <div class="art-piece">
+                <img src="images/stretch.jpg" alt="Artwork">
+            </div>
+            <div class="art-piece">
+                <img src="images/medium_monk4_elliptica_7168x7168_20251228_214733.jpg" alt="Artwork">
+            </div>
+            <div class="art-piece">
+                <img src="images/man_vs_annulus.jpg" alt="Artwork">
+            </div>
+            <div class="art-piece">
+                <img src="images/sunsets.jpg" alt="Artwork">
             </div>
         </section>
-
-
     </main>
 
     <footer>
         <p>&copy; 2025 Åsmund Folkestad</p>
     </footer>
+    <div class="lightbox" id="lightbox">
+        <img src="" alt="">
+    </div>
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+
+        document.querySelectorAll('.art-piece img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('active');
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') lightbox.classList.remove('active');
+        });
+
+        // Flag for fade transition on destination page
+        document.querySelectorAll('a').forEach(link => {
+            if (link.hostname === location.hostname && !link.href.includes('art.html')) {
+                link.addEventListener('click', () => {
+                    sessionStorage.setItem('from-dark', 'true');
+                });
+            }
+        });
+    </script>
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 
