@@ -493,6 +493,16 @@ body.dark-page footer {
     line-height: 1.8;
 }
 
+.about-text a {
+    color: #1f2a44;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.about-text a:hover {
+    color: #666;
+}
+
 .about-image {
     display: flex;
     justify-content: flex-end;
@@ -696,6 +706,17 @@ footer {
 
     .intro {
         max-width: 100%;
+    }
+
+    /* Mobile About */
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-image {
+        justify-content: center;
+        order: -1;
     }
 }
 
