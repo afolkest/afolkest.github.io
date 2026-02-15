@@ -7,13 +7,24 @@ import re
 import html
 import time
 from urllib.parse import unquote
+from email.utils import parsedate_to_datetime
 
 FEED_URL = "https://extramediumplease.substack.com/feed"
 ESSAYS_FILE = "essays.html"
 
 # Marker comments in essays.html
-START_MARKER = "<!-- ESSAYS_START -->"
-END_MARKER = "<!-- ESSAYS_END -->"
+SELECTED_START = "<!-- SELECTED_START -->"
+SELECTED_END = "<!-- SELECTED_END -->"
+ALL_START = "<!-- ESSAYS_START -->"
+ALL_END = "<!-- ESSAYS_END -->"
+
+# Selected essays in display order (URL slugs)
+SELECTED_SLUGS = [
+    "spirits-and-the-incompleteness-of",
+    "equations-that-demand-beauty",
+    "god-is-nan",
+    "beauty-as-entropic-fine-tuning",
+]
 
 
 def fetch_feed():
@@ -51,15 +62,26 @@ def parse_posts(xml_text):
         title = item.findtext("title", "")
         link = item.findtext("link", "")
         desc = item.findtext("description", "")
+        pub_date = item.findtext("pubDate", "")
 
         # Clean up description (strip HTML tags)
         desc = re.sub(r"<[^>]+>", "", desc).strip()
         desc = html.unescape(desc)
 
+        # Parse date
+        date_str = ""
+        if pub_date:
+            try:
+                dt = parsedate_to_datetime(pub_date)
+                date_str = dt.strftime("%b %d, %Y")
+            except Exception:
+                pass
+
         posts.append({
             "title": html.unescape(title),
             "link": link,
             "description": desc,
+            "date": date_str,
             "image": "",  # filled in later
         })
     return posts
@@ -72,39 +94,49 @@ def generate_html(posts):
         if p["image"]:
             img_html = f'<img src="{p["image"]}" alt="{p["title"]}">'
 
+        date_html = f'<span class="essay-date">{p["date"]}</span>' if p["date"] else ""
+
         cards.append(f"""            <a href="{p['link']}" target="_blank" class="essay-card">
                 {img_html}
                 <div class="essay-card-text">
                     <h3>{p['title']}</h3>
                     <p>{p['description']}</p>
+                    {date_html}
                 </div>
             </a>""")
 
     return "\n".join(cards)
 
 
-def update_essays_html(cards_html):
-    with open(ESSAYS_FILE, "r") as f:
-        content = f.read()
-
-    start = content.find(START_MARKER)
-    end = content.find(END_MARKER)
-
+def replace_between_markers(content, start_marker, end_marker, html):
+    start = content.find(start_marker)
+    end = content.find(end_marker)
     if start == -1 or end == -1:
-        print(f"ERROR: Could not find markers in {ESSAYS_FILE}")
-        print(f"Add {START_MARKER} and {END_MARKER} around the essays list.")
-        return False
-
-    new_content = (
-        content[: start + len(START_MARKER)]
+        print(f"ERROR: Could not find markers {start_marker} / {end_marker}")
+        return None
+    return (
+        content[: start + len(start_marker)]
         + "\n"
-        + cards_html
+        + html
         + "\n            "
         + content[end:]
     )
 
+
+def update_essays_html(selected_html, all_html):
+    with open(ESSAYS_FILE, "r") as f:
+        content = f.read()
+
+    content = replace_between_markers(content, SELECTED_START, SELECTED_END, selected_html)
+    if content is None:
+        return False
+
+    content = replace_between_markers(content, ALL_START, ALL_END, all_html)
+    if content is None:
+        return False
+
     with open(ESSAYS_FILE, "w") as f:
-        f.write(new_content)
+        f.write(content)
 
     return True
 
@@ -117,16 +149,53 @@ if __name__ == "__main__":
     posts = parse_posts(xml_text)
     print(f"Found {len(posts)} posts")
 
+    # Check for selected essays not in feed
+    feed_slugs = {re.search(r'/p/([^/?]+)', p["link"]).group(1) for p in posts if re.search(r'/p/([^/?]+)', p["link"])}
+    for slug in SELECTED_SLUGS:
+        if slug not in feed_slugs:
+            print(f"  Selected essay '{slug}' not in feed, fetching directly...")
+            url = f"https://extramediumplease.substack.com/p/{slug}"
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req, timeout=10) as resp:
+                    page = resp.read().decode("utf-8", errors="replace")
+                title_m = re.search(r'<meta[^>]+property="og:title"[^>]+content="([^"]+)"', page)
+                desc_m = re.search(r'<meta[^>]+property="og:description"[^>]+content="([^"]+)"', page)
+                title = html.unescape(title_m.group(1)) if title_m else slug
+                desc = html.unescape(desc_m.group(1)) if desc_m else ""
+                posts.append({
+                    "title": title,
+                    "link": url,
+                    "description": desc,
+                    "date": "",
+                    "image": "",
+                })
+            except Exception as e:
+                print(f"  Warning: could not fetch {url}: {e}")
+
     print("Fetching OG images from each post...")
     for p in posts:
-        print(f"  - {p['title']}")
-        p["image"] = fetch_og_image(p["link"])
-        time.sleep(0.3)  # be polite
+        if not p["image"]:
+            print(f"  - {p['title']}")
+            p["image"] = fetch_og_image(p["link"])
+            time.sleep(0.3)  # be polite
 
-    cards_html = generate_html(posts)
+    # Build lookup by slug
+    by_slug = {}
+    for p in posts:
+        m = re.search(r'/p/([^/?]+)', p["link"])
+        if m:
+            by_slug[m.group(1)] = p
+
+    # Selected essays in specified order
+    selected = [by_slug[s] for s in SELECTED_SLUGS if s in by_slug]
+    selected_html = generate_html(selected)
+
+    # All essays in date order (already sorted by feed)
+    all_html = generate_html(posts)
 
     print(f"Updating {ESSAYS_FILE}...")
-    if update_essays_html(cards_html):
+    if update_essays_html(selected_html, all_html):
         print("Done!")
     else:
         print("Failed to update. Check the markers in essays.html.")
