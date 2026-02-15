@@ -19,6 +19,7 @@
 
 html {
     height: 100%;
+    scrollbar-gutter: stable;
 }
 
 body {
@@ -59,6 +60,7 @@ nav {
     font-weight: 600;
     color: #1f2a44;
     text-decoration: none;
+    position: relative;
 }
 
 .nav-home:focus-visible {
@@ -75,6 +77,10 @@ body.dark-page .nav-links a:focus-visible {
 .nav-home .page-label {
     color: #999;
     font-weight: 400;
+    position: absolute;
+    left: 100%;
+    white-space: nowrap;
+    padding-left: 0.3em;
 }
 
 .nav-links {
