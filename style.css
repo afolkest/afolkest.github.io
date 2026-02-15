@@ -133,12 +133,11 @@ main {
 /* Homepage Layout */
 main.homepage {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 5rem;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
     align-items: center;
     padding-top: 2rem;
     min-height: 60vh;
-    /* Ensure vertical centering on larger screens */
 }
 
 /* Homepage Intro */
@@ -147,15 +146,58 @@ main.homepage {
 }
 
 .intro p {
-    font-size: 1.5rem;
-    /* Larger, more impactful text */
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 1.55rem;
     color: #333;
-    /* Darker for better contrast */
-    line-height: 1.5;
-    max-width: 35ch;
-    /* Optimal line length for readability */
+    line-height: 1.45;
     font-weight: 400;
 }
+
+/* Intro Links */
+.intro-links-label {
+    margin-top: 1.5rem;
+    margin-bottom: 0.3rem;
+    font-family: 'Red Hat Display', sans-serif !important;
+    font-size: 1rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999 !important;
+}
+
+.intro-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 0;
+    padding-left: 1.2rem;
+    list-style: disc;
+}
+
+.intro-links li {
+    font-size: 1.1rem;
+    color: #bbb;
+    transition: transform 0.2s ease;
+}
+
+.intro-links li::marker {
+    color: #ccc;
+}
+
+.intro-links li:hover {
+    transform: translateX(4px);
+}
+
+.intro-links a {
+    font-size: 1.1rem;
+    color: #1f2a44;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.intro-links a:hover {
+    color: #555;
+}
+
 
 /* Featured Art */
 .featured-art {
@@ -164,13 +206,36 @@ main.homepage {
     width: 100%;
 }
 
+.featured-art figure {
+    margin: 0;
+    width: 100%;
+}
+
 .featured-art img {
     width: 100%;
+    max-width: 420px;
     height: auto;
     display: block;
     border-radius: 4px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    /* Stronger shadow for depth */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.featured-art figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: #999;
+    text-align: center;
+    font-style: italic;
+}
+
+.featured-art figcaption a {
+    color: #999;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.featured-art figcaption a:hover {
+    color: #666;
 }
 
 /* Art Page */
