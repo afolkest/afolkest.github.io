@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Art & Music - Åsmund Folkestad</title>
+    <meta name="theme-color" content="#1a1a1a">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Red+Hat+Display:wght@400;600&display=swap" rel="stylesheet">
@@ -34,7 +35,9 @@
     <main class="art-page">
         <section class="art-gallery-vertical">
             <div class="art-piece">
-                <img src="images/banded_adam_3k.jpg" alt="Electrogenesis">
+                <button type="button" class="art-lightbox-btn" aria-label="View Electrogenesis full size">
+                    <img src="images/banded_adam_3k.jpg" alt="Electrogenesis" width="3750" height="1950">
+                </button>
                 <div class="art-caption">
                     <h3>Electrogenesis</h3>
                     <p>I made this image simulating electric fields
@@ -47,35 +50,47 @@
                 </div>
             </div>
             <div class="art-piece">
-                <img src="images/medium_david4_elliptica_4125x7150_20251228_182419.jpg" alt="David in Electrode">
+                <button type="button" class="art-lightbox-btn" aria-label="View David in Electrode full size">
+                    <img src="images/medium_david4_elliptica_4125x7150_20251228_182419.jpg" alt="David in Electrode" width="2062" height="3575" loading="lazy">
+                </button>
                 <div class="art-caption"><h3>David in Electrode</h3></div>
             </div>
             <div class="art-piece">
-                <img src="images/stretch.jpg" alt="Stretch">
-                <div class="art-caption"><h3>Stretch</h3></div>
+                <button type="button" class="art-lightbox-btn" aria-label="View Man vs. Monolith full size">
+                    <img src="images/man_v_monolith.jpg" alt="Man vs. Monolith" width="2048" height="2048" loading="lazy">
+                </button>
+                <div class="art-caption"><h3>Man vs. Monolith</h3></div>
             </div>
             <div class="art-piece">
-                <img src="images/medium_monk4_elliptica_7168x7168_20251228_214733.jpg" alt="Selfportraits">
+                <button type="button" class="art-lightbox-btn" aria-label="View Selfportraits full size">
+                    <img src="images/medium_monk4_elliptica_7168x7168_20251228_214733.jpg" alt="Selfportraits" width="2150" height="2150" loading="lazy">
+                </button>
                 <div class="art-caption"><h3>Selfportraits</h3></div>
             </div>
             <div class="art-piece">
-                <img src="images/man_vs_annulus.jpg" alt="Man vs. Annulus">
+                <button type="button" class="art-lightbox-btn" aria-label="View Man vs. Annulus full size">
+                    <img src="images/man_vs_annulus.jpg" alt="Man vs. Annulus" width="2160" height="2160" loading="lazy">
+                </button>
                 <div class="art-caption"><h3>Man vs. Annulus</h3></div>
             </div>
             <div class="art-piece">
-                <img src="images/sunsets.jpg" alt="Sunsets">
+                <button type="button" class="art-lightbox-btn" aria-label="View Sunsets full size">
+                    <img src="images/sunsets.jpg" alt="Sunsets" width="2048" height="2048" loading="lazy">
+                </button>
                 <div class="art-caption"><h3>Sunsets</h3></div>
             </div>
             <div class="art-piece">
-                <img src="images/man_v_monolith.jpg" alt="Man vs. Monolith">
-                <div class="art-caption"><h3>Man vs. Monolith</h3></div>
+                <button type="button" class="art-lightbox-btn" aria-label="View Stretch full size">
+                    <img src="images/stretch.jpg" alt="Stretch" width="2227" height="2227" loading="lazy">
+                </button>
+                <div class="art-caption"><h3>Stretch</h3></div>
             </div>
         </section>
 
         <div class="art-essay-callout">
             <p>I explain the philosophy behind these images in the following essay:</p>
-            <a href="https://extramediumplease.substack.com/p/equations-that-demand-beauty" target="_blank" class="art-essay-link">
-                <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_center/https://substack-post-media.s3.amazonaws.com/public/images/e50f8608-16d1-4914-98f3-3f8c9367f7bc_2184x1572.jpeg" alt="Equations that demand beauty">
+            <a href="https://extramediumplease.substack.com/p/equations-that-demand-beauty" target="_blank" rel="noopener" class="art-essay-link">
+                <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_center/https://substack-post-media.s3.amazonaws.com/public/images/e50f8608-16d1-4914-98f3-3f8c9367f7bc_2184x1572.jpeg" alt="Equations that demand beauty" width="320" height="213" loading="lazy">
                 <span>Equations that demand beauty</span>
             </a>
             <blockquote class="art-essay-excerpt">
@@ -121,9 +136,9 @@
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = lightbox.querySelector('img');
 
-        document.querySelectorAll('.art-piece img').forEach(img => {
-            img.style.cursor = 'pointer';
-            img.addEventListener('click', () => {
+        document.querySelectorAll('.art-lightbox-btn').forEach(btn => {
+            const img = btn.querySelector('img');
+            btn.addEventListener('click', () => {
                 lightboxImg.src = img.src;
                 lightboxImg.alt = img.alt;
                 lightbox.classList.add('active');

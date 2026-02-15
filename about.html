@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - Åsmund Folkestad</title>
+    <meta name="theme-color" content="#f5f5f5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Red+Hat+Display:wght@400;600&display=swap" rel="stylesheet">
@@ -37,17 +38,17 @@
                     and inside black holes, or is the phenomenon more widespread? This
                     is one of the central questions I worked on during my PhD at MIT and my
                     postdoc at UC Davis. I attacked the question leveraging the deep connection
-                    between gravity and quantum information theory.<br><br>
+                    between gravity and quantum information theory.</p>
 
-                    Before that I've been a Fulbright scholar, and I've also spent a year at CERN working on particle
+                <p>Before that I've been a Fulbright scholar, and I've also spent a year at CERN working on particle
                     detectors,
-                    prior to realizing that the screwdriver is better entrusted to someone else.<br><br>
+                    prior to realizing that the screwdriver is better entrusted to someone else.</p>
 
-                    These days I work on using LLMs to build powertools for scientists at the startup Undermind. We
+                <p>These days I work on using LLMs to build powertools for scientists at the startup Undermind. We
                     arguably
-                    have the most comprehensive scientific literature search engine out there.<br><br>
+                    have the most comprehensive scientific literature search engine out there.</p>
 
-                    Outside work I produce electronic music, make visual arts, and write
+                <p>Outside work I produce electronic music, make visual arts, and write
                     <a href="https://extramediumplease.substack.com/">Mechanics of Aesthetics</a>.
                     I've recently also started tinkering with writing visual arts software and algorithms.
                     I'm currently writing a <a href="https://github.com/afolkest/elliptica">drawing program</a> using elliptic boundary value problems as the fundamental
@@ -55,7 +56,7 @@
                 </p>
             </div>
             <div class="about-image">
-                <img src="images/profile.jpg" alt="Åsmund Folkestad">
+                <img src="images/profile.jpg" alt="Åsmund Folkestad" width="825" height="953">
             </div>
         </section>
     </main>
@@ -66,14 +67,16 @@
     <script>
         if (sessionStorage.getItem('from-dark')) {
             sessionStorage.removeItem('from-dark');
-            document.body.style.backgroundColor = '#1a1a1a';
-            document.querySelector('nav').style.backgroundColor = '#1a1a1a';
-            requestAnimationFrame(() => {
-                document.body.style.transition = 'background-color 0.8s ease';
-                document.querySelector('nav').style.transition = 'background-color 0.8s ease';
-                document.body.style.backgroundColor = '#f5f5f5';
-                document.querySelector('nav').style.backgroundColor = '#f5f5f5';
-            });
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.body.style.backgroundColor = '#1a1a1a';
+                document.querySelector('nav').style.backgroundColor = '#1a1a1a';
+                requestAnimationFrame(() => {
+                    document.body.style.transition = 'background-color 0.8s ease';
+                    document.querySelector('nav').style.transition = 'background-color 0.8s ease';
+                    document.body.style.backgroundColor = '#f5f5f5';
+                    document.querySelector('nav').style.backgroundColor = '#f5f5f5';
+                });
+            }
         }
     </script>
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

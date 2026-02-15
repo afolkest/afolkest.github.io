@@ -5,6 +5,18 @@
     box-sizing: border-box;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 html {
     height: 100%;
 }
@@ -49,6 +61,17 @@ nav {
     text-decoration: none;
 }
 
+.nav-home:focus-visible {
+    outline: 2px solid #1f2a44;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+body.dark-page .nav-home:focus-visible,
+body.dark-page .nav-links a:focus-visible {
+    outline-color: #ccc;
+}
+
 .nav-home .page-label {
     color: #999;
     font-weight: 400;
@@ -68,6 +91,12 @@ nav {
 .nav-links a:hover,
 .nav-links a.active {
     color: #1f2a44;
+}
+
+.nav-links a:focus-visible {
+    outline: 2px solid #1f2a44;
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 /* Main Content */
@@ -199,6 +228,12 @@ main.homepage {
     color: #555;
 }
 
+.intro-links a:focus-visible {
+    outline: 2px solid #1f2a44;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
 
 /* Featured Art */
 .featured-art {
@@ -326,6 +361,20 @@ body.dark-page footer {
     color: #ccc;
 }
 
+.art-lightbox-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: block;
+}
+
+.art-lightbox-btn:focus-visible {
+    outline: 2px solid #ccc;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
 .art-piece img {
     max-width: 100%;
     max-height: 75vh;
@@ -382,6 +431,12 @@ body.dark-page footer {
 
 .art-essay-link:hover {
     background-color: rgba(255, 255, 255, 0.05);
+}
+
+.art-essay-link:focus-visible {
+    outline: 2px solid #ccc;
+    outline-offset: 2px;
+    border-radius: 6px;
 }
 
 .art-essay-link img {
@@ -491,6 +546,11 @@ body.dark-page footer {
     color: #555;
     font-size: 1.15rem;
     line-height: 1.8;
+    margin-bottom: 1.5em;
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
 }
 
 .about-text a {
@@ -511,6 +571,7 @@ body.dark-page footer {
 .about-image img {
     width: 100%;
     max-width: 300px;
+    height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -567,6 +628,12 @@ body.dark-page footer {
     color: #666;
 }
 
+.paper-title:focus-visible {
+    outline: 2px solid #1f2a44;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
 .paper-authors {
     font-family: 'Source Serif 4', Georgia, serif;
     color: #555;
@@ -621,6 +688,12 @@ body.dark-page footer {
 
 .essay-card:hover {
     background-color: rgba(0, 0, 0, 0.03);
+}
+
+.essay-card:focus-visible {
+    outline: 2px solid #1f2a44;
+    outline-offset: 2px;
+    border-radius: 6px;
 }
 
 .essay-card img {
@@ -791,4 +864,13 @@ footer {
     max-height: 100%;
     object-fit: contain;
     border-radius: 4px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    body.dark-page,
+    body.dark-page nav,
+    body.dark-page footer {
+        animation: none;
+    }
 }
