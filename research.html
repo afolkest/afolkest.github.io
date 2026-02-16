@@ -24,6 +24,9 @@
     <script>
         if (sessionStorage.getItem('from-dark')) {
             document.documentElement.style.backgroundColor = '#1a1a1a';
+            var s = document.createElement('style');
+            s.textContent = 'nav{background-color:#1a1a1a;border-bottom-color:#333}';
+            document.head.appendChild(s);
         }
     </script>
 </head>
@@ -167,13 +170,19 @@
         if (sessionStorage.getItem('from-dark')) {
             sessionStorage.removeItem('from-dark');
             if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                var nav = document.querySelector('nav');
                 document.body.style.backgroundColor = '#1a1a1a';
-                document.querySelector('nav').style.backgroundColor = '#1a1a1a';
-                requestAnimationFrame(() => {
-                    document.body.style.transition = 'background-color 0.8s ease';
-                    document.querySelector('nav').style.transition = 'background-color 0.8s ease';
-                    document.body.style.backgroundColor = '#f5f5f5';
-                    document.querySelector('nav').style.backgroundColor = '#f5f5f5';
+                nav.style.backgroundColor = '#1a1a1a';
+                nav.style.borderBottomColor = '#333';
+                getComputedStyle(nav).borderBottomColor;
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        document.body.style.transition = 'background-color 0.8s ease';
+                        nav.style.transition = 'background-color 0.8s ease, border-bottom-color 0.8s ease';
+                        document.body.style.backgroundColor = '#f5f5f5';
+                        nav.style.backgroundColor = '#f5f5f5';
+                        nav.style.borderBottomColor = '#e0e0e0';
+                    });
                 });
             }
         }
