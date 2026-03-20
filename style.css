@@ -1143,11 +1143,41 @@ footer {
     color: #666;
 }
 
+/* Dark-to-light page transition (from art page) */
+@keyframes from-dark-bg {
+    from { background-color: #1a1a1a; }
+}
+
+@keyframes from-dark-nav {
+    from { background-color: #1a1a1a; border-bottom-color: #333; }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+}
+
+html.from-dark body,
+html.from-dark footer {
+    animation: from-dark-bg 0.8s ease backwards;
+}
+
+html.from-dark nav {
+    animation: from-dark-nav 0.8s ease backwards;
+}
+
+html.from-dark main {
+    animation: fade-in 0.8s ease backwards;
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     body.dark-page,
     body.dark-page nav,
-    body.dark-page footer {
+    body.dark-page footer,
+    html.from-dark body,
+    html.from-dark nav,
+    html.from-dark footer,
+    html.from-dark main {
         animation: none;
     }
 }
