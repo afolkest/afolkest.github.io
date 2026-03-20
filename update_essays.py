@@ -474,6 +474,28 @@ def write_essay_pages(posts):
             f.write(page_html)
         written.append(p)
         print(f"  wrote {filepath}")
+
+    # Write machine-readable index
+    index = {
+        "author": "Åsmund Folkestad",
+        "site": SITE_URL,
+        "description": "A theoretical physicist's contemplations on aesthetics, pragmatist mysticism, and fundamental physics and its limits.",
+        "essays": [
+            {
+                "title": p["title"],
+                "description": p["description"],
+                "url": f"{SITE_URL}/essays/{p['slug']}.html",
+                "date": p["date_iso"],
+                "substack_url": p["link"],
+            }
+            for p in written
+        ],
+    }
+    index_path = os.path.join(ESSAYS_DIR, "index.json")
+    with open(index_path, "w") as f:
+        json.dump(index, f, indent=2, ensure_ascii=False)
+    print(f"  wrote {index_path} ({len(written)} essays)")
+
     return written
 
 
