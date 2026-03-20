@@ -27,7 +27,7 @@ ALL_END = "<!-- ESSAYS_END -->"
 
 # Selected essays in display order (URL slugs)
 SELECTED_SLUGS = [
-    "spirits-and-the-incompleteness-of",
+    "spirits-and-the-incompleteness-of-physics",
     "equations-that-demand-beauty",
     "god-is-nan",
     "beauty-as-entropic-fine-tuning",
