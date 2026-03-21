@@ -10,6 +10,7 @@
     <meta property="og:description" content="Temple Juice: a seven-minute piece of electronic music paired with audioreactive visual art, combining religious yearnings, choirs, psychedelic dance music, stained glass, fractals, and gothic cathedrals.">
     <meta property="og:url" content="https://afolkestad.com/essays/my-latest-piece.html">
     <meta property="og:type" content="article">
+    <meta property="og:image" content="https://afolkestad.com/images/og-image.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#f5f5f5">
     <link rel="canonical" href="https://afolkestad.com/essays/my-latest-piece.html">
@@ -38,6 +39,12 @@
     }
 }
     </script>
+    <script>
+        if (sessionStorage.getItem('from-dark')) {
+            sessionStorage.removeItem('from-dark');
+            document.documentElement.classList.add('from-dark');
+        }
+    </script>
 </head>
 
 <body>
@@ -65,9 +72,6 @@
 <p>I recently finished a piece of music and visual arts. I will let the piece do most of the talking, but here is the proposition: unfulfilled religious yearnings, choirs, psychedelic dance music, stained glass windows, fractals, gothic cathedrals, cellos. If you just wanna have a sip, start at 1:48.</p>
 <a href="https://afolkestad.com/essays/my-latest-piece.html" target="_blank" rel="noopener" class="essay-media-placeholder"><span class="essay-media-icon">&#9654;</span> View full post on Substack</a>
             </div>
-            <footer class="essay-footer">
-                <p>Originally published on <a href="https://afolkestad.com/essays/my-latest-piece.html" target="_blank" rel="noopener">Mechanics of Aesthetics</a></p>
-            </footer>
         </article>
     </main>
 
