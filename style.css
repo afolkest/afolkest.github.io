@@ -166,7 +166,7 @@ body.dark-page .nav-links a:focus-visible {
 }
 
 .nav-home .page-label {
-    color: #999;
+    color: #707070;
     font-weight: 400;
     position: absolute;
     left: 100%;
@@ -288,7 +288,7 @@ main.homepage {
     font-size: 1rem !important;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #999 !important;
+    color: #707070 !important;
 }
 
 .intro-links {
@@ -302,12 +302,12 @@ main.homepage {
 
 .intro-links li {
     font-size: 1.1rem;
-    color: #bbb;
+    color: #707070;
     transition: transform 0.2s ease;
 }
 
 .intro-links li::marker {
-    color: #ccc;
+    color: #707070;
 }
 
 .intro-links li:hover {
@@ -336,7 +336,7 @@ main.homepage {
     margin-top: 1.5rem;
     font-family: 'Red Hat Display', sans-serif !important;
     font-size: 1rem !important;
-    color: #999 !important;
+    color: #707070 !important;
     letter-spacing: 0.02em;
 }
 
@@ -364,13 +364,13 @@ main.homepage {
 .featured-art figcaption {
     margin-top: 0.75rem;
     font-size: 0.9rem;
-    color: #999;
+    color: #707070;
     text-align: center;
     font-style: italic;
 }
 
 .featured-art figcaption a {
-    color: #999;
+    color: #707070;
     text-decoration: underline;
     transition: color 0.2s;
 }
@@ -445,7 +445,7 @@ body.dark-page footer {
     font-family: 'Red Hat Display', sans-serif;
     font-size: 1rem;
     font-weight: 600;
-    color: #555;
+    color: #888;
     margin-bottom: 0.4rem;
 }
 
@@ -753,7 +753,7 @@ body.dark-page footer {
 
 .paper-venue {
     font-family: 'Source Serif 4', Georgia, serif;
-    color: #777;
+    color: #666;
     font-size: 0.9rem;
     font-style: italic;
 }
@@ -762,7 +762,7 @@ body.dark-page footer {
 .essays-subscribe {
     font-family: 'Source Serif 4', Georgia, serif;
     font-size: 1.1rem;
-    color: #888;
+    color: #666;
     font-style: italic;
     margin-bottom: 2.5rem;
 }
@@ -790,7 +790,7 @@ body.dark-page footer {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #999;
+    color: #707070;
     margin-bottom: 0.5rem;
     margin-top: 2rem;
 }
@@ -837,13 +837,13 @@ body.dark-page footer {
 .essay-card-text p {
     font-family: 'Source Serif 4', Georgia, serif;
     font-size: 0.95rem;
-    color: #777;
+    color: #666;
     line-height: 1.5;
 }
 
 .essay-date {
     font-size: 0.8rem;
-    color: #aaa;
+    color: #707070;
     margin-top: 0.3rem;
     display: block;
 }
@@ -853,7 +853,7 @@ footer {
     background-color: #f5f5f5;
     padding: 1rem;
     text-align: center;
-    color: #bbb;
+    color: #707070;
     font-size: 0.75rem;
 }
 
@@ -1009,14 +1009,14 @@ footer {
 .essay-subtitle {
     font-family: 'Source Serif 4', Georgia, serif;
     font-size: 1.15rem;
-    color: #777;
+    color: #666;
     font-style: italic;
     margin-bottom: 0.5rem;
 }
 
 .essay-header time {
     font-size: 0.9rem;
-    color: #999;
+    color: #707070;
 }
 
 .essay-body {
@@ -1090,7 +1090,7 @@ footer {
 .essay-figure figcaption {
     margin-top: 0.5rem;
     font-size: 0.9rem;
-    color: #999;
+    color: #707070;
     font-style: italic;
 }
 
@@ -1181,7 +1181,7 @@ footer {
 
 .essay-embed-card-text p {
     font-size: 0.9rem;
-    color: #777;
+    color: #666;
     line-height: 1.4;
     margin: 0;
     text-decoration: none;
@@ -1196,7 +1196,7 @@ footer {
     margin: 1.5em 0;
     border: 1px dashed #ccc;
     border-radius: 6px;
-    color: #777;
+    color: #666;
     text-decoration: none;
     font-family: 'Red Hat Display', sans-serif;
     font-size: 0.95rem;
@@ -1221,7 +1221,7 @@ footer {
 
 .essay-footer p {
     font-size: 0.95rem;
-    color: #999;
+    color: #707070;
 }
 
 .essay-footer a {

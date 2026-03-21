@@ -19,7 +19,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="canonical" href="https://afolkestad.com/">
-    <link rel="stylesheet" href="style.css?v=1">
+    <link rel="stylesheet" href="style.css?v=2">
     <script>
         if (sessionStorage.getItem('from-dark')) {
             sessionStorage.removeItem('from-dark');
@@ -60,7 +60,15 @@
 
         <section class="featured-art">
             <figure>
-                <img src="images/flowcol_4096x4096_20251026_204256.jpg" alt="Featured artwork" width="4096" height="4096" fetchpriority="high">
+                <picture>
+                    <source type="image/webp"
+                        srcset="images/flowcol_800.webp 800w, images/flowcol_1600.webp 1600w, images/flowcol_4096.webp 4096w"
+                        sizes="(max-width: 800px) 100vw, 800px">
+                    <img src="images/flowcol_1600.jpg"
+                        srcset="images/flowcol_800.jpg 800w, images/flowcol_1600.jpg 1600w, images/flowcol_4096x4096_20251026_204256.jpg 4096w"
+                        sizes="(max-width: 800px) 100vw, 800px"
+                        alt="Featured artwork" width="800" height="800" fetchpriority="high">
+                </picture>
                 <figcaption>Image made with my software <a href="https://github.com/afolkest/elliptica">Elliptica</a></figcaption>
             </figure>
         </section>
