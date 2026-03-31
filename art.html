@@ -13,12 +13,34 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#1a1a1a">
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesrcset="images/electrogenesis_800.webp 800w, images/electrogenesis_1600.webp 1600w, images/electrogenesis_2200.webp 2200w" imagesizes="(max-width: 1100px) 100vw, 1100px">
     <link rel="preload" href="/fonts/red-hat-display-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="canonical" href="https://afolkestad.com/art.html">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+        html{height:100%;scrollbar-gutter:stable}
+        body{font-family:'Red Hat Display',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.6;min-height:100%;display:flex;flex-direction:column}
+        body.dark-page{background-color:#1a1a1a;color:#e0e0e0}
+        main{flex:1}
+        nav{border-bottom:1px solid #333;padding:1rem 0;position:sticky;top:0;z-index:100}
+        body.dark-page nav{background-color:#1a1a1a}
+        .nav-container{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center}
+        .nav-home{font-size:1.5rem;font-weight:600;color:#e0e0e0;text-decoration:none;position:relative}
+        .nav-home .page-label{color:#8a8a8a;font-weight:400;position:absolute;left:100%;white-space:nowrap;padding-left:.3em}
+        .nav-links{display:flex;gap:2rem}
+        .nav-links a{color:#888;text-decoration:none}
+        .nav-links a.active{color:#e0e0e0}
+        .art-page{max-width:1100px;padding-top:0}
+        .art-gallery-vertical{display:flex;flex-direction:column;align-items:center;gap:6rem;padding:4rem 0}
+        .art-piece{display:flex;flex-direction:column;align-items:center}
+        .art-lightbox-btn{background:none;border:none;padding:0;cursor:pointer;display:block}
+        .art-piece img{max-width:100%;max-height:75vh;width:auto;height:auto;display:block;border-radius:4px}
+    </style>
     <link rel="stylesheet" href="style.css?v=2">
     <script>
         if (location.hash === '#music') {
@@ -48,12 +70,12 @@
             <div class="art-piece">
                 <button type="button" class="art-lightbox-btn" aria-label="View Electrogenesis full size">
                     <picture>
-                        <source type="image/webp" srcset="images/electrogenesis_800.webp 800w, images/electrogenesis_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/electrogenesis_1600.jpg" srcset="images/electrogenesis_800.jpg 800w, images/electrogenesis_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Electrogenesis" width="1600" height="832">
+                        <source type="image/webp" srcset="images/electrogenesis_800.webp 800w, images/electrogenesis_1600.webp 1600w, images/electrogenesis_2200.webp 2200w" sizes="(max-width: 1100px) 100vw, 1100px">
+                        <img src="images/electrogenesis_2200.jpg" srcset="images/electrogenesis_800.jpg 800w, images/electrogenesis_1600.jpg 1600w, images/electrogenesis_2200.jpg 2200w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Electrogenesis" width="2200" height="1144" fetchpriority="high" style="aspect-ratio: 2200/1144">
                     </picture>
                 </button>
                 <div class="art-caption">
-                    <h3>Electrogenesis</h3>
+                    <h2>Electrogenesis</h2>
                     <p>I made this image simulating electric fields
                     around thin sheets of metal. You can see field lines that
                     always are perpendicular to the shapes, which is a
@@ -64,58 +86,58 @@
                 </div>
             </div>
             <div class="art-piece">
-                <button type="button" class="art-lightbox-btn" aria-label="View David in Electrode full size">
+                <button type="button" class="art-lightbox-btn" aria-label="View David in Electrode full size" style="width: min(100%, calc(75vh * 923 / 1600)); aspect-ratio: 923/1600">
                     <picture>
-                        <source type="image/webp" srcset="images/david_electrode_800.webp 461w, images/david_electrode_1600.webp 922w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/david_electrode_1600.jpg" srcset="images/david_electrode_800.jpg 461w, images/david_electrode_1600.jpg 922w" sizes="(max-width: 1100px) 100vw, 1100px" alt="David in Electrode" width="923" height="1600" loading="lazy">
+                        <source type="image/webp" srcset="images/david_electrode_800.webp 461w, images/david_electrode_1600.webp 922w" sizes="min(100vw, calc(75vh * 923 / 1600))">
+                        <img src="images/david_electrode_1600.jpg" srcset="images/david_electrode_800.jpg 461w, images/david_electrode_1600.jpg 922w" sizes="min(100vw, calc(75vh * 923 / 1600))" alt="David in Electrode" width="923" height="1600" loading="lazy" style="width: 100%; height: auto; max-height: none">
                     </picture>
                 </button>
-                <div class="art-caption"><h3>David in Electrode</h3></div>
+                <div class="art-caption"><h2>David in Electrode</h2></div>
             </div>
             <div class="art-piece">
                 <button type="button" class="art-lightbox-btn" aria-label="View Man vs. Monolith full size">
                     <picture>
                         <source type="image/webp" srcset="images/monolith_800.webp 800w, images/monolith_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/monolith_1600.jpg" srcset="images/monolith_800.jpg 800w, images/monolith_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Man vs. Monolith" width="1600" height="1600" loading="lazy">
+                        <img src="images/monolith_1600.jpg" srcset="images/monolith_800.jpg 800w, images/monolith_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Man vs. Monolith" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
                     </picture>
                 </button>
-                <div class="art-caption"><h3>Man vs. Monolith</h3></div>
+                <div class="art-caption"><h2>Man vs. Monolith</h2></div>
             </div>
             <div class="art-piece">
                 <button type="button" class="art-lightbox-btn" aria-label="View Selfportraits full size">
                     <picture>
                         <source type="image/webp" srcset="images/selfportraits_800.webp 800w, images/selfportraits_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/selfportraits_1600.jpg" srcset="images/selfportraits_800.jpg 800w, images/selfportraits_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Selfportraits" width="1600" height="1600" loading="lazy">
+                        <img src="images/selfportraits_1600.jpg" srcset="images/selfportraits_800.jpg 800w, images/selfportraits_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Selfportraits" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
                     </picture>
                 </button>
-                <div class="art-caption"><h3>Selfportraits</h3></div>
+                <div class="art-caption"><h2>Selfportraits</h2></div>
             </div>
             <div class="art-piece">
                 <button type="button" class="art-lightbox-btn" aria-label="View Man vs. Annulus full size">
                     <picture>
                         <source type="image/webp" srcset="images/annulus_800.webp 800w, images/annulus_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/annulus_1600.jpg" srcset="images/annulus_800.jpg 800w, images/annulus_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Man vs. Annulus" width="1600" height="1600" loading="lazy">
+                        <img src="images/annulus_1600.jpg" srcset="images/annulus_800.jpg 800w, images/annulus_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Man vs. Annulus" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
                     </picture>
                 </button>
-                <div class="art-caption"><h3>Man vs. Annulus</h3></div>
+                <div class="art-caption"><h2>Man vs. Annulus</h2></div>
             </div>
             <div class="art-piece">
                 <button type="button" class="art-lightbox-btn" aria-label="View Sunsets full size">
                     <picture>
                         <source type="image/webp" srcset="images/sunsets_opt_800.webp 800w, images/sunsets_opt_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/sunsets_opt_1600.jpg" srcset="images/sunsets_opt_800.jpg 800w, images/sunsets_opt_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Sunsets" width="1600" height="1600" loading="lazy">
+                        <img src="images/sunsets_opt_1600.jpg" srcset="images/sunsets_opt_800.jpg 800w, images/sunsets_opt_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Sunsets" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
                     </picture>
                 </button>
-                <div class="art-caption"><h3>Sunsets</h3></div>
+                <div class="art-caption"><h2>Sunsets</h2></div>
             </div>
             <div class="art-piece">
                 <button type="button" class="art-lightbox-btn" aria-label="View Stretch full size">
                     <picture>
                         <source type="image/webp" srcset="images/stretch_opt_800.webp 800w, images/stretch_opt_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/stretch_opt_1600.jpg" srcset="images/stretch_opt_800.jpg 800w, images/stretch_opt_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Stretch" width="1600" height="1600" loading="lazy">
+                        <img src="images/stretch_opt_1600.jpg" srcset="images/stretch_opt_800.jpg 800w, images/stretch_opt_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Stretch" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
                     </picture>
                 </button>
-                <div class="art-caption"><h3>Stretch</h3></div>
+                <div class="art-caption"><h2>Stretch</h2></div>
             </div>
         </section>
 
@@ -143,16 +165,16 @@
             <h2>Music</h2>
             <div class="video-grid">
                 <div class="video-container">
-                    <iframe src="https://www.youtube-nocookie.com/embed/XOvvEHv6gjc" title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+                    <button class="yt-facade" data-id="XOvvEHv6gjc" aria-label="Play video">
+                        <img src="https://i.ytimg.com/vi/XOvvEHv6gjc/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+                        <svg class="yt-play" viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+                    </button>
                 </div>
                 <div class="video-container">
-                    <iframe src="https://www.youtube-nocookie.com/embed/KUwe0ldiJhw" title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+                    <button class="yt-facade" data-id="KUwe0ldiJhw" aria-label="Play video">
+                        <img src="https://i.ytimg.com/vi/KUwe0ldiJhw/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+                        <svg class="yt-play" viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+                    </button>
                 </div>
             </div>
         </section>
@@ -183,6 +205,19 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') lightbox.classList.remove('active');
+        });
+
+        // YouTube facade: load iframe on click
+        document.querySelectorAll('.yt-facade').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const iframe = document.createElement('iframe');
+                iframe.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.id + '?autoplay=1';
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                iframe.allowFullscreen = true;
+                iframe.title = 'YouTube video player';
+                iframe.style.border = 'none';
+                btn.replaceWith(iframe);
+            });
         });
 
         // Smooth scroll to music section if arriving via #music link

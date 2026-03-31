@@ -348,6 +348,10 @@ body.dark-page .nav-home {
     color: #e0e0e0;
 }
 
+body.dark-page .nav-home .page-label {
+    color: #8a8a8a;
+}
+
 body.dark-page .nav-links a {
     color: #888;
 }
@@ -389,7 +393,7 @@ body.dark-page footer {
     text-align: center;
 }
 
-.art-caption h3 {
+.art-caption h2 {
     font-family: 'Red Hat Display', sans-serif;
     font-size: 1rem;
     font-weight: 600;
@@ -556,13 +560,43 @@ body.dark-page footer {
     overflow: hidden;
 }
 
-.video-container iframe {
+.video-container iframe,
+.video-container .yt-facade {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border-radius: 4px;
+}
+
+.yt-facade {
+    background: #000;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.yt-facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.yt-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 48px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.yt-facade:hover .yt-play {
+    opacity: 1;
 }
 
 /* About Page */
@@ -586,7 +620,7 @@ body.dark-page footer {
 
 .about-text p {
     font-family: 'Source Serif 4', Georgia, serif;
-    color: #555;
+    color: #333;
     font-size: 1.15rem;
     line-height: 1.8;
     margin-bottom: 1.5em;
