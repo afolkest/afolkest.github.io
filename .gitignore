@@ -14,3 +14,6 @@ vendor
 trash/
 .playwright-mcp/
 images/originals/
+
+# Design-prototyping experiments (local only — not part of the published site)
+prototypes/
