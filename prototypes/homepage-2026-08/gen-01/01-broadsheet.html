@@ -1,0 +1,529 @@
+<!--
+  BROADSHEET — the homepage set as a newspaper front page: centered small-caps masthead, Oxford
+  rules, three ruled columns (lead article w/ headline pulled from the About copy, front-page photo
+  w/ italic caption, briefs column of papers), boxed "inside" feature for music. Soft guidance kept:
+  #f5f5f3 paper, sparing rust, inline gray metadata, compact entries. No words added to the bank.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Åsmund Folkestad</title>
+    <meta name="description" content="Åsmund Folkestad — theoretical physicist, computational artist, and research engineer building AI tools for scientists.">
+    <style>
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: normal;
+            font-weight: 300;
+            src: url('/fonts/heliotrope/heliotrope_ot_3_book.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: italic;
+            font-weight: 300;
+            src: url('/fonts/heliotrope/heliotrope_ot_3_book_italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: normal;
+            font-weight: 400;
+            src: url('/fonts/heliotrope/heliotrope_ot_4_medium.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: italic;
+            font-weight: 400;
+            src: url('/fonts/heliotrope/heliotrope_ot_4_medium_italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: normal;
+            font-weight: 600;
+            src: url('/fonts/heliotrope/heliotrope_ot_6_semibold.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: italic;
+            font-weight: 600;
+            src: url('/fonts/heliotrope/heliotrope_ot_6_semibold_italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope Caps';
+            font-style: normal;
+            font-weight: 400;
+            src: url('/fonts/heliotrope/heliotrope_4_caps_regular.woff2') format('woff2');
+        }
+
+        :root {
+            --paper: #f5f5f3;
+            --ink: #181614;
+            --ink-mid: #55524c;
+            --ink-soft: #8a867e;
+            --rule: rgba(24, 22, 20, 0.16);
+            --rule-strong: rgba(24, 22, 20, 0.55);
+            --accent: #93381b;
+            --serif: 'Heliotrope OT', Georgia, serif;
+            --caps: 'Heliotrope Caps', Georgia, serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { font-size: 17px; scrollbar-gutter: stable; }
+
+        body {
+            font-family: var(--serif);
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.5;
+            font-synthesis: none;
+        }
+
+        /* faint paper grain */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.045;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        ::selection { background: var(--accent); color: var(--paper); }
+
+        a { color: inherit; text-decoration: none; }
+
+        .sheet {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 1.6rem 2rem 3.5rem;
+        }
+
+        /* ---------- masthead ---------- */
+
+        .ear {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-top: 1px solid var(--rule-strong);
+            border-bottom: 1px solid var(--rule);
+            padding: 0.42rem 0.1rem;
+            font-family: var(--caps);
+            font-size: 0.7rem;
+            letter-spacing: 0.13em;
+            color: var(--ink-soft);
+        }
+
+        .ear a { transition: color 0.15s; }
+        .ear a:hover { color: var(--accent); }
+        .ear .sep { margin: 0 0.45em; color: var(--rule-strong); }
+
+        h1.masthead {
+            font-family: var(--caps);
+            font-weight: 400;
+            text-align: center;
+            font-size: 4.1rem;
+            line-height: 1.05;
+            letter-spacing: 0.045em;
+            padding: 2.1rem 0 1.55rem;
+            /* optical compensation for tracking on the last glyph */
+            margin-right: -0.045em;
+        }
+
+        h1 .full-stop { color: var(--accent); }
+
+        .folio {
+            border-top: 1px solid var(--rule-strong);
+            padding: 0.4rem 0;
+            text-align: center;
+            font-family: var(--caps);
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            color: var(--ink-mid);
+        }
+
+        .folio .sep { margin: 0 0.9em; color: var(--accent); }
+
+        .rule-double {
+            border-top: 3px solid var(--ink);
+        }
+
+        .rule-double::after {
+            content: "";
+            display: block;
+            border-top: 1px solid var(--ink);
+            margin-top: 2px;
+        }
+
+        /* ---------- front page grid ---------- */
+
+        .front {
+            display: grid;
+            grid-template-columns: 4fr 5.4fr 4fr;
+            align-items: stretch;
+            margin-top: 0.1rem;
+        }
+
+        .col { min-width: 0; padding: 1.5rem 1.7rem 1rem; }
+        .col:first-child { padding-left: 0; }
+        .col:last-child { padding-right: 0; }
+        .col + .col { border-left: 1px solid var(--rule); }
+
+        .sec + .sec { margin-top: 2.3rem; }
+
+        .sec-head {
+            font-family: var(--caps);
+            font-size: 0.74rem;
+            letter-spacing: 0.18em;
+            color: var(--ink-mid);
+            border-top: 2px solid var(--ink);
+            padding-top: 0.42rem;
+            margin-bottom: 0.85rem;
+        }
+
+        /* ---------- lead article (about) ---------- */
+
+        .lead-hed {
+            font-size: 1.62rem;
+            font-weight: 600;
+            line-height: 1.14;
+            letter-spacing: -0.008em;
+            margin-bottom: 0.75rem;
+        }
+
+        .lead-body p {
+            font-size: 0.97rem;
+            line-height: 1.62;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .lead-body a { transition: color 0.15s; }
+        .lead-body a:hover { color: var(--accent); }
+
+        /* ---------- briefs (papers, essays, software) ---------- */
+
+        .brief-list { display: flex; flex-direction: column; }
+
+        .brief {
+            display: block;
+            padding: 0.46rem 0;
+        }
+
+        .brief + .brief { border-top: 1px solid var(--rule); }
+
+        .brief-title {
+            font-size: 0.99rem;
+            font-weight: 400;
+            line-height: 1.32;
+            transition: color 0.15s;
+        }
+
+        .brief:hover .brief-title { color: var(--accent); }
+
+        .meta {
+            font-family: var(--caps);
+            font-size: 0.66rem;
+            letter-spacing: 0.08em;
+            color: var(--ink-soft);
+            white-space: nowrap;
+            margin-left: 0.55em;
+        }
+
+        .brief-sub {
+            font-style: italic;
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+            margin-left: 0.45em;
+        }
+
+        .ext::after {
+            content: "↗";
+            font-family: var(--caps);
+            font-size: 0.68em;
+            color: var(--accent);
+            margin-left: 0.3em;
+            vertical-align: 0.18em;
+        }
+
+        .more {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-family: var(--caps);
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: var(--ink-soft);
+            transition: color 0.15s;
+        }
+
+        .more .arrow { display: inline-block; transition: transform 0.2s ease; }
+        .more:hover { color: var(--accent); }
+        .more:hover .arrow { transform: translateX(4px); }
+
+        .brief-list + .more,
+        .more.ruled {
+            display: block;
+            margin-top: 0.6rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--rule);
+        }
+
+        /* ---------- photography (artworks) ---------- */
+
+        .photo-frame {
+            overflow: hidden;
+            border: 1px solid rgba(24, 22, 20, 0.14);
+        }
+
+        .photo-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
+        }
+
+        a:hover .photo-frame img { transform: scale(1.025); }
+
+        figcaption {
+            margin-top: 0.42rem;
+            font-style: italic;
+            font-size: 0.87rem;
+            line-height: 1.42;
+            color: var(--ink-mid);
+        }
+
+        .photo-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.3rem;
+            margin-top: 1.1rem;
+        }
+
+        .photo-pair img { height: 158px; }
+
+        /* ---------- music strap ---------- */
+
+        .strap {
+            margin-top: 0.4rem;
+            border: 1px solid var(--rule-strong);
+            padding: 0.7rem 1.6rem 0.8rem;
+        }
+
+        .inside-head {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            font-family: var(--caps);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--ink-mid);
+            margin-bottom: 0.35rem;
+        }
+
+        .inside-head::before,
+        .inside-head::after {
+            content: "";
+            flex: 1;
+            border-top: 1px solid var(--rule);
+        }
+
+        .strap-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .strap-list .brief {
+            padding: 0.15rem 0;
+            text-align: center;
+        }
+
+        .strap-list .brief + .brief { border-left: 1px solid var(--rule); }
+
+        /* ---------- footer ---------- */
+
+        .colophon {
+            margin-top: 1.1rem;
+            border-top: 1px solid var(--ink);
+            padding-top: 2px;
+        }
+
+        .colophon::after {
+            content: "";
+            display: block;
+            border-top: 3px solid var(--ink);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sheet">
+
+        <header>
+            <div class="ear">
+                <span><a href="mailto:asmund.sf@gmail.com">asmund.sf@gmail.com</a></span>
+                <span>
+                    <a href="https://github.com/afolkest" target="_blank" rel="noopener">GitHub</a><span class="sep">·</span><a
+                        href="https://extramediumplease.substack.com/" target="_blank" rel="noopener">Substack</a><span class="sep">·</span><a
+                        href="https://www.linkedin.com/in/FILL-ME-IN" target="_blank" rel="noopener">LinkedIn</a>
+                </span>
+            </div>
+
+            <h1 class="masthead">Åsmund Folkestad<span class="full-stop">.</span></h1>
+
+            <div class="folio">
+                Theoretical Physicist<span class="sep">·</span>Computational Artist<span class="sep">·</span>Research Engineer
+            </div>
+            <div class="rule-double"></div>
+        </header>
+
+        <main class="front">
+
+            <!-- ================= left column ================= -->
+            <div class="col">
+
+                <section class="sec">
+                    <div class="sec-head">About</div>
+                    <h2 class="lead-hed">When spacetime is allowed to tear apart</h2>
+                    <div class="lead-body">
+                        <p>I did my PhD at MIT on classical and quantum gravity. These days
+                            I build AI research tools at the startup
+                            <a href="https://undermind.ai" class="ext">Undermind</a>. Outside work I
+                            paint with electromagnetic fields, produce electronic music
+                            with choirs and pipe organs, and write
+                            <a href="https://extramediumplease.substack.com/" class="ext"><i>Mechanics of Aesthetics</i></a>.</p>
+                    </div>
+                </section>
+
+                <section class="sec">
+                    <div class="sec-head">Essays</div>
+                    <div class="brief-list">
+                        <a class="brief" href="/essays/equations-that-demand-beauty.html">
+                            <span class="brief-title">Equations that demand beauty</span><span class="brief-sub">The remarkable physics of constraints</span>
+                        </a>
+                        <a class="brief" href="/essays/spirits-and-the-incompleteness-of-physics.html">
+                            <span class="brief-title">Spirits and the incompleteness of physics</span><span class="brief-sub">The spirits beyond the horizon of theory</span>
+                        </a>
+                        <a class="brief" href="/essays/god-is-nan.html">
+                            <span class="brief-title">God is NaN</span><span class="brief-sub">Skepticism, pragmatist mysticism, and Bayesian metaphysics</span>
+                        </a>
+                        <a class="brief" href="/essays/beauty-as-entropic-fine-tuning.html">
+                            <span class="brief-title">Beauty as entropic fine-tuning</span><span class="brief-sub">Why beauty should be measured in bits</span>
+                        </a>
+                    </div>
+                    <a href="/essays.html" class="more">All essays <span class="arrow">→</span></a>
+                </section>
+
+            </div>
+
+            <!-- ================= centre column ================= -->
+            <div class="col">
+
+                <section class="sec">
+                    <div class="sec-head">Artworks</div>
+                    <figure class="photo-main">
+                        <a href="/art.html">
+                            <div class="photo-frame">
+                                <picture>
+                                    <source type="image/webp" srcset="/images/green_napoleon_800.webp">
+                                    <img src="/images/green_napoleon_800.jpg" alt="Napoleon — a rearing horse rendered in electromagnetic field lines" width="800" height="800" loading="eager">
+                                </picture>
+                            </div>
+                            <figcaption>Napoleon — a rearing horse rendered in electromagnetic field&nbsp;lines</figcaption>
+                        </a>
+                    </figure>
+                    <div class="photo-pair">
+                        <figure>
+                            <a href="/art.html">
+                                <div class="photo-frame">
+                                    <picture>
+                                        <source type="image/webp" srcset="/images/electrogenesis_800.webp">
+                                        <img src="/images/electrogenesis_800.jpg" alt="Electrogenesis — electric field lines around thin sheets of metal" width="800" height="416" loading="lazy">
+                                    </picture>
+                                </div>
+                                <figcaption>Electrogenesis</figcaption>
+                            </a>
+                        </figure>
+                        <figure>
+                            <a href="/art.html">
+                                <div class="photo-frame">
+                                    <picture>
+                                        <source type="image/webp" srcset="/images/david_electrode_800.webp">
+                                        <img src="/images/david_electrode_800.jpg" alt="David in Electrode" width="461" height="800" loading="lazy">
+                                    </picture>
+                                </div>
+                                <figcaption>David in Electrode</figcaption>
+                            </a>
+                        </figure>
+                    </div>
+                    <a href="/art.html" class="more ruled">All artworks <span class="arrow">→</span></a>
+                </section>
+
+            </div>
+
+            <!-- ================= right column ================= -->
+            <div class="col">
+
+                <section class="sec">
+                    <div class="sec-head">Papers</div>
+                    <div class="brief-list">
+                        <a class="brief" href="https://arxiv.org/abs/2502.01723" target="_blank" rel="noopener">
+                            <span class="brief-title">Holographic Time Crystals vs Penrose</span><span class="meta">arXiv · 2025</span>
+                        </a>
+                        <a class="brief" href="https://arxiv.org/abs/2407.14589" target="_blank" rel="noopener">
+                            <span class="brief-title">Spoofing Entanglement in Holography</span><span class="meta">arXiv · 2024</span>
+                        </a>
+                        <a class="brief" href="https://arxiv.org/abs/2311.09403" target="_blank" rel="noopener">
+                            <span class="brief-title">Subregion independence in gravity</span><span class="meta">JHEP · 2024</span>
+                        </a>
+                        <a class="brief" href="https://arxiv.org/abs/2209.00013" target="_blank" rel="noopener">
+                            <span class="brief-title">Penrose Inequality as a Constraint on the Low Energy Limit of Quantum Gravity</span><span class="meta">PRL · 2023</span>
+                        </a>
+                        <a class="brief" href="https://arxiv.org/abs/2012.11445" target="_blank" rel="noopener">
+                            <span class="brief-title">Holography abhors visible trapped surfaces</span><span class="meta">JHEP · 2021</span>
+                        </a>
+                    </div>
+                    <a href="/research.html" class="more">All papers <span class="arrow">→</span></a>
+                </section>
+
+                <section class="sec">
+                    <div class="sec-head">Software</div>
+                    <div class="brief-list">
+                        <a class="brief ext" href="https://github.com/afolkest/elliptica" target="_blank" rel="noopener">
+                            <span class="brief-title">Elliptica</span><span class="brief-sub">an open-source drawing program for painting with the laws of physics</span>
+                        </a>
+                        <a class="brief ext" href="https://undermind.ai" target="_blank" rel="noopener">
+                            <span class="brief-title">Undermind</span><span class="brief-sub">AI deep-search over the scientific literature — my day job</span>
+                        </a>
+                    </div>
+                </section>
+
+            </div>
+
+        </main>
+
+        <section class="strap">
+            <div class="inside-head"><span>Music</span></div>
+            <div class="strap-list">
+                <a class="brief ext" href="https://www.youtube.com/watch?v=XOvvEHv6gjc" target="_blank" rel="noopener">
+                    <span class="brief-title">Temple Juice</span><span class="brief-sub">electronic music meets church music</span>
+                </a>
+                <a class="brief ext" href="https://www.youtube.com/watch?v=KUwe0ldiJhw" target="_blank" rel="noopener">
+                    <span class="brief-title">Fresh Pressed Deity</span><span class="brief-sub">electronic music meets church music</span>
+                </a>
+            </div>
+        </section>
+
+        <footer class="colophon"></footer>
+
+    </div>
+</body>
+
+</html>

@@ -15,5 +15,6 @@ trash/
 .playwright-mcp/
 images/originals/
 
-# Design-prototyping experiments (local only — not part of the published site)
-prototypes/
+# Bulky prototype byproducts (screenshots, old archives) — keep the HTML/MD tracked
+prototypes/homepage-2026-08/shots/
+prototypes/archive/

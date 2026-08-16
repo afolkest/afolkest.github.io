@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<!--
+  GOLD FRAME — parent: gen-02/08-monograph2. Text layout, typography and section order are the
+  parent's, untouched. Only colour, frame and material change: the deep umber mat becomes a flat
+  warm stone board carrying real board tooth, fibre and fleck (layered feTurbulence, sRGB filters,
+  overlay/multiply blends); the sheet is a flat warm cream with its own finer laid tooth, ~12 L*
+  above the board. No gradients anywhere. The plate hangs in a slim old-gold frame of uniform width
+  on all four sides — flat gilt tone, turbulence burnish, a rebate line and an outer edge line both
+  kept close to the frame's own value. The name's full stop picks the gold up a second time; every
+  other accent stays oxblood.
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Åsmund Folkestad</title>
+    <meta name="description" content="Åsmund Folkestad — theoretical physicist, computational artist, and research engineer building AI tools for scientists.">
+    <style>
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: normal;
+            font-weight: 300;
+            src: url('/fonts/heliotrope/heliotrope_ot_3_book.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: italic;
+            font-weight: 300;
+            src: url('/fonts/heliotrope/heliotrope_ot_3_book_italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: normal;
+            font-weight: 400;
+            src: url('/fonts/heliotrope/heliotrope_ot_4_medium.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: italic;
+            font-weight: 400;
+            src: url('/fonts/heliotrope/heliotrope_ot_4_medium_italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: normal;
+            font-weight: 600;
+            src: url('/fonts/heliotrope/heliotrope_ot_6_semibold.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope OT';
+            font-style: italic;
+            font-weight: 600;
+            src: url('/fonts/heliotrope/heliotrope_ot_6_semibold_italic.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Heliotrope Caps';
+            font-style: normal;
+            font-weight: 400;
+            src: url('/fonts/heliotrope/heliotrope_4_caps_regular.woff2') format('woff2');
+        }
+
+        :root {
+            /* --- flat colours, no gradients --- */
+            --board: #d8c6a5;      /* warm stone board (surround)  L* 80.6 */
+            --paper: #f1e9d9;      /* warm cream sheet             L* 92.6 */
+            --gold: #b4a170;       /* muted greyed brass, recessive      */
+            --gold-deep: #a08b5c;  /* frame outer edge, near-rail value  */
+            --gold-rebate: #9c7c40;/* frame inner rebate           L* 53.9 */
+            --gold-ink: #a87f31;   /* the second gold note (the stop)  L* 55.8 */
+            --ink: #241d15;
+            --ink-2: #302619;
+            --ink-mid: #64583f;
+            --ink-quiet: #6d6047;
+            --accent: #8c2a15;     /* oxblood */
+            --serif: 'Heliotrope OT', Georgia, serif;
+
+            /* --- material: layered feTurbulence, sRGB filter space --- */
+
+            /* board tooth: fine grain, contrast-modulates the flat colour */
+            --tex-tooth: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190'%3E%3Cfilter id='t' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.35' intercept='0.325'/%3E%3CfeFuncG type='linear' slope='0.35' intercept='0.325'/%3E%3CfeFuncB type='linear' slope='0.35' intercept='0.325'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)'/%3E%3C/svg%3E");
+
+            /* board fibre: coarse pulp clumping, big tile so it never reads as a repeat */
+            --tex-fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='620' height='620'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.30' numOctaves='3' seed='19' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.18' intercept='0.41'/%3E%3CfeFuncG type='linear' slope='0.18' intercept='0.41'/%3E%3CfeFuncB type='linear' slope='0.18' intercept='0.41'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+
+            /* board flecks: sparse dark inclusions, alpha thresholded so only the peaks show */
+            --tex-fleck: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='430' height='430'%3E%3Cfilter id='k' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='1' seed='31' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.30 0 0 0 0 0.24 0 0 0 0 0.14 0.36 0.18 0.06 0 -0.40'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23k)'/%3E%3C/svg%3E");
+
+            /* sheet tooth: finer and gentler than the board — writing paper, not board */
+            --tex-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='p' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.40' intercept='0.30'/%3E%3CfeFuncG type='linear' slope='0.40' intercept='0.30'/%3E%3CfeFuncB type='linear' slope='0.40' intercept='0.30'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+
+            /* sheet cloud: slow thickness variation in the pulp */
+            --tex-pulp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='540' height='540'%3E%3Cfilter id='u' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='2' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.16' intercept='0.42'/%3E%3CfeFuncG type='linear' slope='0.16' intercept='0.42'/%3E%3CfeFuncB type='linear' slope='0.16' intercept='0.42'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23u)'/%3E%3C/svg%3E");
+
+            /* gilt burnish: tight grain on the frame rails */
+            --tex-gilt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' seed='23' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0.34 0.33 0.33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.55' intercept='0.225'/%3E%3CfeFuncG type='linear' slope='0.55' intercept='0.225'/%3E%3CfeFuncB type='linear' slope='0.55' intercept='0.225'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            font-synthesis: none;
+            color: var(--ink);
+            /* flat board colour + real material, no gradient */
+            background-color: var(--board);
+            background-image: var(--tex-fleck), var(--tex-tooth), var(--tex-fibre);
+            background-blend-mode: multiply, overlay, overlay;
+            background-attachment: fixed, fixed, fixed;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 4rem 1.5rem 4.5rem;
+        }
+
+        ::selection { background: var(--accent); color: var(--paper); }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ---------- the framed sheet ---------- */
+
+        .sheet {
+            width: 67rem;
+            max-width: 100%;
+            margin: auto;
+            background-color: var(--paper);
+            background-image: var(--tex-paper), var(--tex-pulp);
+            background-blend-mode: overlay, overlay;
+            box-shadow:
+                0 1px 1px rgba(78, 60, 32, 0.16),
+                0 4px 9px rgba(78, 60, 32, 0.11),
+                0 13px 26px rgba(78, 60, 32, 0.10),
+                0 34px 66px rgba(78, 60, 32, 0.11);
+            padding: 6rem 4.25rem 6.25rem;
+        }
+
+        .spread {
+            display: grid;
+            grid-template-columns: 19rem 1fr;
+            column-gap: 3rem;
+        }
+
+        .spread > * { min-width: 0; }
+
+        /* ---------- identity ---------- */
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: -0.022em;
+            line-height: 1.0;
+            color: var(--ink);
+        }
+
+        /* the gold sounds twice on the page: the frame, and here */
+        h1 .stop { color: var(--gold-ink); }
+
+        .contact {
+            margin-top: 1.15rem;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: var(--ink-mid);
+        }
+
+        .contact a { transition: color 0.15s; }
+        .contact a:hover { color: var(--accent); }
+        .contact .dot { color: var(--accent); margin: 0 0.42em; }
+
+        /* ---------- sections ---------- */
+
+        section { margin-top: 3.2rem; }
+        .col-right > section:first-child { margin-top: 0; }
+        .col-left > section:first-of-type { margin-top: 3.2rem; }
+
+        /* Music sits on the same line as Software across the gutter */
+        .col-left > section:last-of-type { margin-top: 14.941rem; }
+
+        .head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1.25rem;
+            margin-bottom: 1.2rem;
+        }
+
+        h2 {
+            font-size: 1.34rem;
+            font-weight: 600;
+            letter-spacing: -0.008em;
+            line-height: 1.2;
+            color: var(--ink-2);
+        }
+
+        .more {
+            font-size: 1.02rem;
+            color: var(--ink-quiet);
+            white-space: nowrap;
+            transition: color 0.15s;
+        }
+
+        .more .arrow {
+            display: inline-block;
+            color: var(--accent);
+            margin-left: 0.15em;
+            transition: transform 0.2s ease;
+        }
+
+        .more:hover { color: var(--accent); }
+        .more:hover .arrow { transform: translateX(4px); }
+
+        /* the "all …" link closes its section as a final line */
+        .more.end {
+            display: inline-block;
+            margin-top: 0.6rem;
+        }
+
+        /* ---------- about ---------- */
+
+        .about p {
+            font-size: 1.11rem;
+            line-height: 1.62;
+            color: var(--ink);
+        }
+
+        /* keep the italic title whole */
+        .about .keep { white-space: nowrap; }
+
+        .about a { transition: color 0.15s; }
+        .about a:hover { color: var(--accent); }
+
+        /* ---------- list rows ---------- */
+
+        .list { display: flex; flex-direction: column; }
+
+        .row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.17rem 0;
+            min-width: 0;
+        }
+
+        .t {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--ink);
+            white-space: nowrap;
+            transition: color 0.15s;
+        }
+
+        .meta {
+            font-size: 1rem;
+            color: var(--ink-quiet);
+            white-space: nowrap;
+            transition: color 0.15s;
+        }
+
+        .meta.gloss { font-style: italic; }
+
+        /* papers: the title yields, the right rail of venues stays put */
+        .row.squeeze-title .t { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+        .row.squeeze-title .meta { flex: none; }
+
+        /* essays, music, software: the name stays put, the gloss yields */
+        .row.squeeze-meta .t { flex: none; }
+        .row.squeeze-meta .meta { overflow: hidden; text-overflow: ellipsis; min-width: 0; text-align: right; }
+
+        .row:hover .t { color: var(--accent); }
+        .row:hover .meta { color: var(--ink-mid); }
+
+        /* the two tracks share one gloss, set beneath them */
+        .stack a.t { display: block; padding: 0.17rem 0; }
+        a.t:hover { color: var(--accent); }
+        .stack .gloss { display: block; padding-top: 0.3rem; }
+
+        .ext::after {
+            content: "↗";
+            font-size: 0.68em;
+            color: var(--accent);
+            margin-left: 0.3em;
+            vertical-align: 0.18em;
+        }
+
+        /* ---------- the tipped-in plate, in a slim gold frame ---------- */
+
+        .plate { display: block; }
+
+        /* uniform rail width on all four sides; flat gilt + burnish, no bevel gradient */
+        .mount {
+            display: block;
+            padding: 0.35rem;
+            background-color: var(--gold);
+            background-image: var(--tex-gilt);
+            background-blend-mode: overlay;
+            box-shadow:
+                /* outer edge of the rail — one step darker than the gold itself */
+                0 0 0 1px var(--gold-deep),
+                0 1px 2px rgba(70, 54, 26, 0.20),
+                0 5px 11px rgba(70, 54, 26, 0.13),
+                0 14px 28px rgba(70, 54, 26, 0.10);
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .mount img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .plate:hover .mount {
+            transform: translateY(-2px);
+            box-shadow:
+                0 0 0 1px var(--gold-deep),
+                0 1px 2px rgba(70, 54, 26, 0.30),
+                0 8px 17px rgba(70, 54, 26, 0.24),
+                0 22px 42px rgba(70, 54, 26, 0.20);
+        }
+
+        figcaption {
+            margin-top: 0.85rem;
+            font-size: 1.08rem;
+            font-style: italic;
+            color: var(--ink);
+            transition: color 0.15s;
+        }
+
+        .plate:hover figcaption { color: var(--accent); }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
+            .more:hover .arrow, .plate:hover .mount { transform: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="sheet">
+        <div class="spread">
+
+            <div class="col-left">
+                <header>
+                    <h1>Åsmund<br>Folkestad<span class="stop">.</span></h1>
+                    <p class="contact">
+                        <a href="mailto:asmund.sf@gmail.com">asmund.sf@gmail.com</a><br>
+                        <a href="https://github.com/afolkest" target="_blank" rel="noopener">GitHub</a><span class="dot">·</span><a href="https://extramediumplease.substack.com/" target="_blank" rel="noopener">Substack</a><span class="dot">·</span><a href="https://www.linkedin.com/in/FILL-ME-IN" target="_blank" rel="noopener">LinkedIn</a>
+                    </p>
+                </header>
+
+                <section>
+                    <div class="head">
+                        <h2>Artworks</h2>
+                    </div>
+                    <figure class="plate">
+                        <a class="mount" href="/art.html">
+                            <img src="/images/godisnan_1x.webp" alt="God is NaN — a radiant sun over a cream field, a dark figure on a ridge, red and pale blue filaments streaming outward" width="1800" height="1200">
+                        </a>
+                        <figcaption><a href="/art.html">God is NaN</a></figcaption>
+                    </figure>
+                    <a class="more end" href="/art.html">All artworks <span class="arrow">→</span></a>
+                </section>
+
+                <section>
+                    <div class="head">
+                        <h2>Music</h2>
+                    </div>
+                    <div class="list stack">
+                        <a class="t ext" href="https://www.youtube.com/watch?v=XOvvEHv6gjc" target="_blank" rel="noopener">Temple Juice</a>
+                        <a class="t ext" href="https://www.youtube.com/watch?v=KUwe0ldiJhw" target="_blank" rel="noopener">Fresh Pressed Deity</a>
+                        <span class="meta gloss">electronic music meets church music</span>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-right">
+
+                <section class="about">
+                    <div class="head">
+                        <h2>About</h2>
+                    </div>
+                    <p>I did my PhD at MIT on classical and quantum gravity — among
+                        other things, on when spacetime is allowed to tear apart. These
+                        days I build AI research tools at the startup
+                        <a href="https://undermind.ai" class="ext">Undermind</a>. Outside work I
+                        paint with electromagnetic fields, produce electronic music
+                        with choirs and pipe organs, and write
+                        <a href="https://extramediumplease.substack.com/" class="ext keep"><i>Mechanics of Aesthetics</i></a>.</p>
+                </section>
+
+                <section>
+                    <div class="head">
+                        <h2>Papers</h2>
+                    </div>
+                    <div class="list">
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2502.01723" target="_blank" rel="noopener">
+                            <span class="t">Holographic Time Crystals vs Penrose</span><span class="meta">arXiv · 2025</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2407.14589" target="_blank" rel="noopener">
+                            <span class="t">Spoofing Entanglement in Holography</span><span class="meta">arXiv · 2024</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2311.09403" target="_blank" rel="noopener">
+                            <span class="t">Subregion independence in gravity</span><span class="meta">JHEP · 2024</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2209.00013" target="_blank" rel="noopener" title="Penrose Inequality as a Constraint on the Low Energy Limit of Quantum Gravity">
+                            <span class="t">Penrose Inequality as a Constraint on the Low Energy Limit of Quantum Gravity</span><span class="meta">PRL · 2023</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2012.11445" target="_blank" rel="noopener">
+                            <span class="t">Holography abhors visible trapped surfaces</span><span class="meta">JHEP · 2021</span>
+                        </a>
+                    </div>
+                    <a class="more end" href="/research.html">All papers <span class="arrow">→</span></a>
+                </section>
+
+                <section>
+                    <div class="head">
+                        <h2>Essays</h2>
+                    </div>
+                    <div class="list">
+                        <a class="row squeeze-meta" href="/essays/equations-that-demand-beauty.html">
+                            <span class="t">Equations that demand beauty</span><span class="meta gloss">The remarkable physics of constraints</span>
+                        </a>
+                        <a class="row squeeze-meta" href="/essays/spirits-and-the-incompleteness-of-physics.html">
+                            <span class="t">Spirits and the incompleteness of physics</span><span class="meta gloss">The spirits beyond the horizon of theory</span>
+                        </a>
+                        <a class="row squeeze-meta" href="/essays/god-is-nan.html">
+                            <span class="t">God is NaN</span><span class="meta gloss">Skepticism, pragmatist mysticism, and Bayesian metaphysics</span>
+                        </a>
+                        <a class="row squeeze-meta" href="/essays/beauty-as-entropic-fine-tuning.html">
+                            <span class="t">Beauty as entropic fine-tuning</span><span class="meta gloss">Why beauty should be measured in bits</span>
+                        </a>
+                    </div>
+                    <a class="more end" href="/essays.html">All essays <span class="arrow">→</span></a>
+                </section>
+
+                <section>
+                    <div class="head">
+                        <h2>Software</h2>
+                    </div>
+                    <div class="list">
+                        <a class="row squeeze-meta" href="https://github.com/afolkest/elliptica" target="_blank" rel="noopener">
+                            <span class="t ext">Elliptica</span><span class="meta gloss">an open-source drawing program for painting with the laws of physics</span>
+                        </a>
+                        <a class="row squeeze-meta" href="https://undermind.ai" target="_blank" rel="noopener">
+                            <span class="t ext">Undermind</span><span class="meta gloss">AI deep-search over the scientific literature — my day job</span>
+                        </a>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>
