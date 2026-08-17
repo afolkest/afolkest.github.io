@@ -203,7 +203,6 @@ h2 {
 
 .head .all .arrow {
     display: inline-block;
-    width: 1.15em;
     margin-left: 0.15em;
     transition: transform 0.2s ease;
 }
