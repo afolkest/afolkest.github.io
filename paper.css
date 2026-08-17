@@ -68,8 +68,17 @@
     --home-row-padding: 0.17rem;
     --home-section-gap: 2.7rem;
     --home-about-line-height: 1.62;
-    --mat-pattern-strength: 1;
-    --sheet-pattern-strength: 1;
+    /* Texture recipe contract: a neutral pattern, a contrast gain, and a
+       midpoint bias. Strength changes opacity only; overlay blending keeps the
+       mean surface color approximately fixed. */
+    --mat-texture-opacity: 0.5;
+    --sheet-texture-opacity: 0.5;
+    /* The stacked SVG noise has a light bias before its final contrast pass;
+       these calibrated inputs render to a 50% effective midpoint. */
+    --mat-texture-neutral: rgb(101, 101, 101);
+    --sheet-texture-neutral: rgb(100, 100, 100);
+    --mat-texture-contrast: 2;
+    --sheet-texture-contrast: 2;
 
     /* pulp-fibre mottle — the cloudy formation of a mould-made sheet */
     --fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.12' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncG type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncB type='linear' slope='0.45' intercept='0.275'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='340' height='340' filter='url(%23f)'/%3E%3C/svg%3E");
@@ -94,6 +103,33 @@
     --chain-sheet: repeating-linear-gradient(90deg,
         rgba(122, 92, 62, 0.006) 0px, rgba(122, 92, 62, 0.006) 1px,
         rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 104px);
+
+    /* Neutral laid-paper recipe used by the homepage tuner. Dark and light
+       marks are paired around 50% gray so gain does not also become color. */
+    --laid-mat-neutral: repeating-linear-gradient(180deg,
+        rgba(0, 0, 0, 0.0275) 0px, rgba(0, 0, 0, 0.0275) 1px,
+        rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 2px,
+        rgba(255, 255, 255, 0.0275) 2px, rgba(255, 255, 255, 0.0275) 3px,
+        rgba(0, 0, 0, 0) 3px, rgba(0, 0, 0, 0) 4px);
+    --chain-mat-neutral: repeating-linear-gradient(90deg,
+        rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 1px,
+        rgba(255, 255, 255, 0.02) 1px, rgba(255, 255, 255, 0.02) 2px,
+        rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 104px);
+    --laid-sheet-neutral: repeating-linear-gradient(180deg,
+        rgba(0, 0, 0, 0.009) 0px, rgba(0, 0, 0, 0.009) 1px,
+        rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 2px,
+        rgba(255, 255, 255, 0.009) 2px, rgba(255, 255, 255, 0.009) 3px,
+        rgba(0, 0, 0, 0) 3px, rgba(0, 0, 0, 0) 4px);
+    --chain-sheet-neutral: repeating-linear-gradient(90deg,
+        rgba(0, 0, 0, 0.006) 0px, rgba(0, 0, 0, 0.006) 1px,
+        rgba(255, 255, 255, 0.006) 1px, rgba(255, 255, 255, 0.006) 2px,
+        rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 104px);
+
+    /* Active recipe slots. A future texture only needs to replace these image
+       stacks and its neutral/contrast calibration values. */
+    --mat-texture-image: var(--laid-mat-neutral), var(--chain-mat-neutral), var(--fibre), var(--tooth);
+    --sheet-texture-image: var(--laid-sheet-neutral), var(--chain-sheet-neutral), var(--tooth), var(--fibre);
+    --texture-internal-blend: normal, normal, soft-light, soft-light;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -132,24 +168,12 @@ body.home::before {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-color: var(--mat);
-    background-image: var(--laid-mat), var(--chain-mat), var(--fibre), var(--tooth);
-    background-blend-mode: normal, normal, soft-light, soft-light;
-    opacity: min(var(--mat-pattern-strength), 1);
-}
-
-/* Above 100%, add a second soft-light pass. At the default strength of 1 this
-   layer is fully absent, preserving the existing design exactly. */
-body.home::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image: var(--laid-mat), var(--chain-mat), var(--fibre), var(--tooth);
-    background-blend-mode: normal, normal, soft-light, soft-light;
-    mix-blend-mode: soft-light;
-    opacity: clamp(0, calc(var(--mat-pattern-strength) - 1), 1);
+    background-color: var(--mat-texture-neutral);
+    background-image: var(--mat-texture-image);
+    background-blend-mode: var(--texture-internal-blend);
+    mix-blend-mode: overlay;
+    filter: contrast(var(--mat-texture-contrast));
+    opacity: var(--mat-texture-opacity);
 }
 
 body.home > .sheet { z-index: 1; }
@@ -185,22 +209,12 @@ body.home .sheet::before {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-color: var(--paper);
-    background-image: var(--laid-sheet), var(--chain-sheet), var(--tooth), var(--fibre);
-    background-blend-mode: normal, normal, soft-light, soft-light;
-    opacity: min(var(--sheet-pattern-strength), 1);
-}
-
-body.home .sheet::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image: var(--laid-sheet), var(--chain-sheet), var(--tooth), var(--fibre);
-    background-blend-mode: normal, normal, soft-light, soft-light;
-    mix-blend-mode: soft-light;
-    opacity: clamp(0, calc(var(--sheet-pattern-strength) - 1), 1);
+    background-color: var(--sheet-texture-neutral);
+    background-image: var(--sheet-texture-image);
+    background-blend-mode: var(--texture-internal-blend);
+    mix-blend-mode: overlay;
+    filter: contrast(var(--sheet-texture-contrast));
+    opacity: var(--sheet-texture-opacity);
 }
 
 .spread {

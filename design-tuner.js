@@ -8,6 +8,18 @@
     const root = document.documentElement;
     const storageKey = 'afolkestad-homepage-tuner-v1';
 
+    /* Texture recipes only need neutral CSS layers plus these gain values.
+       A future recipe picker can swap the layer variables and gains without
+       changing the sliders or persistence machinery. */
+    const textureRecipes = {
+        laidPaper: {
+            label: 'Laid paper',
+            matGain: 0.5,
+            sheetGain: 0.5,
+        },
+    };
+    const textureRecipe = textureRecipes.laidPaper;
+
     const defaults = {
         headingGap: 0.8,
         listGap: 0.34,
@@ -94,8 +106,8 @@
         root.style.setProperty('--home-row-padding', `${state.listGap / 2}rem`);
         root.style.setProperty('--home-section-gap', `${state.sectionGap}rem`);
         root.style.setProperty('--home-about-line-height', state.aboutLineHeight);
-        root.style.setProperty('--mat-pattern-strength', state.matTexture / 100);
-        root.style.setProperty('--sheet-pattern-strength', state.sheetTexture / 100);
+        root.style.setProperty('--mat-texture-opacity', Math.min(1, state.matTexture / 100 * textureRecipe.matGain));
+        root.style.setProperty('--sheet-texture-opacity', Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain));
         root.style.setProperty('--mat', hsl(state.matHue, state.matSaturation, state.matBrightness));
         root.style.setProperty('--paper', hsl(state.paperHue, state.paperSaturation, state.paperBrightness));
     }
@@ -155,8 +167,8 @@
     --home-row-padding: ${(state.listGap / 2).toFixed(3)}rem; /* ${state.listGap.toFixed(2)}rem between rows */
     --home-section-gap: ${state.sectionGap.toFixed(2)}rem;
     --home-about-line-height: ${state.aboutLineHeight.toFixed(2)};
-    --mat-pattern-strength: ${(state.matTexture / 100).toFixed(2)}; /* ${state.matTexture.toFixed(0)}% */
-    --sheet-pattern-strength: ${(state.sheetTexture / 100).toFixed(2)}; /* ${state.sheetTexture.toFixed(0)}% */
+    --mat-texture-opacity: ${Math.min(1, state.matTexture / 100 * textureRecipe.matGain).toFixed(3)}; /* ${textureRecipe.label}, ${state.matTexture.toFixed(0)}% */
+    --sheet-texture-opacity: ${Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain).toFixed(3)}; /* ${textureRecipe.label}, ${state.sheetTexture.toFixed(0)}% */
     --mat: ${hsl(state.matHue.toFixed(1), state.matSaturation.toFixed(1), state.matBrightness.toFixed(1))};
     --paper: ${hsl(state.paperHue.toFixed(1), state.paperSaturation.toFixed(1), state.paperBrightness.toFixed(1))};
 }`;
