@@ -89,6 +89,9 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* the homepage reads best a notch above browser default */
+html:has(body.home) { font-size: 110%; }
+
 body {
     font-family: var(--serif);
     font-weight: 400;
