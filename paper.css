@@ -297,7 +297,7 @@ a.t:hover { color: var(--accent); }
     content: "↗";
     font-size: 0.68em;
     color: var(--accent);
-    margin-left: 0.3em;
+    margin-left: 0.15em;
     vertical-align: 0.18em;
 }
 
