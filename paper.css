@@ -62,6 +62,15 @@
     --accent: #93381b;
     --serif: 'Heliotrope OT', Georgia, serif;
 
+    /* Homepage rhythm and material controls. The development tuner temporarily
+       overrides these variables without rewriting the design stylesheet. */
+    --home-heading-content-gap: 0.8rem;
+    --home-row-padding: 0.17rem;
+    --home-section-gap: 2.7rem;
+    --home-about-line-height: 1.62;
+    --mat-pattern-strength: 1;
+    --sheet-pattern-strength: 1;
+
     /* pulp-fibre mottle — the cloudy formation of a mould-made sheet */
     --fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.12' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncG type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncB type='linear' slope='0.45' intercept='0.275'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='340' height='340' filter='url(%23f)'/%3E%3C/svg%3E");
     /* fine surface tooth */
@@ -110,6 +119,41 @@ body {
     padding: 4rem 1.5rem 4.5rem;
 }
 
+/* Keep the homepage's color and paper texture on separate layers so the
+   development tuner can fade the texture without fading the surface color. */
+body.home {
+    position: relative;
+    background-image: none;
+}
+
+body.home::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-color: var(--mat);
+    background-image: var(--laid-mat), var(--chain-mat), var(--fibre), var(--tooth);
+    background-blend-mode: normal, normal, soft-light, soft-light;
+    opacity: min(var(--mat-pattern-strength), 1);
+}
+
+/* Above 100%, add a second soft-light pass. At the default strength of 1 this
+   layer is fully absent, preserving the existing design exactly. */
+body.home::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--laid-mat), var(--chain-mat), var(--fibre), var(--tooth);
+    background-blend-mode: normal, normal, soft-light, soft-light;
+    mix-blend-mode: soft-light;
+    opacity: clamp(0, calc(var(--mat-pattern-strength) - 1), 1);
+}
+
+body.home > .sheet { z-index: 1; }
+
 ::selection { background: var(--accent); color: var(--paper); }
 
 a { color: inherit; text-decoration: none; }
@@ -131,7 +175,37 @@ a { color: inherit; text-decoration: none; }
         0 16px 34px rgba(94, 70, 46, 0.13);
 }
 
+body.home .sheet {
+    background-image: none;
+}
+
+body.home .sheet::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-color: var(--paper);
+    background-image: var(--laid-sheet), var(--chain-sheet), var(--tooth), var(--fibre);
+    background-blend-mode: normal, normal, soft-light, soft-light;
+    opacity: min(var(--sheet-pattern-strength), 1);
+}
+
+body.home .sheet::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--laid-sheet), var(--chain-sheet), var(--tooth), var(--fibre);
+    background-blend-mode: normal, normal, soft-light, soft-light;
+    mix-blend-mode: soft-light;
+    opacity: clamp(0, calc(var(--sheet-pattern-strength) - 1), 1);
+}
+
 .spread {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 19rem 1fr;
     column-gap: 3rem;
@@ -164,9 +238,9 @@ h1 .stop { color: var(--accent); }
 
 /* ---------- sections ---------- */
 
-section { margin-top: 2.7rem; }
+section { margin-top: var(--home-section-gap); }
 .col-right > section:first-child { margin-top: 0; }
-.col-left > section:first-of-type { margin-top: 2.7rem; }
+.col-left > section:first-of-type { margin-top: var(--home-section-gap); }
 
 
 .head {
@@ -174,7 +248,7 @@ section { margin-top: 2.7rem; }
     align-items: baseline;
     justify-content: space-between;
     gap: 1.25rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: var(--home-heading-content-gap);
 }
 
 h2 {
@@ -237,7 +311,7 @@ h2 {
 
 .about p {
     font-size: 1.11rem;
-    line-height: 1.62;
+    line-height: var(--home-about-line-height);
     color: var(--ink);
 }
 
@@ -256,7 +330,7 @@ h2 {
     align-items: baseline;
     justify-content: flex-start;
     gap: 0.3em;
-    padding: 0.17rem 0;
+    padding: var(--home-row-padding) 0;
     min-width: 0;
 }
 
