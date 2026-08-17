@@ -189,7 +189,7 @@ h2 {
 .head a {
     display: flex;
     align-items: baseline;
-    gap: 0.55em;
+    gap: 0.3em;
 }
 
 .head a h2 { transition: color 0.15s; }
@@ -256,7 +256,7 @@ h2 {
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
-    gap: 0.45em;
+    gap: 0.3em;
     padding: 0.17rem 0;
     min-width: 0;
 }
@@ -334,7 +334,7 @@ figcaption {
     transition: color 0.15s;
 }
 
-figcaption .meta { font-style: normal; color: var(--gloss); margin-left: 0.45em; }
+figcaption .meta { font-style: normal; color: var(--gloss); margin-left: 0.3em; }
 
 .plate:hover figcaption { color: var(--accent); }
 
