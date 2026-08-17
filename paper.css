@@ -185,6 +185,32 @@ h2 {
     color: var(--ink-2);
 }
 
+/* clickable heads: "all …" runs inline after the headline, quiet until hover */
+.head a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55em;
+}
+
+.head a h2 { transition: color 0.15s; }
+
+.head .all {
+    font-size: 1.02rem;
+    color: var(--gloss);
+    white-space: nowrap;
+    transition: color 0.15s;
+}
+
+.head .all .arrow {
+    display: inline-block;
+    margin-left: 0.15em;
+    transition: transform 0.2s ease;
+}
+
+.head a:hover h2 { color: var(--accent); }
+.head a:hover .all { color: var(--ink-mid); }
+.head a:hover .all .arrow { transform: translateX(4px); }
+
 .more {
     font-size: 1.02rem;
     color: var(--ink-quiet);
@@ -314,7 +340,7 @@ figcaption .meta { font-style: normal; color: var(--gloss); margin-left: 0.45em;
 
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
-    .more:hover .arrow, .plate:hover .mount { transform: none; }
+    .more:hover .arrow, .head a:hover .all .arrow, .plate:hover .mount { transform: none; }
 }
 
 /* ================= essay pages ================= */
