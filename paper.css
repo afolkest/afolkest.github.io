@@ -574,3 +574,92 @@ body.reading .sheet.essay {
 
 .essay-footer a { color: var(--ink-quiet); transition: color 0.15s; }
 .essay-footer a:hover { color: var(--accent); }
+
+/* ================= index pages (essays, research) ================= */
+
+.index-header h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.05;
+    color: var(--ink);
+}
+
+.index-sub {
+    margin-top: 0.8rem;
+    font-size: 1.15rem;
+    color: var(--ink-mid);
+}
+
+.index-sub a { color: var(--accent); transition: color 0.15s; }
+.index-sub a:hover { color: #5f230f; }
+
+.index-section { margin-top: 3rem; }
+
+.index-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.008em;
+    color: var(--ink-2);
+    margin-bottom: 1.1rem;
+}
+
+/* selected essays: flat thumbnail cards */
+.pick {
+    display: flex;
+    gap: 1.35rem;
+    align-items: flex-start;
+    padding: 0.8rem 0;
+}
+
+.pick img { width: 11rem; height: auto; flex: none; }
+
+.pick-text { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+
+.pick-text strong {
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: -0.008em;
+    line-height: 1.25;
+    color: var(--ink);
+    transition: color 0.15s;
+}
+
+.pick:hover .pick-text strong { color: var(--accent); }
+
+.pick-gloss {
+    font-style: italic;
+    font-size: 1.12rem;
+    line-height: 1.45;
+    color: var(--ink-quiet);
+}
+
+.pick-date { font-size: 1.02rem; color: var(--gloss); }
+
+/* all-essays rows: homepage grammar, scaled for the reading page */
+.index-list .row { padding: 0.3rem 0; }
+.index-list .t { font-size: 1.22rem; }
+.index-list .meta { font-size: 1.1rem; }
+.index-list .meta.yr { flex: none; }
+
+/* publications */
+.pub { margin-bottom: 1.4rem; }
+
+.pub-title {
+    display: inline-block;
+    font-size: 1.25rem;
+    line-height: 1.35;
+    color: var(--ink);
+    transition: color 0.15s;
+}
+
+.pub-title:hover { color: var(--accent); }
+
+.pub-meta {
+    margin-top: 0.15rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--ink-quiet);
+}
+
+.pub-meta .me { font-weight: 600; color: var(--ink-mid); }

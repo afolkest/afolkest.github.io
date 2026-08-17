@@ -27,7 +27,7 @@ ALL_END = "<!-- ESSAYS_END -->"
 
 # Selected essays in display order (URL slugs)
 SELECTED_SLUGS = [
-    "spirits-and-the-incompleteness-of-physics",
+    "spirits-and-the-incompleteness-of",
     "equations-that-demand-beauty",
     "god-is-nan",
     "beauty-as-entropic-fine-tuning",
@@ -490,18 +490,10 @@ def write_essay_pages(posts):
 # Index page (essays.html)
 # ---------------------------------------------------------------------------
 
-def generate_card_html(posts, local_links=True):
-    cards = []
+def generate_card_html(posts, local_links=True, style="card"):
+    """Emit selected-essay cards ('card') or all-essay rows ('row')."""
+    out = []
     for p in posts:
-        img_html = ""
-        if p["image"]:
-            img_html = (
-                f'<img src="{p["image"]}" alt="{html.escape(p["title"])}"'
-                f' width="320" height="213" loading="lazy">'
-            )
-
-        date_html = f'<span class="essay-date">{p["date"]}</span>' if p["date"] else ""
-
         if local_links and p["slug"]:
             href = f"essays/{p['slug']}.html"
             target = ""
@@ -511,18 +503,38 @@ def generate_card_html(posts, local_links=True):
             target = ' target="_blank"'
             rel = ' rel="noopener"'
 
-        cards.append(
-            f'            <a href="{href}"{target}{rel} class="essay-card">\n'
-            f"                {img_html}\n"
-            f'                <div class="essay-card-text">\n'
-            f"                    <h3>{html.escape(p['title'])}</h3>\n"
-            f"                    <p>{html.escape(p['description'])}</p>\n"
-            f"                    {date_html}\n"
-            f"                </div>\n"
-            f"            </a>"
-        )
+        title = html.escape(p["title"])
+        desc = html.escape(p["description"])
 
-    return "\n".join(cards)
+        if style == "row":
+            year = (p.get("date_iso") or "")[:4]
+            year_html = f'<span class="meta yr">{year}</span>' if year else ""
+            out.append(
+                f'            <a href="{href}"{target}{rel} class="row squeeze-meta">\n'
+                f'                <span class="t">{title}</span>'
+                f'<span class="meta gloss">{desc}</span>{year_html}\n'
+                f"            </a>"
+            )
+        else:
+            img_html = ""
+            if p["image"]:
+                img_html = (
+                    f'<img src="{p["image"]}" alt="{title}"'
+                    f' width="320" height="213" loading="lazy">'
+                )
+            date_html = f'<span class="pick-date">{p["date"]}</span>' if p["date"] else ""
+            out.append(
+                f'            <a href="{href}"{target}{rel} class="pick">\n'
+                f"                {img_html}\n"
+                f'                <span class="pick-text">\n'
+                f"                    <strong>{title}</strong>\n"
+                f'                    <span class="pick-gloss">{desc}</span>\n'
+                f"                    {date_html}\n"
+                f"                </span>\n"
+                f"            </a>"
+            )
+
+    return "\n".join(out)
 
 
 def replace_between_markers(content, start_marker, end_marker, new_html):
@@ -545,8 +557,8 @@ def update_essays_html(selected_posts, all_posts, has_local_pages):
     with open(ESSAYS_FILE, "r") as f:
         content = f.read()
 
-    selected_html = generate_card_html(selected_posts, local_links=has_local_pages)
-    all_html = generate_card_html(all_posts, local_links=has_local_pages)
+    selected_html = generate_card_html(selected_posts, local_links=has_local_pages, style="card")
+    all_html = generate_card_html(all_posts, local_links=has_local_pages, style="row")
 
     content = replace_between_markers(content, SELECTED_START, SELECTED_END, selected_html)
     if content is None:
