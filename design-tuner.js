@@ -21,11 +21,11 @@
     const textureRecipe = textureRecipes.laidPaper;
 
     const defaults = {
-        headingGap: 0.8,
-        listGap: 0.34,
-        sectionGap: 2.7,
-        aboutLineHeight: 1.62,
-        matTexture: 100,
+        headingGap: 0.4,
+        listGap: 0,
+        sectionGap: 2.82,
+        aboutLineHeight: 1.45,
+        matTexture: 74,
         sheetTexture: 100,
         matHue: 32.3,
         matSaturation: 43.3,

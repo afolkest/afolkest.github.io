@@ -52,8 +52,8 @@
 }
 
 :root {
-    --mat: #ddc5a9;      /* peach-clay laid paper, L* 80.9 */
-    --paper: #f5eddf;    /* cream sheet,           L* 94.1 */
+    --mat: hsl(32.3 43.3% 76.5%);      /* peach-clay laid paper */
+    --paper: hsl(38.2 52.4% 91.8%);    /* cream sheet */
     --ink: #1b1815;
     --ink-2: #2a2621;
     --ink-mid: #5d564d;
@@ -64,14 +64,14 @@
 
     /* Homepage rhythm and material controls. The development tuner temporarily
        overrides these variables without rewriting the design stylesheet. */
-    --home-heading-content-gap: 0.8rem;
-    --home-row-padding: 0.17rem;
-    --home-section-gap: 2.7rem;
-    --home-about-line-height: 1.62;
+    --home-heading-content-gap: 0.4rem;
+    --home-row-padding: 0;
+    --home-section-gap: 2.82rem;
+    --home-about-line-height: 1.45;
     /* Texture recipe contract: a neutral pattern, a contrast gain, and a
        midpoint bias. Strength changes opacity only; overlay blending keeps the
        mean surface color approximately fixed. */
-    --mat-texture-opacity: 0.5;
+    --mat-texture-opacity: 0.37;
     --sheet-texture-opacity: 0.5;
     /* The stacked SVG noise has a light bias before its final contrast pass;
        these calibrated inputs render to a 50% effective midpoint. */
