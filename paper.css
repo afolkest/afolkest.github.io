@@ -363,7 +363,7 @@ body.reading .sheet.essay {
     margin: 0 auto;
     background: none;
     box-shadow: none;
-    padding: 2.2rem 3rem 7rem;
+    padding: 0 3rem 7rem;
 }
 
 .sheet.essay article {
@@ -371,12 +371,19 @@ body.reading .sheet.essay {
     margin: 0 auto;
 }
 
-/* the way home: the name, small, top of the sheet */
+/* the way home: the name rides along at the top of the page */
 .crumb {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 3.6rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: 0 -3rem 3.6rem;
+    padding: 2.2rem 3rem 0.7rem;
+    background-color: var(--paper);
+    background-image: var(--laid-sheet), var(--chain-sheet), var(--tooth), var(--fibre);
+    background-blend-mode: normal, normal, soft-light, soft-light;
+    /* phase-lock the texture to the viewport so the bar is indistinguishable
+       from the page behind it — the body's own background never scrolls */
+    background-attachment: fixed;
 }
 
 .crumb .home {
@@ -386,9 +393,15 @@ body.reading .sheet.essay {
     transition: color 0.15s;
 }
 
+.crumb .home .back {
+    color: var(--gloss);
+    margin-right: 0.45em;
+    transition: color 0.15s;
+}
+
 .crumb .home .stop { color: var(--accent); }
 .crumb .home:hover { color: var(--accent); }
-.crumb .where { font-size: 0.98rem; color: var(--gloss); }
+.crumb .home:hover .back { color: var(--accent); }
 
 /* ---------- essay header ---------- */
 
