@@ -12,71 +12,141 @@
     <meta property="og:url" content="https://afolkestad.com/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="theme-color" content="#f5f5f5">
-    <link rel="preload" href="/fonts/red-hat-display-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="theme-color" content="#ddc5a9">
+    <link rel="preload" href="/fonts/heliotrope/heliotrope_ot_4_medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/heliotrope/heliotrope_ot_6_semibold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/heliotrope/heliotrope_ot_3_book_italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="canonical" href="https://afolkestad.com/">
-    <link rel="stylesheet" href="style.css?v=2">
-    <script>
-        if (sessionStorage.getItem('from-dark')) {
-            sessionStorage.removeItem('from-dark');
-            document.documentElement.classList.add('from-dark');
-        }
-    </script>
+    <link rel="stylesheet" href="/paper.css">
 </head>
 
 <body>
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="nav-home">Åsmund Folkestad</a>
-            <div class="nav-links">
-                <a href="index.html" class="active">home</a>
-                <a href="about.html">about</a>
-                <a href="research.html">research</a>
-                <a href="art.html">art</a>
-                <a href="essays.html">essays</a>
+    <main class="sheet">
+        <div class="spread">
+
+            <div class="col-left">
+                <header>
+                    <h1>Åsmund<br>Folkestad<span class="stop">.</span></h1>
+                    <p class="contact">
+                        <a href="mailto:asmund.sf@gmail.com">asmund.sf@gmail.com</a><br>
+                        <a href="https://github.com/afolkest" target="_blank" rel="noopener">GitHub</a><span class="dot">·</span><a href="https://extramediumplease.substack.com/" target="_blank" rel="noopener">Substack</a><span class="dot">·</span><a href="https://www.linkedin.com/in/%C3%A5smund-folkestad-208a8b110/" target="_blank" rel="noopener">LinkedIn</a>
+                    </p>
+                </header>
+
+                <section>
+                    <div class="head">
+                        <h2>Artworks</h2>
+                    </div>
+                    <figure class="plate">
+                        <a class="mount" href="/art.html">
+                            <img src="/images/godisnan_1x.webp" fetchpriority="high" alt="God is NaN — a radiant white sun over a cream field, a deep oxblood figure on a ridge, pale blue filaments streaming outward" width="1800" height="1200">
+                        </a>
+                        <figcaption><a href="/art.html">God is NaN</a><span class="meta">2026</span></figcaption>
+                    </figure>
+                    <a class="more end" href="/art.html">All artworks <span class="arrow">→</span></a>
+                </section>
+
+                <section>
+                    <div class="head">
+                        <h2>Music</h2>
+                    </div>
+                    <div class="list stack">
+                        <a class="row squeeze-title" href="https://soundcloud.com/volkstamusic/temple-juice" target="_blank" rel="noopener">
+                            <span class="t">Temple Juice</span><span class="meta">2024</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://soundcloud.com/volkstamusic/fresh-pressed-deity" target="_blank" rel="noopener">
+                            <span class="t">Fresh Pressed Deity</span><span class="meta">2024</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://soundcloud.com/volkstamusic/organ-glow" target="_blank" rel="noopener">
+                            <span class="t">Organ Glow</span><span class="meta">2023</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://open.spotify.com/album/0zBb6EFJnEOb3p8Uj5hbNH" target="_blank" rel="noopener">
+                            <span class="t">Sacred Duality</span><span class="meta">album with Achenar · 2014</span>
+                        </a>                    </div>
+                </section>
             </div>
+
+            <div class="col-right">
+
+                <section class="about">
+                    <div class="head">
+                        <h2>About</h2>
+                    </div>
+                    <p>I did my PhD at MIT on classical and quantum gravity — among
+                        other things, on when spacetime is allowed to tear apart. These
+                        days I build AI research tools at the startup
+                        <a href="https://undermind.ai" class="ext">Undermind</a>. Outside work I
+                        paint with electromagnetic fields, produce electronic music
+                        with choirs and pipe organs, and write
+                        <a href="https://extramediumplease.substack.com/" class="ext keep"><i>Mechanics of Aesthetics</i></a>.</p>
+                </section>
+
+                <section>
+                    <div class="head">
+                        <h2>Software</h2>
+                    </div>
+                    <div class="list">
+                        <a class="row squeeze-meta" href="https://github.com/afolkest/elliptica" target="_blank" rel="noopener">
+                            <span class="t">Elliptica</span><span class="meta gloss">an open-source drawing program for painting with the laws of physics</span>
+                        </a>
+                        <a class="row squeeze-meta" href="https://undermind.ai" target="_blank" rel="noopener">
+                            <span class="t">Undermind</span><span class="meta gloss">AI deep-search over the scientific literature — my day job</span>
+                        </a>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="head">
+                        <h2>Essays</h2>
+                    </div>
+                    <div class="list">
+                        <a class="row squeeze-meta" href="/essays/equations-that-demand-beauty.html">
+                            <span class="t">Equations that demand beauty</span><span class="meta gloss">The remarkable physics of constraints</span>
+                        </a>
+                        <a class="row squeeze-meta" href="/essays/spirits-and-the-incompleteness-of-physics.html">
+                            <span class="t">Spirits and the incompleteness of physics</span><span class="meta gloss">The spirits beyond the horizon of theory</span>
+                        </a>
+                        <a class="row squeeze-meta" href="/essays/god-is-nan.html">
+                            <span class="t">God is NaN</span><span class="meta gloss">Skepticism, pragmatist mysticism, and Bayesian metaphysics</span>
+                        </a>
+                        <a class="row squeeze-meta" href="/essays/beauty-as-entropic-fine-tuning.html">
+                            <span class="t">Beauty as entropic fine-tuning</span><span class="meta gloss">Why beauty should be measured in bits</span>
+                        </a>
+                    </div>
+                    <a class="more end" href="/essays.html">All essays <span class="arrow">→</span></a>
+                </section>
+
+                <section>
+                    <div class="head">
+                        <h2>Papers</h2>
+                    </div>
+                    <div class="list">
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2502.01723" target="_blank" rel="noopener">
+                            <span class="t">Holographic Time Crystals vs Penrose</span><span class="meta">arXiv · 2025</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2407.14589" target="_blank" rel="noopener">
+                            <span class="t">Spoofing Entanglement in Holography</span><span class="meta">arXiv · 2024</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2311.09403" target="_blank" rel="noopener">
+                            <span class="t">Subregion independence in gravity</span><span class="meta">JHEP · 2024</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2209.00013" target="_blank" rel="noopener" title="Penrose Inequality as a Constraint on the Low Energy Limit of Quantum Gravity">
+                            <span class="t">Penrose Inequality as a Constraint on the Low Energy Limit of Quantum Gravity</span><span class="meta">PRL · 2023</span>
+                        </a>
+                        <a class="row squeeze-title" href="https://arxiv.org/abs/2012.11445" target="_blank" rel="noopener">
+                            <span class="t">Holography abhors visible trapped surfaces</span><span class="meta">JHEP · 2021</span>
+                        </a>
+                    </div>
+                    <a class="more end" href="/research.html">All papers <span class="arrow">→</span></a>
+                </section>
+
+            </div>
+
         </div>
-    </nav>
-
-    <main class="homepage">
-        <section class="intro">
-            <h1 class="sr-only">Åsmund Folkestad</h1>
-            <p>I'm a theoretical physicist in San Francisco building AI tools
-                for scientists at the startup Undermind. I did my PhD at MIT on
-                classical and quantum gravity.</p>
-            <p class="intro-links-label">Non-AI things I do:</p>
-            <ul class="intro-links">
-                <li><a href="art.html">make electromagnetic visual arts</a></li>
-                <li><a href="art.html#music">produce electronic music with choirs and pipe organs</a></li>
-                <li><a href="https://extramediumplease.substack.com/">write <i>Mechanics of Aesthetics</i></a></li>
-                <li><a href="https://github.com/afolkest/elliptica">build visual arts software</a></li>
-            </ul>
-            <p class="intro-contact">Contact: asmund.sf at gmail</p>
-        </section>
-
-        <section class="featured-art">
-            <figure>
-                <picture>
-                    <source type="image/webp"
-                        srcset="images/green_napoleon_800.webp 800w, images/green_napoleon_1600.webp 1600w"
-                        sizes="(max-width: 800px) 100vw, 800px">
-                    <img src="images/green_napoleon_1600.jpg"
-                        srcset="images/green_napoleon_800.jpg 800w, images/green_napoleon_1600.jpg 1600w"
-                        sizes="(max-width: 800px) 100vw, 800px"
-                        alt="Napoleon — a rearing horse rendered in electromagnetic field lines, made with Elliptica" width="800" height="800" fetchpriority="high">
-                </picture>
-                <figcaption>Image made with my software <a href="https://github.com/afolkest/elliptica">Elliptica</a></figcaption>
-            </figure>
-        </section>
     </main>
-
-    <footer>
-        <p></p>
-    </footer>
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 
