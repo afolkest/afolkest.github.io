@@ -26,6 +26,12 @@ ALL_START = "<!-- ESSAYS_START -->"
 ALL_END = "<!-- ESSAYS_END -->"
 
 # Selected essays in display order (URL slugs)
+# Publication dates for essays no longer in the feed whose pages lack an
+# article:published_time meta tag.
+KNOWN_DATES = {
+    "beauty-as-entropic-fine-tuning": "2024-05-25T00:00:00Z",
+}
+
 SELECTED_SLUGS = [
     "spirits-and-the-incompleteness-of",
     "equations-that-demand-beauty",
@@ -640,10 +646,11 @@ if __name__ == "__main__":
                 desc = html.unescape(desc_m.group(1)) if desc_m else ""
                 date_str = ""
                 date_iso = ""
-                if date_m:
+                raw_date = date_m.group(1) if date_m else KNOWN_DATES.get(slug, "")
+                if raw_date:
                     try:
                         from datetime import datetime
-                        dt = datetime.fromisoformat(date_m.group(1).replace("Z", "+00:00"))
+                        dt = datetime.fromisoformat(raw_date.replace("Z", "+00:00"))
                         date_str = dt.strftime("%b %d, %Y")
                         date_iso = dt.strftime("%Y-%m-%dT%H:%M:%SZ")
                     except Exception:
