@@ -4,6 +4,13 @@
   "description": "A theoretical physicist's contemplations on aesthetics, pragmatist mysticism, and fundamental physics and its limits.",
   "essays": [
     {
+      "title": "The laws of physics might not fit inside the universe",
+      "description": "Is the universe unknowable?",
+      "url": "https://afolkestad.com/essays/estimating-gods-quantum-mechanical.html",
+      "date": "2026-06-18T15:08:35Z",
+      "substack_url": "https://extramediumplease.substack.com/p/estimating-gods-quantum-mechanical"
+    },
+    {
       "title": "The best books I read in 2025",
       "description": "Why had I not heard of the School of Chartres?",
       "url": "https://afolkestad.com/essays/my-best-reads-in-2025.html",
@@ -41,7 +48,7 @@
     {
       "title": "Spirits and the incompleteness of physics",
       "description": "Complexity, renormalization, and the spirits beyond the horizon of theory",
-      "url": "https://afolkestad.com/essays/spirits-and-the-incompleteness-of-physics.html",
+      "url": "https://afolkestad.com/essays/spirits-and-the-incompleteness-of.html",
       "date": "2025-06-20T22:09:24Z",
       "substack_url": "https://extramediumplease.substack.com/p/spirits-and-the-incompleteness-of"
     },
@@ -135,13 +142,6 @@
       "url": "https://afolkestad.com/essays/beauty-opioids.html",
       "date": "2024-08-14T01:35:25Z",
       "substack_url": "https://extramediumplease.substack.com/p/beauty-opioids"
-    },
-    {
-      "title": "N-beauty",
-      "description": "A natural family of objective beauty measures does exist",
-      "url": "https://afolkestad.com/essays/n-beauty.html",
-      "date": "2024-07-23T21:49:34Z",
-      "substack_url": "https://extramediumplease.substack.com/p/n-beauty"
     },
     {
       "title": "Beauty as entropic fine-tuning",

@@ -18,3 +18,4 @@ images/originals/
 # Bulky prototype byproducts (screenshots, old archives) — keep the HTML/MD tracked
 prototypes/homepage-2026-08/shots/
 prototypes/archive/
+__pycache__/

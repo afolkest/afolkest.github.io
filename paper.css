@@ -367,7 +367,7 @@ body.reading .sheet.essay {
 }
 
 .sheet.essay article {
-    max-width: 43rem;
+    max-width: 51.5rem;
     margin: 0 auto;
 }
 
@@ -393,7 +393,7 @@ body.reading .sheet.essay {
 /* ---------- essay header ---------- */
 
 .essay-header h1 {
-    font-size: 2.7rem;
+    font-size: 3.2rem;
     font-weight: 600;
     letter-spacing: -0.016em;
     line-height: 1.12;
@@ -403,7 +403,7 @@ body.reading .sheet.essay {
 .essay-subtitle {
     font-family: var(--prose);
     font-style: italic;
-    font-size: 1.32rem;
+    font-size: 1.58rem;
     line-height: 1.5;
     color: var(--ink-mid);
     margin-top: 0.6rem;
@@ -412,7 +412,7 @@ body.reading .sheet.essay {
 .essay-header time {
     display: block;
     margin-top: 0.7rem;
-    font-size: 1rem;
+    font-size: 1.15rem;
     color: var(--gloss);
 }
 
@@ -420,7 +420,7 @@ body.reading .sheet.essay {
 
 .essay-body {
     font-family: var(--prose);
-    font-size: 1.3rem;
+    font-size: 1.56rem;
     line-height: 1.62;
     margin-top: 2.3rem;
 }
@@ -432,7 +432,7 @@ body.reading .sheet.essay {
 
 .essay-body h2 {
     font-family: var(--serif);
-    font-size: 1.55rem;
+    font-size: 1.85rem;
     font-weight: 600;
     letter-spacing: -0.008em;
     line-height: 1.25;
@@ -442,7 +442,7 @@ body.reading .sheet.essay {
 
 .essay-body h3 {
     font-family: var(--serif);
-    font-size: 1.3rem;
+    font-size: 1.55rem;
     font-weight: 600;
     color: var(--ink-2);
     margin: 1.8rem 0 0.6rem;
@@ -527,12 +527,12 @@ body.reading .sheet.essay {
 .essay-embed-card-text strong {
     font-family: var(--serif);
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     color: var(--ink-2);
 }
 
 .essay-embed-card-text p {
-    font-size: 0.98rem;
+    font-size: 1.15rem;
     color: var(--ink-mid);
     line-height: 1.45;
     margin: 0;
@@ -546,7 +546,7 @@ body.reading .sheet.essay {
     margin: 1.5em 0;
     border: 1px dashed rgba(122, 92, 62, 0.35);
     color: var(--ink-mid);
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     transition: background-color 0.2s, border-color 0.2s;
 }
 
@@ -560,7 +560,7 @@ body.reading .sheet.essay {
 
 .essay-figure figcaption {
     margin-top: 0.55rem;
-    font-size: 1.02rem;
+    font-size: 1.2rem;
     font-style: italic;
     color: var(--ink-quiet);
 }
@@ -568,7 +568,7 @@ body.reading .sheet.essay {
 .essay-footer {
     margin-top: 3.5rem;
     font-family: var(--prose);
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     color: var(--gloss);
 }
 
