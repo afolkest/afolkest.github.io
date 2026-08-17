@@ -708,7 +708,8 @@ if __name__ == "__main__":
     # Update index page (link locally if we generated pages)
     print(f"Updating {ESSAYS_FILE}...")
     has_local = len(written) > 0
-    if update_essays_html(selected, posts, has_local):
+    posts_by_date = sorted(posts, key=lambda p: p["date_iso"] or "", reverse=True)
+    if update_essays_html(selected, posts_by_date, has_local):
         print("  Done!")
     else:
         print("  Failed to update. Check the markers in essays.html.")
