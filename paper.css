@@ -85,6 +85,11 @@
     /* fine surface tooth */
     --tooth: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='t' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.5' intercept='0.25'/%3E%3CfeFuncG type='linear' slope='0.5' intercept='0.25'/%3E%3CfeFuncB type='linear' slope='0.5' intercept='0.25'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23t)'/%3E%3C/svg%3E");
 
+    /* linen recipe: directional warp/weft plus irregular slub */
+    --linen-warp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='w' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62 0.022' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncG type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncB type='linear' slope='0.45' intercept='0.275'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23w)'/%3E%3C/svg%3E");
+    --linen-weft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='w' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.022 0.62' numOctaves='2' seed='19' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncG type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncB type='linear' slope='0.45' intercept='0.275'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23w)'/%3E%3C/svg%3E");
+    --linen-slub: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='s' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.09' numOctaves='4' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.35' intercept='0.325'/%3E%3CfeFuncG type='linear' slope='0.35' intercept='0.325'/%3E%3CfeFuncB type='linear' slope='0.35' intercept='0.325'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23s)'/%3E%3C/svg%3E");
+
     /* laid ribbing: hard-stop 1px lines, 4px period — flat color, not a gradient */
     --laid-mat: repeating-linear-gradient(180deg,
         rgba(122, 92, 62, 0.03) 0px, rgba(122, 92, 62, 0.03) 1px,
@@ -125,11 +130,19 @@
         rgba(255, 255, 255, 0.006) 1px, rgba(255, 255, 255, 0.006) 2px,
         rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 104px);
 
-    /* Active recipe slots. A future texture only needs to replace these image
-       stacks and its neutral/contrast calibration values. */
-    --mat-texture-image: var(--laid-mat-neutral), var(--chain-mat-neutral), var(--fibre), var(--tooth);
-    --sheet-texture-image: var(--laid-sheet-neutral), var(--chain-sheet-neutral), var(--tooth), var(--fibre);
-    --texture-internal-blend: normal, normal, soft-light, soft-light;
+    /* Recipe image stacks. The tuner swaps these into the active slots below. */
+    --texture-laid-mat-image: var(--laid-mat-neutral), var(--chain-mat-neutral), var(--fibre), var(--tooth);
+    --texture-laid-sheet-image: var(--laid-sheet-neutral), var(--chain-sheet-neutral), var(--tooth), var(--fibre);
+    --texture-grain-mat-image: var(--fibre), var(--tooth);
+    --texture-grain-sheet-image: var(--tooth), var(--fibre);
+    --texture-linen-mat-image: var(--linen-warp), var(--linen-weft), var(--linen-slub);
+    --texture-linen-sheet-image: var(--linen-weft), var(--linen-warp), var(--linen-slub);
+
+    /* Active recipe slots. */
+    --mat-texture-image: var(--texture-laid-mat-image);
+    --sheet-texture-image: var(--texture-laid-sheet-image);
+    --mat-texture-blend: normal, normal, soft-light, soft-light;
+    --sheet-texture-blend: normal, normal, soft-light, soft-light;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -170,7 +183,7 @@ body.home::before {
     pointer-events: none;
     background-color: var(--mat-texture-neutral);
     background-image: var(--mat-texture-image);
-    background-blend-mode: var(--texture-internal-blend);
+    background-blend-mode: var(--mat-texture-blend);
     mix-blend-mode: overlay;
     filter: contrast(var(--mat-texture-contrast));
     opacity: var(--mat-texture-opacity);
@@ -211,7 +224,7 @@ body.home .sheet::before {
     pointer-events: none;
     background-color: var(--sheet-texture-neutral);
     background-image: var(--sheet-texture-image);
-    background-blend-mode: var(--texture-internal-blend);
+    background-blend-mode: var(--sheet-texture-blend);
     mix-blend-mode: overlay;
     filter: contrast(var(--sheet-texture-contrast));
     opacity: var(--sheet-texture-opacity);
