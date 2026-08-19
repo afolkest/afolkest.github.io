@@ -4,238 +4,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art & Music - Åsmund Folkestad</title>
-    <meta name="description" content="Electromagnetic visual arts and choir-based electronic music by Åsmund Folkestad.">
-    <meta property="og:title" content="Art & Music - Åsmund Folkestad">
-    <meta property="og:description" content="Electromagnetic visual arts and choir-based electronic music by Åsmund Folkestad.">
-    <meta property="og:image" content="https://afolkestad.com/images/og-image.jpg">
+    <title>Artworks - Åsmund Folkestad</title>
+    <meta name="description" content="Computational artworks drawn with electromagnetic fields by Åsmund Folkestad.">
+    <meta property="og:title" content="Artworks - Åsmund Folkestad">
+    <meta property="og:description" content="Computational artworks drawn with electromagnetic fields.">
+    <meta property="og:image" content="https://afolkestad.com/images/godisnan_1x.webp">
     <meta property="og:url" content="https://afolkestad.com/art.html">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="theme-color" content="#1a1a1a">
-    <link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesrcset="images/electrogenesis_800.webp 800w, images/electrogenesis_1600.webp 1600w, images/electrogenesis_2200.webp 2200w" imagesizes="(max-width: 1100px) 100vw, 1100px">
-    <link rel="preload" href="/fonts/red-hat-display-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="theme-color" content="#171716">
+    <link rel="canonical" href="https://afolkestad.com/art.html">
+    <link rel="preload" href="/fonts/heliotrope/heliotrope_ot_4_medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/heliotrope/heliotrope_ot_6_semibold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/heliotrope/heliotrope_ot_3_book_italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="canonical" href="https://afolkestad.com/art.html">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-        html{height:100%;scrollbar-gutter:stable}
-        body{font-family:'Red Hat Display',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.6;min-height:100%;display:flex;flex-direction:column}
-        body.dark-page{background-color:#1a1a1a;color:#e0e0e0}
-        main{flex:1}
-        nav{border-bottom:1px solid #333;padding:1rem 0;position:sticky;top:0;z-index:100}
-        body.dark-page nav{background-color:#1a1a1a}
-        .nav-container{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center}
-        .nav-home{font-size:1.5rem;font-weight:600;color:#e0e0e0;text-decoration:none;position:relative}
-        .nav-home .page-label{color:#8a8a8a;font-weight:400;position:absolute;left:100%;white-space:nowrap;padding-left:.3em}
-        .nav-links{display:flex;gap:2rem}
-        .nav-links a{color:#888;text-decoration:none}
-        .nav-links a.active{color:#e0e0e0}
-        .art-page{max-width:1100px;padding-top:0}
-        .art-gallery-vertical{display:flex;flex-direction:column;align-items:center;gap:6rem;padding:4rem 0}
-        .art-piece{display:flex;flex-direction:column;align-items:center}
-        .art-lightbox-btn{background:none;border:none;padding:0;cursor:pointer;display:block}
-        .art-piece img{max-width:100%;max-height:75vh;width:auto;height:auto;display:block;border-radius:4px}
-    </style>
-    <link rel="stylesheet" href="style.css?v=2">
-    <script>
-        if (location.hash === '#music') {
-            history.replaceState(null, '', location.pathname);
-            window.__scrollToMusic = true;
-        }
-    </script>
+    <link rel="stylesheet" href="/paper.css">
 </head>
 
-<body class="dark-page">
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="nav-home">Åsmund Folkestad <span class="page-label">// art</span></a>
-            <div class="nav-links">
-                <a href="index.html">home</a>
-                <a href="about.html">about</a>
-                <a href="research.html">research</a>
-                <a href="art.html" class="active">art</a>
-                <a href="essays.html">essays</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="art-page">
-        <h1 class="sr-only">Art</h1>
-        <section class="art-gallery-vertical">
-            <div class="art-piece">
-                <button type="button" class="art-lightbox-btn" aria-label="View Electrogenesis full size">
-                    <picture>
-                        <source type="image/webp" srcset="images/electrogenesis_800.webp 800w, images/electrogenesis_1600.webp 1600w, images/electrogenesis_2200.webp 2200w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/electrogenesis_2200.jpg" srcset="images/electrogenesis_800.jpg 800w, images/electrogenesis_1600.jpg 1600w, images/electrogenesis_2200.jpg 2200w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Electrogenesis" width="2200" height="1144" fetchpriority="high" style="aspect-ratio: 2200/1144">
-                    </picture>
-                </button>
-                <div class="art-caption">
-                    <h2>Electrogenesis</h2>
-                    <p>I made this image simulating electric fields
-                    around thin sheets of metal. You can see field lines that
-                    always are perpendicular to the shapes, which is a
-                    characteristic feature of metals. This image and the ones
-                    below were made with <a href="https://github.com/afolkest/elliptica">Elliptica</a>, which is an open source
-                    drawing program for painting with the laws of physics that I
-                    am making. </p>
-                </div>
-            </div>
-            <div class="art-piece">
-                <button type="button" class="art-lightbox-btn" aria-label="View David in Electrode full size" style="width: min(100%, calc(75vh * 923 / 1600)); aspect-ratio: 923/1600">
-                    <picture>
-                        <source type="image/webp" srcset="images/david_electrode_800.webp 461w, images/david_electrode_1600.webp 922w" sizes="min(100vw, calc(75vh * 923 / 1600))">
-                        <img src="images/david_electrode_1600.jpg" srcset="images/david_electrode_800.jpg 461w, images/david_electrode_1600.jpg 922w" sizes="min(100vw, calc(75vh * 923 / 1600))" alt="David in Electrode" width="923" height="1600" loading="lazy" style="width: 100%; height: auto; max-height: none">
-                    </picture>
-                </button>
-                <div class="art-caption"><h2>David in Electrode</h2></div>
-            </div>
-            <div class="art-piece">
-                <button type="button" class="art-lightbox-btn" aria-label="View Man vs. Monolith full size">
-                    <picture>
-                        <source type="image/webp" srcset="images/monolith_800.webp 800w, images/monolith_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/monolith_1600.jpg" srcset="images/monolith_800.jpg 800w, images/monolith_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Man vs. Monolith" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
-                    </picture>
-                </button>
-                <div class="art-caption"><h2>Man vs. Monolith</h2></div>
-            </div>
-            <div class="art-piece">
-                <button type="button" class="art-lightbox-btn" aria-label="View Selfportraits full size">
-                    <picture>
-                        <source type="image/webp" srcset="images/selfportraits_800.webp 800w, images/selfportraits_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/selfportraits_1600.jpg" srcset="images/selfportraits_800.jpg 800w, images/selfportraits_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Selfportraits" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
-                    </picture>
-                </button>
-                <div class="art-caption"><h2>Selfportraits</h2></div>
-            </div>
-            <div class="art-piece">
-                <button type="button" class="art-lightbox-btn" aria-label="View Man vs. Annulus full size">
-                    <picture>
-                        <source type="image/webp" srcset="images/annulus_800.webp 800w, images/annulus_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/annulus_1600.jpg" srcset="images/annulus_800.jpg 800w, images/annulus_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Man vs. Annulus" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
-                    </picture>
-                </button>
-                <div class="art-caption"><h2>Man vs. Annulus</h2></div>
-            </div>
-            <div class="art-piece">
-                <button type="button" class="art-lightbox-btn" aria-label="View Sunsets full size">
-                    <picture>
-                        <source type="image/webp" srcset="images/sunsets_opt_800.webp 800w, images/sunsets_opt_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/sunsets_opt_1600.jpg" srcset="images/sunsets_opt_800.jpg 800w, images/sunsets_opt_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Sunsets" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
-                    </picture>
-                </button>
-                <div class="art-caption"><h2>Sunsets</h2></div>
-            </div>
-            <div class="art-piece">
-                <button type="button" class="art-lightbox-btn" aria-label="View Stretch full size">
-                    <picture>
-                        <source type="image/webp" srcset="images/stretch_opt_800.webp 800w, images/stretch_opt_1600.webp 1600w" sizes="(max-width: 1100px) 100vw, 1100px">
-                        <img src="images/stretch_opt_1600.jpg" srcset="images/stretch_opt_800.jpg 800w, images/stretch_opt_1600.jpg 1600w" sizes="(max-width: 1100px) 100vw, 1100px" alt="Stretch" width="1600" height="1600" loading="lazy" style="aspect-ratio: 1/1">
-                    </picture>
-                </button>
-                <div class="art-caption"><h2>Stretch</h2></div>
-            </div>
-        </section>
-
-        <div class="art-essay-callout">
-            <p>I explain the philosophy behind these images in the following essay:</p>
-            <a href="https://extramediumplease.substack.com/p/equations-that-demand-beauty" target="_blank" rel="noopener" class="art-essay-link">
-                <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_center/https://substack-post-media.s3.amazonaws.com/public/images/e50f8608-16d1-4914-98f3-3f8c9367f7bc_2184x1572.jpeg" alt="" width="320" height="213" loading="lazy">
-                <span>Equations that demand beauty</span>
-            </a>
-            <blockquote class="art-essay-excerpt">
-                <p>Green discovered techniques to solve a type of equation that humanity
-                was only then starting to encounter, but which we seem to find in
-                increasingly exotic form each time we improve our theory of nature.
-                Equations telling us not how physical systems evolve with time, but
-                rather what systems are allowed to exist in the first place. A class
-                that becomes more load-bearing the higher you climb, until you reach
-                the highest known peak, quantum gravity, where this type of equation
-                is the only one left—time itself seemingly gone. Equations that lead
-                you to the question:</p>
-                <p class="art-essay-kicker">Is it impossible for the universe not to be filled with beauty?</p>
-            </blockquote>
+<body class="reading art-index-page">
+    <main class="sheet essay">
+        <div class="crumb">
+            <a class="home" href="/" aria-label="Homepage"><span aria-hidden="true">Å</span></a>
         </div>
 
-        <section id="music" class="music-section-dark">
-            <h2>Music</h2>
-            <div class="video-grid">
-                <div class="video-container">
-                    <button class="yt-facade" data-id="XOvvEHv6gjc" aria-label="Play video">
-                        <img src="https://i.ytimg.com/vi/XOvvEHv6gjc/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
-                        <svg class="yt-play" viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
-                    </button>
+        <article class="art-index">
+            <header class="index-header">
+                <h1>Artworks</h1>
+                <p class="index-sub">Computational drawings made by painting with electromagnetic fields in <a href="https://github.com/afolkest/elliptica" target="_blank" rel="noopener">Elliptica</a>.</p>
+            </header>
+
+            <section class="art-catalogue" aria-label="All artworks">
+                <a class="art-entry art-entry-link" id="god-is-nan" href="/art/god-is-nan.html">
+                    <span class="art-preview">
+                        <img src="/images/godisnan_800.webp" srcset="/images/godisnan_800.webp 800w, /images/godisnan_1x.webp 1800w" sizes="(max-width: 48rem) calc(100vw - 3rem), 48rem" alt="God is NaN — a radiant white sun over a cream field, a deep oxblood figure on a ridge, pale blue filaments streaming outward" width="1800" height="1200" fetchpriority="high">
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>God is NaN</strong>
+                        <span class="art-entry-meta">2026</span>
+                        <span class="art-entry-action">View artwork <span aria-hidden="true">→</span></span>
+                    </span>
+                </a>
+
+                <div class="art-entry" id="electrogenesis">
+                    <span class="art-preview">
+                        <img src="/images/electrogenesis_800.webp" alt="Electrogenesis — two figures reaching toward each other through flowing electric field lines" width="800" height="416" loading="lazy">
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>Electrogenesis</strong>
+                    </span>
                 </div>
-                <div class="video-container">
-                    <button class="yt-facade" data-id="KUwe0ldiJhw" aria-label="Play video">
-                        <img src="https://i.ytimg.com/vi/KUwe0ldiJhw/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
-                        <svg class="yt-play" viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
-                    </button>
+
+                <div class="art-entry art-entry-portrait" id="david-in-electrode">
+                    <span class="art-preview">
+                        <img src="/images/david_electrode_800.webp" alt="David in Electrode — a figure formed from blue-violet electric field lines" width="461" height="800" loading="lazy">
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>David in Electrode</strong>
+                    </span>
                 </div>
-            </div>
-        </section>
+
+                <div class="art-entry" id="man-vs-monolith">
+                    <span class="art-preview">
+                        <img src="/images/monolith_800.webp" alt="Man vs. Monolith — a small figure faces a luminous monolith in a dark electric field" width="800" height="800" loading="lazy">
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>Man vs. Monolith</strong>
+                    </span>
+                </div>
+
+                <div class="art-entry" id="selfportraits">
+                    <span class="art-preview">
+                        <img src="/images/selfportraits_800.webp" alt="Selfportraits — a bent figure is threaded through pale blue and violet electric field lines" width="800" height="800" loading="lazy">
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>Selfportraits</strong>
+                    </span>
+                </div>
+
+                <div class="art-entry" id="man-vs-annulus">
+                    <span class="art-preview">
+                        <img src="/images/annulus_800.webp" alt="Man vs. Annulus — a figure confronts a circular form surrounded by electric field lines" width="800" height="800" loading="lazy">
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>Man vs. Annulus</strong>
+                    </span>
+                </div>
+
+                <div class="art-entry" id="sunsets">
+                    <span class="art-preview">
+                        <img src="/images/sunsets_opt_800.webp" alt="Sunsets — luminous circular forms set into dense flowing field lines" width="800" height="800" loading="lazy">
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>Sunsets</strong>
+                    </span>
+                </div>
+
+                <div class="art-entry" id="stretch">
+                    <span class="art-preview">
+                        <img src="/images/stretch_opt_800.webp" alt="Stretch — a crouching figure reaches toward a bright wall through a dark electric field" width="800" height="800" loading="lazy">
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>Stretch</strong>
+                    </span>
+                </div>
+            </section>
+        </article>
     </main>
 
-    <footer>
-        <p></p>
-    </footer>
-    <div class="lightbox" id="lightbox">
-        <img src="" alt="">
-    </div>
-    <script>
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = lightbox.querySelector('img');
-
-        document.querySelectorAll('.art-lightbox-btn').forEach(btn => {
-            const img = btn.querySelector('img');
-            btn.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightboxImg.alt = img.alt;
-                lightbox.classList.add('active');
-            });
-        });
-
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') lightbox.classList.remove('active');
-        });
-
-        // YouTube facade: load iframe on click
-        document.querySelectorAll('.yt-facade').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const iframe = document.createElement('iframe');
-                iframe.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.id + '?autoplay=1';
-                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                iframe.allowFullscreen = true;
-                iframe.title = 'YouTube video player';
-                iframe.style.border = 'none';
-                btn.replaceWith(iframe);
-            });
-        });
-
-        // Smooth scroll to music section if arriving via #music link
-        if (window.__scrollToMusic) {
-            setTimeout(() => {
-                document.getElementById('music').scrollIntoView({ behavior: 'smooth' });
-            }, 300);
-        }
-
-        // Flag for fade transition on destination page
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === location.hostname && !link.href.includes('art.html')) {
-                link.addEventListener('click', () => {
-                    sessionStorage.setItem('from-dark', 'true');
-                });
-            }
-        });
-    </script>
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 

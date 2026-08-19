@@ -8,69 +8,24 @@
     const root = document.documentElement;
     const storageKey = 'afolkestad-homepage-tuner-v1';
 
-    /* Each texture recipe obeys the same neutral-overlay contract. */
+    /* Texture recipes only need neutral CSS layers plus these gain values.
+       A future recipe picker can swap the layer variables and gains without
+       changing the sliders or persistence machinery. */
     const textureRecipes = {
         laidPaper: {
             label: 'Laid paper',
-            mat: {
-                image: 'var(--texture-laid-mat-image)',
-                blend: 'normal, normal, soft-light, soft-light',
-                neutral: 'rgb(101, 101, 101)',
-                contrast: 2,
-                gain: 0.5,
-            },
-            sheet: {
-                image: 'var(--texture-laid-sheet-image)',
-                blend: 'normal, normal, soft-light, soft-light',
-                neutral: 'rgb(100, 100, 100)',
-                contrast: 2,
-                gain: 0.5,
-            },
-        },
-        fineGrain: {
-            label: 'Fine grain',
-            mat: {
-                image: 'var(--texture-grain-mat-image)',
-                blend: 'soft-light, soft-light',
-                neutral: 'rgb(101, 101, 101)',
-                contrast: 2,
-                gain: 0.5,
-            },
-            sheet: {
-                image: 'var(--texture-grain-sheet-image)',
-                blend: 'soft-light, soft-light',
-                neutral: 'rgb(100, 100, 100)',
-                contrast: 2,
-                gain: 0.5,
-            },
-        },
-        linen: {
-            label: 'Linen weave',
-            mat: {
-                image: 'var(--texture-linen-mat-image)',
-                blend: 'soft-light, soft-light, soft-light',
-                neutral: 'rgb(88, 88, 88)',
-                contrast: 2,
-                gain: 0.5,
-            },
-            sheet: {
-                image: 'var(--texture-linen-sheet-image)',
-                blend: 'soft-light, soft-light, soft-light',
-                neutral: 'rgb(87, 87, 87)',
-                contrast: 2,
-                gain: 0.5,
-            },
+            matGain: 0.5,
+            sheetGain: 0.5,
         },
     };
+    const textureRecipe = textureRecipes.laidPaper;
 
     const defaults = {
         headingGap: 0.4,
         listGap: 0,
         sectionGap: 2.82,
         aboutLineHeight: 1.45,
-        matRecipe: 'laidPaper',
         matTexture: 74,
-        sheetRecipe: 'laidPaper',
         sheetTexture: 100,
         matHue: 32.3,
         matSaturation: 43.3,
@@ -93,10 +48,8 @@
         {
             title: 'Paper texture',
             controls: [
-                { key: 'matRecipe', label: 'Outer texture', type: 'select' },
-                { key: 'matTexture', label: 'Outer strength', min: 0, max: 200, step: 1, unit: '%', digits: 0 },
-                { key: 'sheetRecipe', label: 'Center texture', type: 'select' },
-                { key: 'sheetTexture', label: 'Center strength', min: 0, max: 200, step: 1, unit: '%', digits: 0 },
+                { key: 'matTexture', label: 'Outer mat', min: 0, max: 200, step: 1, unit: '%', digits: 0 },
+                { key: 'sheetTexture', label: 'Center sheet', min: 0, max: 200, step: 1, unit: '%', digits: 0 },
             ],
         },
         {
@@ -125,16 +78,11 @@
             const saved = JSON.parse(localStorage.getItem(storageKey));
             if (!saved || typeof saved !== 'object') return { ...defaults };
 
-            const valid = Object.fromEntries(Object.entries(saved).flatMap(([key, value]) => {
-                if (!(key in defaults)) return [];
-                if (typeof defaults[key] === 'number' && Number.isFinite(Number(value))) {
-                    return [[key, Number(value)]];
-                }
-                if (typeof defaults[key] === 'string' && value in textureRecipes) {
-                    return [[key, value]];
-                }
-                return [];
-            }));
+            const valid = Object.fromEntries(
+                Object.entries(saved)
+                    .filter(([key, value]) => key in defaults && Number.isFinite(Number(value)))
+                    .map(([key, value]) => [key, Number(value)])
+            );
             return { ...defaults, ...valid };
         } catch {
             return { ...defaults };
@@ -153,30 +101,13 @@
         return `hsl(${hue} ${saturation}% ${brightness}%)`;
     }
 
-    function getRecipe(key) {
-        return textureRecipes[key] || textureRecipes.laidPaper;
-    }
-
-    function textureOpacity(config, strength) {
-        return Math.min(1, strength / 100 * config.gain);
-    }
-
-    function applyTexture(surface, recipeKey, strength) {
-        const config = getRecipe(recipeKey)[surface];
-        root.style.setProperty(`--${surface}-texture-image`, config.image);
-        root.style.setProperty(`--${surface}-texture-blend`, config.blend);
-        root.style.setProperty(`--${surface}-texture-neutral`, config.neutral);
-        root.style.setProperty(`--${surface}-texture-contrast`, config.contrast);
-        root.style.setProperty(`--${surface}-texture-opacity`, textureOpacity(config, strength));
-    }
-
     function applyState() {
         root.style.setProperty('--home-heading-content-gap', `${state.headingGap}rem`);
         root.style.setProperty('--home-row-padding', `${state.listGap / 2}rem`);
         root.style.setProperty('--home-section-gap', `${state.sectionGap}rem`);
         root.style.setProperty('--home-about-line-height', state.aboutLineHeight);
-        applyTexture('mat', state.matRecipe, state.matTexture);
-        applyTexture('sheet', state.sheetRecipe, state.sheetTexture);
+        root.style.setProperty('--mat-texture-opacity', Math.min(1, state.matTexture / 100 * textureRecipe.matGain));
+        root.style.setProperty('--sheet-texture-opacity', Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain));
         root.style.setProperty('--mat', hsl(state.matHue, state.matSaturation, state.matBrightness));
         root.style.setProperty('--paper', hsl(state.paperHue, state.paperSaturation, state.paperBrightness));
     }
@@ -192,32 +123,6 @@
         const name = document.createElement('span');
         name.className = 'design-tuner__label';
         name.textContent = control.label;
-
-        if (control.type === 'select') {
-            row.classList.add('design-tuner__control--select');
-            const select = document.createElement('select');
-            select.dataset.key = control.key;
-            select.id = `design-tuner-${control.key}`;
-            select.setAttribute('aria-label', control.label);
-
-            Object.entries(textureRecipes).forEach(([value, recipe]) => {
-                const option = document.createElement('option');
-                option.value = value;
-                option.textContent = recipe.label;
-                select.append(option);
-            });
-
-            select.value = state[control.key];
-            select.addEventListener('change', () => {
-                state[control.key] = select.value;
-                applyState();
-                saveState();
-                setStatus(`${control.label} changed`);
-            });
-
-            row.append(name, select);
-            return row;
-        }
 
         const input = document.createElement('input');
         input.type = 'range';
@@ -256,27 +161,14 @@
     }
 
     function exportCss() {
-        const matRecipe = getRecipe(state.matRecipe);
-        const sheetRecipe = getRecipe(state.sheetRecipe);
-        const matConfig = matRecipe.mat;
-        const sheetConfig = sheetRecipe.sheet;
-
         return `/* Values copied from /?tune=1 */
 :root {
     --home-heading-content-gap: ${state.headingGap.toFixed(2)}rem;
     --home-row-padding: ${(state.listGap / 2).toFixed(3)}rem; /* ${state.listGap.toFixed(2)}rem between rows */
     --home-section-gap: ${state.sectionGap.toFixed(2)}rem;
     --home-about-line-height: ${state.aboutLineHeight.toFixed(2)};
-    --mat-texture-image: ${matConfig.image}; /* ${matRecipe.label} */
-    --mat-texture-blend: ${matConfig.blend};
-    --mat-texture-neutral: ${matConfig.neutral};
-    --mat-texture-contrast: ${matConfig.contrast};
-    --mat-texture-opacity: ${textureOpacity(matConfig, state.matTexture).toFixed(3)}; /* ${state.matTexture.toFixed(0)}% */
-    --sheet-texture-image: ${sheetConfig.image}; /* ${sheetRecipe.label} */
-    --sheet-texture-blend: ${sheetConfig.blend};
-    --sheet-texture-neutral: ${sheetConfig.neutral};
-    --sheet-texture-contrast: ${sheetConfig.contrast};
-    --sheet-texture-opacity: ${textureOpacity(sheetConfig, state.sheetTexture).toFixed(3)}; /* ${state.sheetTexture.toFixed(0)}% */
+    --mat-texture-opacity: ${Math.min(1, state.matTexture / 100 * textureRecipe.matGain).toFixed(3)}; /* ${textureRecipe.label}, ${state.matTexture.toFixed(0)}% */
+    --sheet-texture-opacity: ${Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain).toFixed(3)}; /* ${textureRecipe.label}, ${state.sheetTexture.toFixed(0)}% */
     --mat: ${hsl(state.matHue.toFixed(1), state.matSaturation.toFixed(1), state.matBrightness.toFixed(1))};
     --paper: ${hsl(state.paperHue.toFixed(1), state.paperSaturation.toFixed(1), state.paperBrightness.toFixed(1))};
 }`;
@@ -304,10 +196,9 @@
         applyState();
         saveState();
         allControls.forEach(control => {
-            const field = panel.querySelector(`[data-key="${control.key}"]`);
-            field.value = state[control.key];
-            const output = field.nextElementSibling;
-            if (output?.tagName === 'OUTPUT') output.textContent = formatValue(control);
+            const input = panel.querySelector(`input[data-key="${control.key}"]`);
+            input.value = state[control.key];
+            input.nextElementSibling.textContent = formatValue(control);
         });
         setStatus('Reset');
     }
@@ -407,22 +298,6 @@
             margin: 0;
             accent-color: #93381b;
             cursor: ew-resize;
-        }
-
-        .design-tuner__control--select {
-            grid-template-columns: 105px minmax(0, 1fr);
-            padding-bottom: 2px;
-        }
-
-        .design-tuner select {
-            width: 100%;
-            min-width: 0;
-            padding: 3px 5px;
-            border: 1px solid rgba(57, 47, 37, 0.22);
-            border-radius: 4px;
-            color: inherit;
-            background: rgba(255, 255, 255, 0.55);
-            font: inherit;
         }
 
         .design-tuner output {

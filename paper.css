@@ -85,11 +85,6 @@
     /* fine surface tooth */
     --tooth: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='t' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.5' intercept='0.25'/%3E%3CfeFuncG type='linear' slope='0.5' intercept='0.25'/%3E%3CfeFuncB type='linear' slope='0.5' intercept='0.25'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23t)'/%3E%3C/svg%3E");
 
-    /* linen recipe: directional warp/weft plus irregular slub */
-    --linen-warp: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='w' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62 0.022' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncG type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncB type='linear' slope='0.45' intercept='0.275'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23w)'/%3E%3C/svg%3E");
-    --linen-weft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='w' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.022 0.62' numOctaves='2' seed='19' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncG type='linear' slope='0.45' intercept='0.275'/%3E%3CfeFuncB type='linear' slope='0.45' intercept='0.275'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23w)'/%3E%3C/svg%3E");
-    --linen-slub: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='s' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.09' numOctaves='4' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.35' intercept='0.325'/%3E%3CfeFuncG type='linear' slope='0.35' intercept='0.325'/%3E%3CfeFuncB type='linear' slope='0.35' intercept='0.325'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23s)'/%3E%3C/svg%3E");
-
     /* laid ribbing: hard-stop 1px lines, 4px period — flat color, not a gradient */
     --laid-mat: repeating-linear-gradient(180deg,
         rgba(122, 92, 62, 0.03) 0px, rgba(122, 92, 62, 0.03) 1px,
@@ -130,19 +125,11 @@
         rgba(255, 255, 255, 0.006) 1px, rgba(255, 255, 255, 0.006) 2px,
         rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 104px);
 
-    /* Recipe image stacks. The tuner swaps these into the active slots below. */
-    --texture-laid-mat-image: var(--laid-mat-neutral), var(--chain-mat-neutral), var(--fibre), var(--tooth);
-    --texture-laid-sheet-image: var(--laid-sheet-neutral), var(--chain-sheet-neutral), var(--tooth), var(--fibre);
-    --texture-grain-mat-image: var(--fibre), var(--tooth);
-    --texture-grain-sheet-image: var(--tooth), var(--fibre);
-    --texture-linen-mat-image: var(--linen-warp), var(--linen-weft), var(--linen-slub);
-    --texture-linen-sheet-image: var(--linen-weft), var(--linen-warp), var(--linen-slub);
-
-    /* Active recipe slots. */
-    --mat-texture-image: var(--texture-laid-mat-image);
-    --sheet-texture-image: var(--texture-laid-sheet-image);
-    --mat-texture-blend: normal, normal, soft-light, soft-light;
-    --sheet-texture-blend: normal, normal, soft-light, soft-light;
+    /* Active recipe slots. A future texture only needs to replace these image
+       stacks and its neutral/contrast calibration values. */
+    --mat-texture-image: var(--laid-mat-neutral), var(--chain-mat-neutral), var(--fibre), var(--tooth);
+    --sheet-texture-image: var(--laid-sheet-neutral), var(--chain-sheet-neutral), var(--tooth), var(--fibre);
+    --texture-internal-blend: normal, normal, soft-light, soft-light;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -183,7 +170,7 @@ body.home::before {
     pointer-events: none;
     background-color: var(--mat-texture-neutral);
     background-image: var(--mat-texture-image);
-    background-blend-mode: var(--mat-texture-blend);
+    background-blend-mode: var(--texture-internal-blend);
     mix-blend-mode: overlay;
     filter: contrast(var(--mat-texture-contrast));
     opacity: var(--mat-texture-opacity);
@@ -224,7 +211,7 @@ body.home .sheet::before {
     pointer-events: none;
     background-color: var(--sheet-texture-neutral);
     background-image: var(--sheet-texture-image);
-    background-blend-mode: var(--sheet-texture-blend);
+    background-blend-mode: var(--texture-internal-blend);
     mix-blend-mode: overlay;
     filter: contrast(var(--sheet-texture-contrast));
     opacity: var(--sheet-texture-opacity);
@@ -487,6 +474,7 @@ body.reading {
 }
 
 body.reading .sheet.essay {
+    position: relative;
     width: auto;
     max-width: 100rem;
     margin: 0 auto;
@@ -498,39 +486,41 @@ body.reading .sheet.essay {
 .sheet.essay article {
     max-width: 51.5rem;
     margin: 0 auto;
+    padding-top: 3rem;
 }
 
-/* the way home: the name rides along at the top of the page */
+/* The way home lives in the unused reading margin rather than reserving a
+   sticky bar above the article. */
 .crumb {
-    position: sticky;
-    top: 0;
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
     z-index: 10;
-    margin: 0 -3rem 3.6rem;
-    padding: 2.2rem 3rem 0.7rem;
-    background-color: var(--paper);
-    background-image: var(--laid-sheet), var(--chain-sheet), var(--tooth), var(--fibre);
-    background-blend-mode: normal, normal, soft-light, soft-light;
-    /* phase-lock the texture to the viewport so the bar is indistinguishable
-       from the page behind it — the body's own background never scrolls */
-    background-attachment: fixed;
+    width: max-content;
 }
 
 .crumb .home {
-    font-weight: 600;
-    font-size: 1.05rem;
-    letter-spacing: -0.01em;
-    transition: color 0.15s;
-}
-
-.crumb .home .back {
+    display: inline-flex;
+    align-items: center;
     color: var(--gloss);
-    margin-right: 0.45em;
-    transition: color 0.15s;
+    opacity: 0.55;
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -0.025em;
 }
 
-.crumb .home .stop { color: var(--accent); }
-.crumb .home:hover { color: var(--accent); }
-.crumb .home:hover .back { color: var(--accent); }
+/* Once the side margin is too narrow, the link returns to ordinary flow. It
+   still has no sticky background or full-width bar. */
+@media (max-width: 62rem) {
+    .crumb {
+        position: static;
+        margin-left: -1.5rem;
+        padding-top: 1.5rem;
+    }
+
+    .sheet.essay article { padding-top: 2.25rem; }
+}
 
 /* ---------- essay header ---------- */
 
@@ -783,6 +773,280 @@ body.reading .sheet.essay {
 .index-list .t { font-size: 1.22rem; }
 .index-list .meta { font-size: 1.1rem; }
 .index-list .meta.yr { flex: none; }
+
+/* ================= artwork index ================= */
+
+/* Artworks leave the reading-paper environment for a dark, neutral gallery.
+   The variables stay scoped so essays and the homepage keep their paper ink. */
+body.art-index-page,
+body.artwork-detail-page {
+    --paper: #171716;
+    --ink: #e4dfd6;
+    --ink-2: #d5d0c7;
+    --ink-mid: #aaa49b;
+    --ink-quiet: #87827a;
+    --gloss: #6f6b64;
+    --accent: #c17b63;
+    background-color: var(--paper);
+    background-image: none;
+}
+
+body.art-index-page .crumb .home,
+body.artwork-detail-page .crumb .home {
+    color: #8b867e;
+    opacity: 0.62;
+}
+
+.sheet.essay article.art-index { max-width: 64rem; }
+
+.art-catalogue { margin-top: 4.5rem; }
+
+.art-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 13rem;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 5.5rem;
+    scroll-margin-top: 3rem;
+}
+
+.art-entry:first-child { margin-top: 0; }
+
+.art-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+}
+
+.art-preview img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 30rem;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.035),
+        0 5px 14px rgba(0, 0, 0, 0.25),
+        0 18px 38px rgba(0, 0, 0, 0.19);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.art-entry-caption {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    font-style: normal;
+}
+
+.art-entry-caption strong {
+    font-size: 1.32rem;
+    font-weight: 400;
+    letter-spacing: -0.008em;
+    line-height: 1.25;
+    color: var(--ink);
+    transition: color 0.15s;
+}
+
+.art-entry-meta {
+    margin-top: 0.25rem;
+    font-size: 1.05rem;
+    color: var(--gloss);
+}
+
+.art-entry-action {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: var(--gloss);
+    transition: color 0.15s;
+}
+
+.art-entry-action span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.art-entry-link:hover .art-preview img {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 8px 19px rgba(0, 0, 0, 0.29),
+        0 24px 48px rgba(0, 0, 0, 0.22);
+}
+
+.art-entry-link:hover .art-entry-caption strong,
+.art-entry-link:hover .art-entry-action { color: var(--accent); }
+.art-entry-link:hover .art-entry-action span { transform: translateX(4px); }
+
+/* ================= individual artwork pages ================= */
+
+.sheet.essay article.artwork-detail {
+    max-width: 78rem;
+    padding-top: 2.5rem;
+}
+
+.artwork-hero { margin: 0; }
+
+.artwork-stage {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.artwork-arrow {
+    display: grid;
+    place-items: center;
+    flex: 1 1 0;
+    align-self: stretch;
+    min-width: 3rem;
+    color: #aaa59d;
+    opacity: 0.42;
+    font-size: 1.55rem;
+    line-height: 1;
+    transition: color 0.15s, opacity 0.15s;
+}
+
+.artwork-arrow span {
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.artwork-arrow:hover { color: var(--ink); opacity: 0.9; }
+.artwork-arrow-previous:hover span { transform: translateX(-3px); }
+.artwork-arrow-next:hover span { transform: translateX(3px); }
+
+.artwork-image-link {
+    display: flex;
+    justify-content: center;
+    width: min(calc(100% - 7.5rem), var(--artwork-width, 72svh));
+    cursor: zoom-in;
+}
+
+.artwork-image-link img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 72svh;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.035),
+        0 7px 18px rgba(0, 0, 0, 0.31),
+        0 24px 52px rgba(0, 0, 0, 0.25);
+}
+
+.artwork-caption {
+    max-width: 51.5rem;
+    margin: 1.25rem auto 0;
+    font-style: normal;
+    color: var(--ink);
+}
+
+.artwork-caption h1 {
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: -0.008em;
+    line-height: 1.2;
+    color: var(--ink-mid);
+}
+
+.artwork-year {
+    margin-left: 0.25em;
+    font-size: 0.88em;
+    font-weight: 400;
+    color: var(--gloss);
+}
+
+.artwork-description {
+    max-width: 39rem;
+    margin-top: 0.85rem;
+    font-family: var(--prose);
+    font-size: 1.06rem;
+    line-height: 1.55;
+    color: var(--ink-quiet);
+}
+
+.artwork-description a { color: var(--accent); transition: color 0.15s; }
+.artwork-description a:hover { color: #dda28d; }
+
+.artwork-return {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--gloss);
+}
+
+.artwork-return a { transition: color 0.15s; }
+.artwork-return a:hover { color: var(--ink-mid); }
+
+@media (max-width: 48rem) {
+    body.art-index-page .sheet.essay,
+    body.artwork-detail-page .sheet.essay { padding: 0 1.5rem 5rem; }
+
+    .art-catalogue { margin-top: 3.5rem; }
+
+    .art-entry {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+        margin-top: 4.5rem;
+    }
+
+    .art-preview { justify-content: flex-start; }
+
+    .art-preview img {
+        width: 100%;
+        max-height: none;
+    }
+
+    .art-entry-portrait .art-preview { justify-content: center; }
+
+    .art-entry-portrait .art-preview img {
+        width: auto;
+        max-width: 72%;
+        max-height: 76svh;
+    }
+
+    .art-entry-action { margin-top: 0.65rem; }
+
+    .sheet.essay article.artwork-detail { padding-top: 2.25rem; }
+
+    .artwork-stage { display: block; }
+
+    .artwork-image-link {
+        width: 100%;
+        max-width: none;
+    }
+
+    .artwork-image-link img { max-height: none; }
+
+    .artwork-arrow {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 2;
+        width: 3rem;
+        height: auto;
+        min-width: 0;
+        border-radius: 0;
+        color: rgba(240, 236, 228, 0.82);
+        opacity: 0.62;
+    }
+
+    .artwork-arrow-previous {
+        left: 0;
+        background: linear-gradient(90deg, rgba(10, 10, 9, 0.24), transparent);
+    }
+
+    .artwork-arrow-next {
+        right: 0;
+        background: linear-gradient(270deg, rgba(10, 10, 9, 0.24), transparent);
+    }
+
+    .artwork-caption { margin-top: 1.05rem; }
+
+    .artwork-caption h1 { font-size: 1.12rem; }
+
+    .artwork-description { font-size: 1.03rem; }
+}
 
 /* publications */
 .pub { margin-bottom: 1.4rem; }
