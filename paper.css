@@ -52,14 +52,28 @@
 }
 
 :root {
-    --mat: hsl(32.3 43.3% 76.5%);      /* peach-clay laid paper */
-    --paper: hsl(38.2 52.4% 91.8%);    /* cream sheet */
-    --ink: #1b1815;
-    --ink-2: #2a2621;
-    --ink-mid: #5d564d;
-    --ink-quiet: #635b4f;
-    --gloss: #a39a88;
-    --accent: #93381b;
+    /* Paper color scheme. These seven roles are the palette-editing surface;
+       component rules below should not introduce their own opaque colors. */
+    --color-canvas: hsl(32.3 43.3% 76.5%);   /* page surround */
+    --color-surface: hsl(38.2 52.4% 91.8%);  /* reading sheet */
+    --color-text-primary: #1b1815;
+    --color-text-secondary: #5d564d;
+    --color-text-muted: #635b4f;
+    --color-text-subtle: #a39a88;
+    --color-accent: #93381b;
+    --color-accent-hover: color-mix(
+        in srgb,
+        var(--color-accent) 70%,
+        var(--color-text-primary)
+    );
+
+    /* Material-effect ingredients. Alpha remains local to each shadow or
+       texture layer, while its hue lives here with the color scheme. */
+    --rgb-texture-dark: 122 92 62;
+    --rgb-texture-light: 255 252 244;
+    --rgb-shadow: 94 70 46;
+    --rgb-neutral-dark: 0 0 0;
+    --rgb-neutral-light: 255 255 255;
     --serif: 'Heliotrope OT', Georgia, serif;
 
     /* Homepage rhythm and material controls. The development tuner temporarily
@@ -87,49 +101,68 @@
 
     /* laid ribbing: hard-stop 1px lines, 4px period — flat color, not a gradient */
     --laid-mat: repeating-linear-gradient(180deg,
-        rgba(122, 92, 62, 0.03) 0px, rgba(122, 92, 62, 0.03) 1px,
-        rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 2px,
-        rgba(255, 249, 238, 0.025) 2px, rgba(255, 249, 238, 0.025) 3px,
-        rgba(0, 0, 0, 0) 3px, rgba(0, 0, 0, 0) 4px);
+        rgb(var(--rgb-texture-dark) / 0.03) 0px, rgb(var(--rgb-texture-dark) / 0.03) 1px,
+        rgb(var(--rgb-neutral-dark) / 0) 1px, rgb(var(--rgb-neutral-dark) / 0) 2px,
+        rgb(var(--rgb-texture-light) / 0.025) 2px, rgb(var(--rgb-texture-light) / 0.025) 3px,
+        rgb(var(--rgb-neutral-dark) / 0) 3px, rgb(var(--rgb-neutral-dark) / 0) 4px);
     /* chain lines: the widely-spaced perpendicular wires of the mould */
     --chain-mat: repeating-linear-gradient(90deg,
-        rgba(122, 92, 62, 0.02) 0px, rgba(122, 92, 62, 0.02) 1px,
-        rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 104px);
+        rgb(var(--rgb-texture-dark) / 0.02) 0px, rgb(var(--rgb-texture-dark) / 0.02) 1px,
+        rgb(var(--rgb-neutral-dark) / 0) 1px, rgb(var(--rgb-neutral-dark) / 0) 104px);
     --laid-sheet: repeating-linear-gradient(180deg,
-        rgba(122, 92, 62, 0.008) 0px, rgba(122, 92, 62, 0.008) 1px,
-        rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 2px,
-        rgba(255, 252, 244, 0.01) 2px, rgba(255, 252, 244, 0.01) 3px,
-        rgba(0, 0, 0, 0) 3px, rgba(0, 0, 0, 0) 4px);
+        rgb(var(--rgb-texture-dark) / 0.008) 0px, rgb(var(--rgb-texture-dark) / 0.008) 1px,
+        rgb(var(--rgb-neutral-dark) / 0) 1px, rgb(var(--rgb-neutral-dark) / 0) 2px,
+        rgb(var(--rgb-texture-light) / 0.01) 2px, rgb(var(--rgb-texture-light) / 0.01) 3px,
+        rgb(var(--rgb-neutral-dark) / 0) 3px, rgb(var(--rgb-neutral-dark) / 0) 4px);
     --chain-sheet: repeating-linear-gradient(90deg,
-        rgba(122, 92, 62, 0.006) 0px, rgba(122, 92, 62, 0.006) 1px,
-        rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 104px);
+        rgb(var(--rgb-texture-dark) / 0.006) 0px, rgb(var(--rgb-texture-dark) / 0.006) 1px,
+        rgb(var(--rgb-neutral-dark) / 0) 1px, rgb(var(--rgb-neutral-dark) / 0) 104px);
 
     /* Neutral laid-paper recipe used by the homepage tuner. Dark and light
        marks are paired around 50% gray so gain does not also become color. */
     --laid-mat-neutral: repeating-linear-gradient(180deg,
-        rgba(0, 0, 0, 0.0275) 0px, rgba(0, 0, 0, 0.0275) 1px,
-        rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 2px,
-        rgba(255, 255, 255, 0.0275) 2px, rgba(255, 255, 255, 0.0275) 3px,
-        rgba(0, 0, 0, 0) 3px, rgba(0, 0, 0, 0) 4px);
+        rgb(var(--rgb-neutral-dark) / 0.0275) 0px, rgb(var(--rgb-neutral-dark) / 0.0275) 1px,
+        rgb(var(--rgb-neutral-dark) / 0) 1px, rgb(var(--rgb-neutral-dark) / 0) 2px,
+        rgb(var(--rgb-neutral-light) / 0.0275) 2px, rgb(var(--rgb-neutral-light) / 0.0275) 3px,
+        rgb(var(--rgb-neutral-dark) / 0) 3px, rgb(var(--rgb-neutral-dark) / 0) 4px);
     --chain-mat-neutral: repeating-linear-gradient(90deg,
-        rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 1px,
-        rgba(255, 255, 255, 0.02) 1px, rgba(255, 255, 255, 0.02) 2px,
-        rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 104px);
+        rgb(var(--rgb-neutral-dark) / 0.02) 0px, rgb(var(--rgb-neutral-dark) / 0.02) 1px,
+        rgb(var(--rgb-neutral-light) / 0.02) 1px, rgb(var(--rgb-neutral-light) / 0.02) 2px,
+        rgb(var(--rgb-neutral-dark) / 0) 2px, rgb(var(--rgb-neutral-dark) / 0) 104px);
     --laid-sheet-neutral: repeating-linear-gradient(180deg,
-        rgba(0, 0, 0, 0.009) 0px, rgba(0, 0, 0, 0.009) 1px,
-        rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 2px,
-        rgba(255, 255, 255, 0.009) 2px, rgba(255, 255, 255, 0.009) 3px,
-        rgba(0, 0, 0, 0) 3px, rgba(0, 0, 0, 0) 4px);
+        rgb(var(--rgb-neutral-dark) / 0.009) 0px, rgb(var(--rgb-neutral-dark) / 0.009) 1px,
+        rgb(var(--rgb-neutral-dark) / 0) 1px, rgb(var(--rgb-neutral-dark) / 0) 2px,
+        rgb(var(--rgb-neutral-light) / 0.009) 2px, rgb(var(--rgb-neutral-light) / 0.009) 3px,
+        rgb(var(--rgb-neutral-dark) / 0) 3px, rgb(var(--rgb-neutral-dark) / 0) 4px);
     --chain-sheet-neutral: repeating-linear-gradient(90deg,
-        rgba(0, 0, 0, 0.006) 0px, rgba(0, 0, 0, 0.006) 1px,
-        rgba(255, 255, 255, 0.006) 1px, rgba(255, 255, 255, 0.006) 2px,
-        rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 104px);
+        rgb(var(--rgb-neutral-dark) / 0.006) 0px, rgb(var(--rgb-neutral-dark) / 0.006) 1px,
+        rgb(var(--rgb-neutral-light) / 0.006) 1px, rgb(var(--rgb-neutral-light) / 0.006) 2px,
+        rgb(var(--rgb-neutral-dark) / 0) 2px, rgb(var(--rgb-neutral-dark) / 0) 104px);
 
     /* Active recipe slots. A future texture only needs to replace these image
        stacks and its neutral/contrast calibration values. */
     --mat-texture-image: var(--laid-mat-neutral), var(--chain-mat-neutral), var(--fibre), var(--tooth);
     --sheet-texture-image: var(--laid-sheet-neutral), var(--chain-sheet-neutral), var(--tooth), var(--fibre);
     --texture-internal-blend: normal, normal, soft-light, soft-light;
+}
+
+/* Gallery color scheme. Keeping the same roles makes the gallery a theme,
+   rather than a parallel set of component-specific colors. */
+body.art-index-page,
+body.artwork-detail-page {
+    --color-canvas: #171716;
+    --color-surface: #171716;
+    --color-text-primary: #e4dfd6;
+    --color-text-secondary: #aaa49b;
+    --color-text-muted: #87827a;
+    --color-text-subtle: #6f6b64;
+    --color-accent: #c17b63;
+    --color-accent-hover: color-mix(
+        in srgb,
+        var(--color-accent) 70%,
+        var(--color-text-primary)
+    );
+    --rgb-shadow: 0 0 0;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -155,8 +188,8 @@ body {
     font-size: 1.1rem;
     line-height: 1.5;
     font-synthesis: none;
-    color: var(--ink);
-    background-color: var(--mat);
+    color: var(--color-text-primary);
+    background-color: var(--color-canvas);
     /* flat clay + ribbing + chains + fibre + tooth — no gradients */
     background-image: var(--laid-mat), var(--chain-mat), var(--fibre), var(--tooth);
     background-blend-mode: normal, normal, soft-light, soft-light;
@@ -190,7 +223,7 @@ body.home::before {
 
 body.home > .sheet { z-index: 1; }
 
-::selection { background: var(--accent); color: var(--paper); }
+::selection { background: var(--color-accent); color: var(--color-surface); }
 
 a { color: inherit; text-decoration: none; }
 
@@ -201,14 +234,14 @@ a { color: inherit; text-decoration: none; }
     width: 67rem;
     max-width: 100%;
     margin: auto;
-    background-color: var(--paper);
+    background-color: var(--color-surface);
     background-image: var(--laid-sheet), var(--chain-sheet), var(--tooth), var(--fibre);
     background-blend-mode: normal, normal, soft-light, soft-light;
     padding: 6rem 4.25rem 6.25rem;
     box-shadow:
-        0 1px 2px rgba(94, 70, 46, 0.24),
-        0 5px 12px rgba(94, 70, 46, 0.15),
-        0 16px 34px rgba(94, 70, 46, 0.13);
+        0 1px 2px rgb(var(--rgb-shadow) / 0.24),
+        0 5px 12px rgb(var(--rgb-shadow) / 0.15),
+        0 16px 34px rgb(var(--rgb-shadow) / 0.13);
 }
 
 body.home .sheet {
@@ -246,21 +279,21 @@ h1 {
     font-weight: 600;
     letter-spacing: -0.022em;
     line-height: 1.0;
-    color: var(--ink);
+    color: var(--color-text-primary);
 }
 
-h1 .stop { color: var(--accent); }
+h1 .stop { color: var(--color-accent); }
 
 .contact {
     margin-top: 1.15rem;
     font-size: 1.02rem;
     line-height: 1.7;
-    color: var(--ink-mid);
+    color: var(--color-text-secondary);
 }
 
 .contact a { transition: color 0.15s; }
-.contact a:hover { color: var(--accent); }
-.contact .dot { color: var(--accent); margin: 0 0.42em; }
+.contact a:hover { color: var(--color-accent); }
+.contact .dot { color: var(--color-accent); margin: 0 0.42em; }
 
 /* ---------- sections ---------- */
 
@@ -282,7 +315,7 @@ h2 {
     font-weight: 600;
     letter-spacing: -0.008em;
     line-height: 1.2;
-    color: var(--ink-2);
+    color: var(--color-text-primary);
 }
 
 /* clickable heads: "all …" runs inline after the headline, quiet until hover */
@@ -296,7 +329,7 @@ h2 {
 
 .head .all {
     font-size: 1.02rem;
-    color: var(--gloss);
+    color: var(--color-text-subtle);
     white-space: nowrap;
     transition: color 0.15s;
 }
@@ -306,25 +339,25 @@ h2 {
     transition: transform 0.2s ease;
 }
 
-.head a:hover h2 { color: var(--accent); }
-.head a:hover .all { color: var(--ink-mid); }
+.head a:hover h2 { color: var(--color-accent); }
+.head a:hover .all { color: var(--color-text-secondary); }
 .head a:hover .all .arrow { transform: translateX(4px); }
 
 .more {
     font-size: 1.02rem;
-    color: var(--ink-quiet);
+    color: var(--color-text-muted);
     white-space: nowrap;
     transition: color 0.15s;
 }
 
 .more .arrow {
     display: inline-block;
-    color: var(--accent);
+    color: var(--color-accent);
     margin-left: 0.15em;
     transition: transform 0.2s ease;
 }
 
-.more:hover { color: var(--accent); }
+.more:hover { color: var(--color-accent); }
 .more:hover .arrow { transform: translateX(4px); }
 
 /* the "all …" link closes its section as a final line */
@@ -338,7 +371,7 @@ h2 {
 .about p {
     font-size: 1.11rem;
     line-height: var(--home-about-line-height);
-    color: var(--ink);
+    color: var(--color-text-primary);
 }
 
 .about p + p { margin-top: 0.85rem; }
@@ -347,7 +380,7 @@ h2 {
 .about .keep { white-space: nowrap; }
 
 .about a { transition: color 0.15s; }
-.about a:hover { color: var(--accent); }
+.about a:hover { color: var(--color-accent); }
 
 /* ---------- list rows ---------- */
 
@@ -365,40 +398,40 @@ h2 {
 .t {
     font-size: 1.1rem;
     font-weight: 400;
-    color: var(--ink);
+    color: var(--color-text-primary);
     white-space: nowrap;
     transition: color 0.15s;
 }
 
 .meta {
     font-size: 1rem;
-    color: var(--ink-quiet);
+    color: var(--color-text-muted);
     white-space: nowrap;
     transition: color 0.15s;
 }
 
-.meta.gloss { font-style: italic; color: var(--gloss); }
+.meta.gloss { font-style: italic; color: var(--color-text-subtle); }
 
 /* papers: venue runs inline after the title; the title yields if space runs out */
 .row.squeeze-title .t { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.row.squeeze-title .meta { flex: none; color: var(--gloss); }
+.row.squeeze-title .meta { flex: none; color: var(--color-text-subtle); }
 
 /* essays, software: the gloss runs inline after the title, quiet until hover */
 .row.squeeze-meta .t { flex: none; }
 .row.squeeze-meta .meta { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 
-.row:hover .t { color: var(--accent); }
-.row:hover .meta { color: var(--ink-mid); }
+.row:hover .t { color: var(--color-accent); }
+.row:hover .meta { color: var(--color-text-secondary); }
 
 /* the two tracks share one gloss, set beneath them */
 .stack a.t { display: block; padding: 0.17rem 0; }
-a.t:hover { color: var(--accent); }
+a.t:hover { color: var(--color-accent); }
 .stack .gloss { display: block; padding-top: 0.3rem; }
 
 .ext::after {
     content: "↗";
     font-size: 0.68em;
-    color: var(--accent);
+    color: var(--color-accent);
     margin-left: 0.15em;
     vertical-align: 0.18em;
 }
@@ -411,9 +444,9 @@ a.t:hover { color: var(--accent); }
 .mount {
     display: block;
     box-shadow:
-        0 1px 2px rgba(84, 60, 38, 0.20),
-        0 5px 11px rgba(84, 60, 38, 0.13),
-        0 14px 28px rgba(84, 60, 38, 0.10);
+        0 1px 2px rgb(var(--rgb-shadow) / 0.20),
+        0 5px 11px rgb(var(--rgb-shadow) / 0.13),
+        0 14px 28px rgb(var(--rgb-shadow) / 0.10);
     transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
@@ -422,22 +455,22 @@ a.t:hover { color: var(--accent); }
 .plate:hover .mount {
     transform: translateY(-2px);
     box-shadow:
-        0 1px 2px rgba(84, 60, 38, 0.22),
-        0 7px 16px rgba(84, 60, 38, 0.15),
-        0 20px 40px rgba(84, 60, 38, 0.12);
+        0 1px 2px rgb(var(--rgb-shadow) / 0.22),
+        0 7px 16px rgb(var(--rgb-shadow) / 0.15),
+        0 20px 40px rgb(var(--rgb-shadow) / 0.12);
 }
 
 figcaption {
     margin-top: 0.85rem;
     font-size: 1.08rem;
     font-style: italic;
-    color: var(--ink);
+    color: var(--color-text-primary);
     transition: color 0.15s;
 }
 
-figcaption .meta { font-style: normal; color: var(--gloss); margin-left: 0.3em; }
+figcaption .meta { font-style: normal; color: var(--color-text-subtle); margin-left: 0.3em; }
 
-.plate:hover figcaption { color: var(--accent); }
+.plate:hover figcaption { color: var(--color-accent); }
 
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
@@ -480,7 +513,7 @@ figcaption .meta { font-style: normal; color: var(--gloss); margin-left: 0.3em; 
 
 /* reading pages: no sheet-on-mat — the page IS the paper */
 body.reading {
-    background-color: var(--paper);
+    background-color: var(--color-surface);
     background-image: var(--laid-sheet), var(--chain-sheet), var(--tooth), var(--fibre);
     background-blend-mode: normal, normal, soft-light, soft-light;
     display: block;
@@ -518,7 +551,7 @@ body.reading .sheet.essay {
     align-items: center;
     padding: 1rem;
     margin: -1rem;
-    color: var(--gloss);
+    color: var(--color-text-subtle);
     opacity: 0.55;
     font-weight: 400;
     font-size: 2rem;
@@ -545,7 +578,7 @@ body.reading .sheet.essay {
     font-weight: 600;
     letter-spacing: -0.016em;
     line-height: 1.12;
-    color: var(--ink);
+    color: var(--color-text-primary);
 }
 
 .essay-subtitle {
@@ -553,7 +586,7 @@ body.reading .sheet.essay {
     font-style: italic;
     font-size: 1.58rem;
     line-height: 1.5;
-    color: var(--ink-mid);
+    color: var(--color-text-secondary);
     margin-top: 0.6rem;
 }
 
@@ -561,7 +594,7 @@ body.reading .sheet.essay {
     display: block;
     margin-top: 0.7rem;
     font-size: 1.15rem;
-    color: var(--gloss);
+    color: var(--color-text-subtle);
 }
 
 /* ---------- essay body ---------- */
@@ -575,8 +608,8 @@ body.reading .sheet.essay {
 
 .essay-body p { margin: 0 0 1.05em; }
 
-.essay-body a { color: var(--accent); transition: color 0.15s; }
-.essay-body a:hover { color: #5f230f; }
+.essay-body a { color: var(--color-accent); transition: color 0.15s; }
+.essay-body a:hover { color: var(--color-accent-hover); }
 
 .essay-body h2 {
     font-family: var(--serif);
@@ -584,7 +617,7 @@ body.reading .sheet.essay {
     font-weight: 600;
     letter-spacing: -0.008em;
     line-height: 1.25;
-    color: var(--ink-2);
+    color: var(--color-text-primary);
     margin: 2.2rem 0 0.8rem;
 }
 
@@ -592,13 +625,13 @@ body.reading .sheet.essay {
     font-family: var(--serif);
     font-size: 1.55rem;
     font-weight: 600;
-    color: var(--ink-2);
+    color: var(--color-text-primary);
     margin: 1.8rem 0 0.6rem;
 }
 
 .essay-body blockquote {
     margin: 1.3rem 0 1.3rem 1.6rem;
-    color: var(--ink-mid);
+    color: var(--color-text-secondary);
 }
 
 .essay-body hr {
@@ -609,7 +642,7 @@ body.reading .sheet.essay {
 
 .essay-body hr::after {
     content: "· · ·";
-    color: var(--ink-quiet);
+    color: var(--color-text-muted);
     letter-spacing: 0.6em;
 }
 
@@ -658,14 +691,14 @@ body.reading .sheet.essay {
     padding: 1rem 1.1rem;
     margin: 1.5em 0;
     color: inherit;
-    background-color: rgba(122, 92, 62, 0.05);
-    border: 1px solid rgba(122, 92, 62, 0.16);
+    background-color: rgb(var(--rgb-texture-dark) / 0.05);
+    border: 1px solid rgb(var(--rgb-texture-dark) / 0.16);
     transition: background-color 0.2s, border-color 0.2s;
 }
 
 .essay-body .essay-embed-card:hover {
-    background-color: rgba(122, 92, 62, 0.08);
-    border-color: rgba(122, 92, 62, 0.28);
+    background-color: rgb(var(--rgb-texture-dark) / 0.08);
+    border-color: rgb(var(--rgb-texture-dark) / 0.28);
 }
 
 .essay-embed-card img { width: 100px; height: auto; flex-shrink: 0; }
@@ -676,12 +709,12 @@ body.reading .sheet.essay {
     font-family: var(--serif);
     font-weight: 600;
     font-size: 1.25rem;
-    color: var(--ink-2);
+    color: var(--color-text-primary);
 }
 
 .essay-embed-card-text p {
     font-size: 1.15rem;
-    color: var(--ink-mid);
+    color: var(--color-text-secondary);
     line-height: 1.45;
     margin: 0;
 }
@@ -692,36 +725,36 @@ body.reading .sheet.essay {
     gap: 0.6rem;
     padding: 1rem 1.2rem;
     margin: 1.5em 0;
-    border: 1px dashed rgba(122, 92, 62, 0.35);
-    color: var(--ink-mid);
+    border: 1px dashed rgb(var(--rgb-texture-dark) / 0.35);
+    color: var(--color-text-secondary);
     font-size: 1.25rem;
     transition: background-color 0.2s, border-color 0.2s;
 }
 
 .essay-body .essay-media-placeholder:hover {
-    background-color: rgba(122, 92, 62, 0.05);
-    border-color: rgba(122, 92, 62, 0.55);
-    color: var(--ink-2);
+    background-color: rgb(var(--rgb-texture-dark) / 0.05);
+    border-color: rgb(var(--rgb-texture-dark) / 0.55);
+    color: var(--color-text-primary);
 }
 
-.essay-media-icon { font-size: 1.25rem; color: var(--accent); }
+.essay-media-icon { font-size: 1.25rem; color: var(--color-accent); }
 
 .essay-figure figcaption {
     margin-top: 0.55rem;
     font-size: 1.2rem;
     font-style: italic;
-    color: var(--ink-quiet);
+    color: var(--color-text-muted);
 }
 
 .essay-footer {
     margin-top: 3.5rem;
     font-family: var(--prose);
     font-size: 1.25rem;
-    color: var(--gloss);
+    color: var(--color-text-subtle);
 }
 
-.essay-footer a { color: var(--ink-quiet); transition: color 0.15s; }
-.essay-footer a:hover { color: var(--accent); }
+.essay-footer a { color: var(--color-text-muted); transition: color 0.15s; }
+.essay-footer a:hover { color: var(--color-accent); }
 
 /* ================= index pages (essays, research) ================= */
 
@@ -730,17 +763,17 @@ body.reading .sheet.essay {
     font-weight: 600;
     letter-spacing: -0.022em;
     line-height: 1.05;
-    color: var(--ink);
+    color: var(--color-text-primary);
 }
 
 .index-sub {
     margin-top: 0.8rem;
     font-size: 1.15rem;
-    color: var(--ink-mid);
+    color: var(--color-text-secondary);
 }
 
-.index-sub a { color: var(--accent); transition: color 0.15s; }
-.index-sub a:hover { color: #5f230f; }
+.index-sub a { color: var(--color-accent); transition: color 0.15s; }
+.index-sub a:hover { color: var(--color-accent-hover); }
 
 .index-section { margin-top: 3rem; }
 
@@ -748,7 +781,7 @@ body.reading .sheet.essay {
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: -0.008em;
-    color: var(--ink-2);
+    color: var(--color-text-primary);
     margin-bottom: 1.1rem;
 }
 
@@ -769,20 +802,20 @@ body.reading .sheet.essay {
     font-weight: 600;
     letter-spacing: -0.008em;
     line-height: 1.25;
-    color: var(--ink);
+    color: var(--color-text-primary);
     transition: color 0.15s;
 }
 
-.pick:hover .pick-text strong { color: var(--accent); }
+.pick:hover .pick-text strong { color: var(--color-accent); }
 
 .pick-gloss {
     font-style: italic;
     font-size: 1.12rem;
     line-height: 1.45;
-    color: var(--ink-quiet);
+    color: var(--color-text-muted);
 }
 
-.pick-date { font-size: 1.02rem; color: var(--gloss); }
+.pick-date { font-size: 1.02rem; color: var(--color-text-subtle); }
 
 /* all-essays rows: homepage grammar, scaled for the reading page */
 .index-list .row { padding: 0.3rem 0; }
@@ -792,24 +825,16 @@ body.reading .sheet.essay {
 
 /* ================= artwork index ================= */
 
-/* Artworks leave the reading-paper environment for a dark, neutral gallery.
-   The variables stay scoped so essays and the homepage keep their paper ink. */
+/* Artworks leave the reading-paper environment for a dark, neutral gallery. */
 body.art-index-page,
 body.artwork-detail-page {
-    --paper: #171716;
-    --ink: #e4dfd6;
-    --ink-2: #d5d0c7;
-    --ink-mid: #aaa49b;
-    --ink-quiet: #87827a;
-    --gloss: #6f6b64;
-    --accent: #c17b63;
-    background-color: var(--paper);
+    background-color: var(--color-surface);
     background-image: none;
 }
 
 body.art-index-page .crumb .home,
 body.artwork-detail-page .crumb .home {
-    color: #8b867e;
+    color: var(--color-text-muted);
     opacity: 0.62;
 }
 
@@ -842,9 +867,9 @@ body.artwork-detail-page .crumb .home {
     max-width: min(100%, 45rem);
     max-height: 30rem;
     box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.035),
-        0 5px 14px rgba(0, 0, 0, 0.25),
-        0 18px 38px rgba(0, 0, 0, 0.19);
+        0 0 0 1px rgb(var(--rgb-neutral-light) / 0.035),
+        0 5px 14px rgb(var(--rgb-shadow) / 0.25),
+        0 18px 38px rgb(var(--rgb-shadow) / 0.19);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -861,20 +886,20 @@ body.artwork-detail-page .crumb .home {
     font-weight: 400;
     letter-spacing: -0.008em;
     line-height: 1.25;
-    color: var(--ink);
+    color: var(--color-text-primary);
     transition: color 0.15s;
 }
 
 .art-entry-meta {
     margin-top: 0.25rem;
     font-size: 1.05rem;
-    color: var(--gloss);
+    color: var(--color-text-subtle);
 }
 
 .art-entry-action {
     margin-top: 1rem;
     font-size: 1rem;
-    color: var(--gloss);
+    color: var(--color-text-subtle);
     transition: color 0.15s;
 }
 
@@ -886,13 +911,13 @@ body.artwork-detail-page .crumb .home {
 .art-entry-link:hover .art-preview img {
     transform: translateY(-2px);
     box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.05),
-        0 8px 19px rgba(0, 0, 0, 0.29),
-        0 24px 48px rgba(0, 0, 0, 0.22);
+        0 0 0 1px rgb(var(--rgb-neutral-light) / 0.05),
+        0 8px 19px rgb(var(--rgb-shadow) / 0.29),
+        0 24px 48px rgb(var(--rgb-shadow) / 0.22);
 }
 
 .art-entry-link:hover .art-entry-caption strong,
-.art-entry-link:hover .art-entry-action { color: var(--accent); }
+.art-entry-link:hover .art-entry-action { color: var(--color-accent); }
 .art-entry-link:hover .art-entry-action span { transform: translateX(4px); }
 
 /* ================= individual artwork pages ================= */
@@ -922,7 +947,7 @@ body.artwork-detail-page .crumb .home {
     display: grid;
     place-items: center;
     width: 25%;
-    color: #aaa59d;
+    color: var(--color-text-secondary);
     opacity: 0.42;
     font-size: 1.55rem;
     line-height: 1;
@@ -939,7 +964,7 @@ body.artwork-detail-page .crumb .home {
     transition: transform 0.2s ease;
 }
 
-.artwork-arrow:hover { color: var(--ink); opacity: 0.9; }
+.artwork-arrow:hover { color: var(--color-text-primary); opacity: 0.9; }
 .artwork-arrow-previous { left: 0; }
 .artwork-arrow-next { right: 0; }
 .artwork-arrow-previous span { left: 0; }
@@ -963,16 +988,16 @@ body.artwork-detail-page .crumb .home {
     max-width: 100%;
     max-height: 100%;
     box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.035),
-        0 7px 18px rgba(0, 0, 0, 0.31),
-        0 24px 52px rgba(0, 0, 0, 0.25);
+        0 0 0 1px rgb(var(--rgb-neutral-light) / 0.035),
+        0 7px 18px rgb(var(--rgb-shadow) / 0.31),
+        0 24px 52px rgb(var(--rgb-shadow) / 0.25);
 }
 
 .artwork-caption {
     max-width: 51.5rem;
     margin: 1.25rem auto 0;
     font-style: normal;
-    color: var(--ink);
+    color: var(--color-text-primary);
 }
 
 .artwork-caption h1 {
@@ -980,14 +1005,14 @@ body.artwork-detail-page .crumb .home {
     font-weight: 400;
     letter-spacing: -0.008em;
     line-height: 1.2;
-    color: var(--ink-mid);
+    color: var(--color-text-secondary);
 }
 
 .artwork-year {
     margin-left: 0.25em;
     font-size: 0.88em;
     font-weight: 400;
-    color: var(--gloss);
+    color: var(--color-text-subtle);
 }
 
 .artwork-description {
@@ -996,20 +1021,20 @@ body.artwork-detail-page .crumb .home {
     font-family: var(--prose);
     font-size: 1.06rem;
     line-height: 1.55;
-    color: var(--ink-quiet);
+    color: var(--color-text-muted);
 }
 
-.artwork-description a { color: var(--accent); transition: color 0.15s; }
-.artwork-description a:hover { color: #dda28d; }
+.artwork-description a { color: var(--color-accent); transition: color 0.15s; }
+.artwork-description a:hover { color: var(--color-accent-hover); }
 
 .artwork-return {
     margin-top: 0.8rem;
     font-size: 0.95rem;
-    color: var(--gloss);
+    color: var(--color-text-subtle);
 }
 
 .artwork-return a { transition: color 0.15s; }
-.artwork-return a:hover { color: var(--ink-mid); }
+.artwork-return a:hover { color: var(--color-text-secondary); }
 
 @media (max-width: 48rem) {
     body.art-index-page .sheet.essay,
@@ -1055,7 +1080,7 @@ body.artwork-detail-page .crumb .home {
 
     .artwork-arrow {
         border-radius: 0;
-        color: rgba(240, 236, 228, 0.82);
+        color: rgb(var(--rgb-neutral-light) / 0.82);
         opacity: 0.62;
     }
 
@@ -1063,12 +1088,12 @@ body.artwork-detail-page .crumb .home {
 
     .artwork-arrow-previous {
         left: 0;
-        background: linear-gradient(90deg, rgba(10, 10, 9, 0.24), transparent);
+        background: linear-gradient(90deg, rgb(var(--rgb-shadow) / 0.24), transparent);
     }
 
     .artwork-arrow-next {
         right: 0;
-        background: linear-gradient(270deg, rgba(10, 10, 9, 0.24), transparent);
+        background: linear-gradient(270deg, rgb(var(--rgb-shadow) / 0.24), transparent);
     }
 
     .artwork-caption { margin-top: 1.05rem; }
@@ -1085,17 +1110,17 @@ body.artwork-detail-page .crumb .home {
     display: inline-block;
     font-size: 1.25rem;
     line-height: 1.35;
-    color: var(--ink);
+    color: var(--color-text-primary);
     transition: color 0.15s;
 }
 
-.pub-title:hover { color: var(--accent); }
+.pub-title:hover { color: var(--color-accent); }
 
 .pub-meta {
     margin-top: 0.15rem;
     font-size: 1.05rem;
     line-height: 1.5;
-    color: var(--ink-quiet);
+    color: var(--color-text-muted);
 }
 
-.pub-meta .me { font-weight: 600; color: var(--ink-mid); }
+.pub-meta .me { font-weight: 600; color: var(--color-text-secondary); }

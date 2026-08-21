@@ -108,8 +108,8 @@
         root.style.setProperty('--home-about-line-height', state.aboutLineHeight);
         root.style.setProperty('--mat-texture-opacity', Math.min(1, state.matTexture / 100 * textureRecipe.matGain));
         root.style.setProperty('--sheet-texture-opacity', Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain));
-        root.style.setProperty('--mat', hsl(state.matHue, state.matSaturation, state.matBrightness));
-        root.style.setProperty('--paper', hsl(state.paperHue, state.paperSaturation, state.paperBrightness));
+        root.style.setProperty('--color-canvas', hsl(state.matHue, state.matSaturation, state.matBrightness));
+        root.style.setProperty('--color-surface', hsl(state.paperHue, state.paperSaturation, state.paperBrightness));
     }
 
     function formatValue(control) {
@@ -169,8 +169,8 @@
     --home-about-line-height: ${state.aboutLineHeight.toFixed(2)};
     --mat-texture-opacity: ${Math.min(1, state.matTexture / 100 * textureRecipe.matGain).toFixed(3)}; /* ${textureRecipe.label}, ${state.matTexture.toFixed(0)}% */
     --sheet-texture-opacity: ${Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain).toFixed(3)}; /* ${textureRecipe.label}, ${state.sheetTexture.toFixed(0)}% */
-    --mat: ${hsl(state.matHue.toFixed(1), state.matSaturation.toFixed(1), state.matBrightness.toFixed(1))};
-    --paper: ${hsl(state.paperHue.toFixed(1), state.paperSaturation.toFixed(1), state.paperBrightness.toFixed(1))};
+    --color-canvas: ${hsl(state.matHue.toFixed(1), state.matSaturation.toFixed(1), state.matBrightness.toFixed(1))};
+    --color-surface: ${hsl(state.paperHue.toFixed(1), state.paperSaturation.toFixed(1), state.paperBrightness.toFixed(1))};
 }`;
     }
 
