@@ -13,6 +13,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://afolkestad.com/projects/eikonal.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://afolkestad.com/art.html</loc>
     <priority>0.8</priority>
   </url>
@@ -22,6 +26,10 @@
   </url>
   <url>
     <loc>https://afolkestad.com/art/pragmatism.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://afolkestad.com/art/gold-napoleon.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
