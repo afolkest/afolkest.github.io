@@ -85,8 +85,8 @@
     /* Texture recipe contract: a neutral pattern, a contrast gain, and a
        midpoint bias. Strength changes opacity only; overlay blending keeps the
        mean surface color approximately fixed. */
-    --mat-texture-opacity: 0.37;
-    --sheet-texture-opacity: 0.5;
+    --mat-texture-opacity: 0.305;
+    --sheet-texture-opacity: 0.45;
     /* The stacked SVG noise has a light bias before its final contrast pass;
        these calibrated inputs render to a 50% effective midpoint. */
     --mat-texture-neutral: rgb(101, 101, 101);
