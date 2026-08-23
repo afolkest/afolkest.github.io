@@ -11,6 +11,7 @@
         const imageLink = documentRoot.querySelector(".artwork-image-link");
         const image = imageLink?.querySelector("img");
         const heading = documentRoot.querySelector(".artwork-caption h1");
+        const description = documentRoot.querySelector(".artwork-description");
         const stage = documentRoot.querySelector(".artwork-stage");
 
         if (!previous || !next || !imageLink || !image || !heading || !stage) return null;
@@ -41,6 +42,7 @@
             ),
             artworkWidth: stage.style.getPropertyValue("--artwork-width"),
             headingNodes: Array.from(heading.childNodes, (node) => node.cloneNode(true)),
+            descriptionNode: description?.cloneNode(true) ?? null,
             canonicalHref: canonical ? resolvedUrl(canonical, "href", url) : null,
             preloadHref: preload ? resolvedUrl(preload, "href", url) : null,
             metadata
@@ -95,6 +97,9 @@
         const imageLink = document.querySelector(".artwork-image-link");
         const image = imageLink.querySelector("img");
         const heading = document.querySelector(".artwork-caption h1");
+        const caption = document.querySelector(".artwork-caption");
+        const existingDescription = caption.querySelector(".artwork-description");
+        const returnLink = caption.querySelector(".artwork-return");
         const stage = document.querySelector(".artwork-stage");
 
         previous.href = data.previousHref;
@@ -108,6 +113,13 @@
 
         stage.style.setProperty("--artwork-width", data.artworkWidth);
         heading.replaceChildren(...data.headingNodes.map((node) => node.cloneNode(true)));
+        if (data.descriptionNode) {
+            const description = data.descriptionNode.cloneNode(true);
+            if (existingDescription) existingDescription.replaceWith(description);
+            else returnLink.before(description);
+        } else {
+            existingDescription?.remove();
+        }
         updateMetadata(data);
 
         if (pushHistory) history.pushState(null, "", data.url);
