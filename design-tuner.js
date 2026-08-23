@@ -20,7 +20,146 @@
     };
     const textureRecipe = textureRecipes.laidPaper;
 
+    /* Candidate color schemes. Every scheme holds the same ink ladder —
+       L* 8.5 / 37.0 / 39.1 / 63.9 on the sheet, accent L* 36.2 — so contrast
+       and reading hierarchy are constant and the mat is the variable.
+       matHsl/sheetHsl seed the two color sliders and matTexture the mat's
+       texture slider (a dark mat shows the same grain more, so it needs less);
+       the remaining tokens are set directly.
+       Promote a winner into paper.css and delete the rest. */
+    const schemes = [
+        {
+            id: 'original',
+            label: 'Original',
+            note: 'peach clay + cream, oxblood accent',
+            matHsl: [32.3, 43.3, 76.5],
+            sheetHsl: [38.2, 52.4, 91.8],
+            canvas: '#ddc5a9',
+            surface: '#f5eddf',
+            primary: '#1b1815',
+            secondary: '#5d564d',
+            muted: '#635b4f',
+            subtle: '#a39a88',
+            accent: '#93381b',
+            shadow: '94 70 46',
+            textureDark: '122 92 62',
+            textureLight: '255 252 244',
+        },
+        {
+            id: 'slate',
+            label: 'Slate',
+            note: 'semi-dark blue-gray wall, warm page — the lightest of the dark mats',
+            matHsl: [226.2, 5.8, 44.1],
+            sheetHsl: [36.0, 38.5, 92.4],
+            matTexture: 29,
+            canvas: '#6a6d77',
+            surface: '#f3ede4',
+            primary: '#1b1815',
+            secondary: '#5c564f',
+            muted: '#625b52',
+            subtle: '#a4998c',
+            accent: '#93381b',
+            shadow: '30 31 37',
+            textureDark: '100 93 85',
+            textureLight: '252 249 245',
+        },
+        {
+            id: 'paynes',
+            label: 'Payne’s Grey',
+            note: 'the bluest mat against a warm bone sheet; bister accent — the watercolour pairing',
+            matHsl: [214.3, 10.9, 37.8],
+            sheetHsl: [33.3, 24.3, 92.7],
+            matTexture: 32,
+            canvas: '#565f6b',
+            surface: '#f1ede8',
+            primary: '#1a1816',
+            secondary: '#5b5751',
+            muted: '#615b54',
+            subtle: '#a29a8f',
+            accent: '#754c26',
+            shadow: '23 28 34',
+            textureDark: '99 94 86',
+            textureLight: '251 249 245',
+        },
+        {
+            id: 'graphite',
+            label: 'Graphite',
+            note: 'violet-leaning charcoal — the blue and the warmth sit in the same tone',
+            matHsl: [247.5, 4.9, 31.8],
+            sheetHsl: [34.3, 36.8, 92.5],
+            matTexture: 35,
+            canvas: '#4e4d55',
+            surface: '#f3ede5',
+            primary: '#1b1815',
+            secondary: '#5c564f',
+            muted: '#625b52',
+            subtle: '#a4998c',
+            accent: '#93381b',
+            shadow: '25 25 29',
+            textureDark: '100 93 85',
+            textureLight: '252 249 245',
+        },
+        {
+            id: 'charcoal',
+            label: 'Charcoal',
+            note: 'gallery-wall dark, warmest sheet — the page reads as lit',
+            matHsl: [250.0, 4.8, 24.3],
+            sheetHsl: [31.8, 41.5, 92.0],
+            matTexture: 50,
+            canvas: '#3c3b41',
+            surface: '#f3ebe2',
+            primary: '#1b1815',
+            secondary: '#5d564f',
+            muted: '#635b52',
+            subtle: '#a5998b',
+            accent: '#93381b',
+            shadow: '20 19 22',
+            textureDark: '101 93 83',
+            textureLight: '252 249 245',
+        },
+        {
+            id: 'inkwash',
+            label: 'Ink Wash',
+            note: 'wholly achromatic field — the only hue on the page is the petrol accent',
+            matHsl: [240.0, 2.8, 28.2],
+            sheetHsl: [0.0, 0.0, 93.7],
+            matTexture: 35,
+            canvas: '#46464a',
+            surface: '#efefef',
+            primary: '#181818',
+            secondary: '#575757',
+            muted: '#5c5c5c',
+            subtle: '#9b9b9b',
+            accent: '#095f63',
+            shadow: '25 25 25',
+            textureDark: '94 94 94',
+            textureLight: '249 249 249',
+        },
+        {
+            id: 'gallery',
+            label: 'Gallery',
+            note: 'warm-neutral wall against an achromatic sheet — the only color left on the page is the ink',
+            matHsl: [60.0, 2.2, 25.0],
+            sheetHsl: [33.3, 0.0, 94.1],
+            matTexture: 55,
+            sheetTexture: 75,
+            canvas: '#41413e',
+            surface: '#f0f0f0',
+            primary: '#1b1815',
+            secondary: '#5d564f',
+            muted: '#635b52',
+            subtle: '#a5998b',
+            accent: '#93381b',
+            shadow: '0 0 0',
+            textureDark: '104 96 86',
+            textureLight: '255 251 242',
+        },
+    ];
+
+    const schemeById = id => schemes.find(entry => entry.id === id) || schemes[0];
+
     const defaults = {
+        scheme: 'original',
         headingGap: 0.4,
         listGap: 0,
         sectionGap: 2.82,
@@ -34,6 +173,24 @@
         paperSaturation: 52.4,
         paperBrightness: 91.8,
     };
+
+    /* These sliders start from the active scheme, so double-clicking one
+       returns it to that scheme's value rather than to the peach original. */
+    const schemeSeeds = {
+        matHue: entry => entry.matHsl[0],
+        matSaturation: entry => entry.matHsl[1],
+        matBrightness: entry => entry.matHsl[2],
+        paperHue: entry => entry.sheetHsl[0],
+        paperSaturation: entry => entry.sheetHsl[1],
+        paperBrightness: entry => entry.sheetHsl[2],
+        matTexture: entry => entry.matTexture ?? defaults.matTexture,
+        sheetTexture: entry => entry.sheetTexture ?? defaults.sheetTexture,
+    };
+
+    function controlDefault(key) {
+        const seed = schemeSeeds[key];
+        return seed ? seed(schemeById(state.scheme)) : defaults[key];
+    }
 
     const groups = [
         {
@@ -57,7 +214,7 @@
             controls: [
                 { key: 'matHue', label: 'Hue', min: 0, max: 360, step: 0.1, unit: '°', digits: 1 },
                 { key: 'matSaturation', label: 'Saturation', min: 0, max: 100, step: 0.1, unit: '%', digits: 1 },
-                { key: 'matBrightness', label: 'Brightness', min: 45, max: 95, step: 0.1, unit: '%', digits: 1 },
+                { key: 'matBrightness', label: 'Brightness', min: 8, max: 95, step: 0.1, unit: '%', digits: 1 },
             ],
         },
         {
@@ -76,17 +233,29 @@
     function loadState() {
         try {
             const saved = JSON.parse(localStorage.getItem(storageKey));
-            if (!saved || typeof saved !== 'object') return { ...defaults };
+            if (!saved || typeof saved !== 'object') return applyRequestedScheme({ ...defaults });
 
             const valid = Object.fromEntries(
                 Object.entries(saved)
-                    .filter(([key, value]) => key in defaults && Number.isFinite(Number(value)))
+                    .filter(([key, value]) => key in defaults && key !== 'scheme' && Number.isFinite(Number(value)))
                     .map(([key, value]) => [key, Number(value)])
             );
-            return { ...defaults, ...valid };
+            const stored = schemes.some(entry => entry.id === saved.scheme) ? saved.scheme : defaults.scheme;
+            return applyRequestedScheme({ ...defaults, ...valid, scheme: stored });
         } catch {
-            return { ...defaults };
+            return applyRequestedScheme({ ...defaults });
         }
+    }
+
+    /* ?tune=1&scheme=cobalt opens straight into one scheme, so a particular
+       comparison can be linked or screenshotted without clicking through. */
+    function applyRequestedScheme(next) {
+        const requested = params.get('scheme');
+        if (!schemes.some(entry => entry.id === requested)) return next;
+        const scheme = schemeById(requested);
+        Object.entries(schemeSeeds).forEach(([key, seed]) => { next[key] = seed(scheme); });
+        next.scheme = scheme.id;
+        return next;
     }
 
     function saveState() {
@@ -108,8 +277,39 @@
         root.style.setProperty('--home-about-line-height', state.aboutLineHeight);
         root.style.setProperty('--mat-texture-opacity', Math.min(1, state.matTexture / 100 * textureRecipe.matGain));
         root.style.setProperty('--sheet-texture-opacity', Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain));
+
+        /* The scheme sets the ink, accent, and material hues; the mat and sheet
+           surfaces come from the sliders, which the scheme picker re-seeds. */
+        const scheme = schemeById(state.scheme);
+        root.style.setProperty('--color-text-primary', scheme.primary);
+        root.style.setProperty('--color-text-secondary', scheme.secondary);
+        root.style.setProperty('--color-text-muted', scheme.muted);
+        root.style.setProperty('--color-text-subtle', scheme.subtle);
+        root.style.setProperty('--color-accent', scheme.accent);
+        root.style.setProperty('--rgb-shadow', scheme.shadow);
+        root.style.setProperty('--rgb-texture-dark', scheme.textureDark);
+        root.style.setProperty('--rgb-texture-light', scheme.textureLight);
         root.style.setProperty('--color-canvas', hsl(state.matHue, state.matSaturation, state.matBrightness));
         root.style.setProperty('--color-surface', hsl(state.paperHue, state.paperSaturation, state.paperBrightness));
+    }
+
+    /* Switching schemes re-seeds the mat and sheet sliders so that the panel and
+       the page never disagree about the current surface colors. */
+    function selectScheme(id, { announce = true } = {}) {
+        const scheme = schemeById(id);
+        state.scheme = scheme.id;
+        Object.entries(schemeSeeds).forEach(([key, seed]) => { state[key] = seed(scheme); });
+        applyState();
+        saveState();
+        syncControls();
+        syncSchemeButtons();
+        if (announce) setStatus(scheme.label);
+    }
+
+    function stepScheme(delta) {
+        const index = schemes.findIndex(entry => entry.id === state.scheme);
+        const next = (index + delta + schemes.length) % schemes.length;
+        selectScheme(schemes[next].id);
     }
 
     function formatValue(control) {
@@ -148,7 +348,7 @@
         });
 
         input.addEventListener('dblclick', () => {
-            state[control.key] = defaults[control.key];
+            state[control.key] = controlDefault(control.key);
             input.value = state[control.key];
             output.textContent = formatValue(control);
             applyState();
@@ -160,17 +360,46 @@
         return row;
     }
 
+    function syncControls() {
+        allControls.forEach(control => {
+            const input = panel.querySelector(`input[data-key="${control.key}"]`);
+            if (!input) return;
+            input.value = state[control.key];
+            input.nextElementSibling.textContent = formatValue(control);
+        });
+    }
+
+    function syncSchemeButtons() {
+        panel.querySelectorAll('.design-tuner__scheme').forEach(button => {
+            const active = button.dataset.scheme === state.scheme;
+            button.classList.toggle('is-active', active);
+            button.setAttribute('aria-pressed', String(active));
+        });
+        const scheme = schemeById(state.scheme);
+        schemeNote.textContent = scheme.note;
+    }
+
     function exportCss() {
-        return `/* Values copied from /?tune=1 */
+        const scheme = schemeById(state.scheme);
+        return `/* Values copied from /?tune=1 — scheme: ${scheme.label} */
 :root {
+    --color-canvas: ${hsl(state.matHue.toFixed(1), state.matSaturation.toFixed(1), state.matBrightness.toFixed(1))};
+    --color-surface: ${hsl(state.paperHue.toFixed(1), state.paperSaturation.toFixed(1), state.paperBrightness.toFixed(1))};
+    --color-text-primary: ${scheme.primary};
+    --color-text-secondary: ${scheme.secondary};
+    --color-text-muted: ${scheme.muted};
+    --color-text-subtle: ${scheme.subtle};
+    --color-accent: ${scheme.accent};
+    --rgb-shadow: ${scheme.shadow};
+    --rgb-texture-dark: ${scheme.textureDark};
+    --rgb-texture-light: ${scheme.textureLight};
+
     --home-heading-content-gap: ${state.headingGap.toFixed(2)}rem;
     --home-row-padding: ${(state.listGap / 2).toFixed(3)}rem; /* ${state.listGap.toFixed(2)}rem between rows */
     --home-section-gap: ${state.sectionGap.toFixed(2)}rem;
     --home-about-line-height: ${state.aboutLineHeight.toFixed(2)};
     --mat-texture-opacity: ${Math.min(1, state.matTexture / 100 * textureRecipe.matGain).toFixed(3)}; /* ${textureRecipe.label}, ${state.matTexture.toFixed(0)}% */
     --sheet-texture-opacity: ${Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain).toFixed(3)}; /* ${textureRecipe.label}, ${state.sheetTexture.toFixed(0)}% */
-    --color-canvas: ${hsl(state.matHue.toFixed(1), state.matSaturation.toFixed(1), state.matBrightness.toFixed(1))};
-    --color-surface: ${hsl(state.paperHue.toFixed(1), state.paperSaturation.toFixed(1), state.paperBrightness.toFixed(1))};
 }`;
     }
 
@@ -193,13 +422,7 @@
 
     function reset() {
         state = { ...defaults };
-        applyState();
-        saveState();
-        allControls.forEach(control => {
-            const input = panel.querySelector(`input[data-key="${control.key}"]`);
-            input.value = state[control.key];
-            input.nextElementSibling.textContent = formatValue(control);
-        });
+        selectScheme(defaults.scheme, { announce: false });
         setStatus('Reset');
     }
 
@@ -283,6 +506,53 @@
             text-transform: uppercase;
         }
 
+        .design-tuner__schemes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .design-tuner__scheme {
+            appearance: none;
+            display: block;
+            padding: 0 0 3px;
+            border: 1px solid rgba(57, 47, 37, 0.22);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.55);
+            color: inherit;
+            font: inherit;
+            font-size: 10px;
+            line-height: 1.25;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .design-tuner__scheme:hover { border-color: rgba(147, 56, 27, 0.65); }
+
+        .design-tuner__scheme.is-active {
+            border-color: #93381b;
+            box-shadow: inset 0 0 0 1px #93381b;
+            font-weight: 650;
+        }
+
+        .design-tuner__swatch {
+            display: flex;
+            height: 20px;
+            margin-bottom: 3px;
+        }
+
+        .design-tuner__swatch span { flex: 1; }
+        .design-tuner__swatch span:last-child { flex: 0 0 22%; }
+
+        .design-tuner__note {
+            display: block;
+            padding-top: 7px;
+            color: #6a6055;
+            font-size: 10px;
+            line-height: 1.35;
+        }
+
         .design-tuner__control {
             display: grid;
             grid-template-columns: 105px minmax(72px, 1fr) 49px;
@@ -359,6 +629,43 @@
     const body = document.createElement('div');
     body.className = 'design-tuner__body';
 
+    const schemeNote = document.createElement('small');
+    schemeNote.className = 'design-tuner__note';
+
+    const schemeField = document.createElement('fieldset');
+    schemeField.className = 'design-tuner__group';
+    const schemeLegend = document.createElement('legend');
+    schemeLegend.textContent = 'Color scheme';
+    const schemeGrid = document.createElement('div');
+    schemeGrid.className = 'design-tuner__schemes';
+
+    schemes.forEach(scheme => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'design-tuner__scheme';
+        button.dataset.scheme = scheme.id;
+        button.title = scheme.note;
+
+        /* mat, sheet, accent — the three decisions each scheme actually makes */
+        const swatch = document.createElement('span');
+        swatch.className = 'design-tuner__swatch';
+        [scheme.canvas, scheme.surface, scheme.accent].forEach(color => {
+            const chip = document.createElement('span');
+            chip.style.background = color;
+            swatch.append(chip);
+        });
+
+        const label = document.createElement('span');
+        label.textContent = scheme.label;
+
+        button.append(swatch, label);
+        button.addEventListener('click', () => selectScheme(scheme.id));
+        schemeGrid.append(button);
+    });
+
+    schemeField.append(schemeLegend, schemeGrid, schemeNote);
+    body.append(schemeField);
+
     groups.forEach(group => {
         const fieldset = document.createElement('fieldset');
         fieldset.className = 'design-tuner__group';
@@ -390,11 +697,21 @@
     footer.append(resetButton, status, copyButton);
     const hint = document.createElement('small');
     hint.className = 'design-tuner__hint';
-    hint.textContent = 'Double-click any slider to reset it';
+    hint.textContent = '[ and ] leaf through schemes · double-click a slider to reset it';
 
     body.append(footer, hint);
     panel.append(header, body);
 
+    /* Leafing through schemes is the point of the picker, so give it keys. */
+    window.addEventListener('keydown', event => {
+        if (event.metaKey || event.ctrlKey || event.altKey) return;
+        if (event.key === '[') stepScheme(-1);
+        else if (event.key === ']') stepScheme(1);
+        else return;
+        event.preventDefault();
+    });
+
     applyState();
     document.body.append(panel);
+    syncSchemeButtons();
 })();
