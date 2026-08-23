@@ -611,6 +611,14 @@ body.reading .sheet.essay {
 .essay-body a { color: var(--color-accent); transition: color 0.15s; }
 .essay-body a:hover { color: var(--color-accent-hover); }
 
+.essay-body .footnote-anchor {
+    margin-left: 0.06em;
+    font-size: 0.68em;
+    line-height: 0;
+    vertical-align: super;
+    text-decoration: none;
+}
+
 .essay-body h2 {
     font-family: var(--serif);
     font-size: 1.85rem;

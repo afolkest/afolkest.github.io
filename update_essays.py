@@ -30,14 +30,20 @@ ALL_END = "<!-- ESSAYS_END -->"
 # article:published_time meta tag.
 KNOWN_DATES = {
     "beauty-as-entropic-fine-tuning": "2024-05-25T00:00:00Z",
+    "beauty-opioids": "2024-08-14T01:35:25Z",
 }
 
 SELECTED_SLUGS = [
+    "your-ai-agent-needs-randomness",
     "spirits-and-the-incompleteness-of",
     "equations-that-demand-beauty",
     "god-is-nan",
     "beauty-as-entropic-fine-tuning",
 ]
+
+DESCRIPTION_OVERRIDES = {
+    "god-is-nan": "pragmatist mysticism and the nonsense of Bayesian metaphysics",
+}
 
 SUBSTACK_CDN = "https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_center/"
 NS = {"content": "http://purl.org/rss/1.0/modules/content/"}
@@ -89,6 +95,8 @@ def parse_posts(xml_text):
         # Clean up description
         desc = re.sub(r"<[^>]+>", "", desc).strip()
         desc = html.unescape(desc)
+        slug = get_slug(link)
+        desc = DESCRIPTION_OVERRIDES.get(slug, desc)
 
         # Parse date
         date_str = ""
@@ -104,7 +112,7 @@ def parse_posts(xml_text):
         posts.append({
             "title": title,
             "link": link,
-            "slug": get_slug(link),
+            "slug": slug,
             "description": desc,
             "date": date_str,
             "date_iso": date_iso,
@@ -375,7 +383,7 @@ ESSAY_TEMPLATE = """\
 <body class="reading">
     <main class="sheet essay">
         <div class="crumb">
-            <a class="home" href="/"><span class="back">←</span>Åsmund Folkestad<span class="stop">.</span></a>
+            <a class="home" href="/" aria-label="Homepage"><span aria-hidden="true">Å</span></a>
         </div>
         <article>
             <header class="essay-header">
@@ -394,7 +402,8 @@ ESSAY_TEMPLATE = """\
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 
-</html>"""
+</html>
+"""
 
 
 def generate_essay_page(post):
@@ -622,11 +631,32 @@ if __name__ == "__main__":
     posts = parse_posts(xml_text)
     print(f"Found {len(posts)} posts")
 
-    # Check for selected essays not in feed
+    # Preserve indexed essays after they age out of Substack's finite RSS
+    # window, as well as any selected essay absent from the feed. Use the
+    # catalog rather than every local HTML file: the directory also contains
+    # intentionally unlisted drafts and superseded slugs.
     feed_slugs = {p["slug"] for p in posts if p["slug"]}
-    for slug in SELECTED_SLUGS:
+    indexed_slugs = set()
+    indexed_dates = {}
+    try:
+        with open(os.path.join(ESSAYS_DIR, "index.json"), "r") as f:
+            existing_index = json.load(f)
+        indexed_slugs = {
+            get_slug(item.get("substack_url", ""))
+            for item in existing_index.get("essays", [])
+            if get_slug(item.get("substack_url", ""))
+        }
+        indexed_dates = {
+            get_slug(item.get("substack_url", "")): item.get("date", "")
+            for item in existing_index.get("essays", [])
+            if get_slug(item.get("substack_url", ""))
+        }
+    except (OSError, json.JSONDecodeError):
+        pass
+    missing_slugs = (set(SELECTED_SLUGS) | indexed_slugs) - feed_slugs
+    for slug in sorted(missing_slugs):
         if slug not in feed_slugs:
-            print(f"  Selected essay '{slug}' not in feed, fetching page...")
+            print(f"  Mirrored essay '{slug}' not in feed, fetching page...")
             url = f"https://extramediumplease.substack.com/p/{slug}"
             try:
                 req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
@@ -642,10 +672,17 @@ if __name__ == "__main__":
                     r'<meta[^>]+property="article:published_time"[^>]+content="([^"]+)"', page
                 )
                 title = html.unescape(title_m.group(1)) if title_m else slug
-                desc = html.unescape(desc_m.group(1)) if desc_m else ""
+                desc = DESCRIPTION_OVERRIDES.get(
+                    slug,
+                    html.unescape(desc_m.group(1)) if desc_m else "",
+                )
                 date_str = ""
                 date_iso = ""
-                raw_date = date_m.group(1) if date_m else KNOWN_DATES.get(slug, "")
+                raw_date = (
+                    date_m.group(1)
+                    if date_m
+                    else indexed_dates.get(slug) or KNOWN_DATES.get(slug, "")
+                )
                 if raw_date:
                     try:
                         from datetime import datetime
@@ -697,9 +734,12 @@ if __name__ == "__main__":
         if p["slug"]:
             by_slug[p["slug"]] = p
 
-    # Generate individual essay pages
+    posts_by_date = sorted(posts, key=lambda p: p["date_iso"] or "", reverse=True)
+
+    # Generate individual essay pages and the machine-readable catalog in the
+    # same newest-first order as the visible index.
     print("Generating essay pages...")
-    written = write_essay_pages(posts)
+    written = write_essay_pages(posts_by_date)
 
     # Selected essays in specified order
     selected = [by_slug[s] for s in SELECTED_SLUGS if s in by_slug]
@@ -707,7 +747,6 @@ if __name__ == "__main__":
     # Update index page (link locally if we generated pages)
     print(f"Updating {ESSAYS_FILE}...")
     has_local = len(written) > 0
-    posts_by_date = sorted(posts, key=lambda p: p["date_iso"] or "", reverse=True)
     if update_essays_html(selected, posts_by_date, has_local):
         print("  Done!")
     else:
@@ -715,6 +754,6 @@ if __name__ == "__main__":
 
     # Update sitemap
     print("Updating sitemap...")
-    update_sitemap(posts)
+    update_sitemap(posts_by_date)
 
     print(f"\nFinished: {len(written)} essay pages written, index updated, sitemap updated.")

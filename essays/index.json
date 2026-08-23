@@ -4,6 +4,13 @@
   "description": "A theoretical physicist's contemplations on aesthetics, pragmatist mysticism, and fundamental physics and its limits.",
   "essays": [
     {
+      "title": "Your AI agent needs randomness",
+      "description": "Avoiding slop",
+      "url": "https://afolkestad.com/essays/your-ai-agent-needs-randomness.html",
+      "date": "2026-08-22T03:51:57Z",
+      "substack_url": "https://extramediumplease.substack.com/p/your-ai-agent-needs-randomness"
+    },
+    {
       "title": "The laws of physics might not fit inside the universe",
       "description": "Is the universe unknowable?",
       "url": "https://afolkestad.com/essays/estimating-gods-quantum-mechanical.html",
@@ -54,7 +61,7 @@
     },
     {
       "title": "God is NaN ",
-      "description": "How skepticism leads back to a God, pragmatist mysticism, and the nonsense of Bayesian metaphysics",
+      "description": "pragmatist mysticism and the nonsense of Bayesian metaphysics",
       "url": "https://afolkestad.com/essays/god-is-nan.html",
       "date": "2025-05-09T06:04:47Z",
       "substack_url": "https://extramediumplease.substack.com/p/god-is-nan"

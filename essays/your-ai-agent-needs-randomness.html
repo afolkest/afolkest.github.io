@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your AI agent needs randomness - Åsmund Folkestad</title>
+    <meta name="description" content="Avoiding slop">
+    <meta property="og:title" content="Your AI agent needs randomness - Åsmund Folkestad">
+    <meta property="og:description" content="Avoiding slop">
+    <meta property="og:url" content="https://afolkestad.com/essays/your-ai-agent-needs-randomness.html">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#ddc5a9">
+    <link rel="canonical" href="https://extramediumplease.substack.com/p/your-ai-agent-needs-randomness">
+    <link rel="preload" href="/fonts/equity/equity_ot_b_regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/equity/equity_ot_b_italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/heliotrope/heliotrope_ot_6_semibold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="/paper.css">
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Your AI agent needs randomness",
+    "description": "Avoiding slop",
+    "author": {
+        "@type": "Person",
+        "name": "\u00c5smund Folkestad",
+        "url": "https://afolkestad.com"
+    },
+    "datePublished": "2026-08-22T03:51:57Z",
+    "url": "https://afolkestad.com/essays/your-ai-agent-needs-randomness.html",
+    "publisher": {
+        "@type": "Person",
+        "name": "\u00c5smund Folkestad"
+    }
+}
+    </script>
+</head>
+
+<body class="reading">
+    <main class="sheet essay">
+        <div class="crumb">
+            <a class="home" href="/" aria-label="Homepage"><span aria-hidden="true">Å</span></a>
+        </div>
+        <article>
+            <header class="essay-header">
+                <h1>Your AI agent needs randomness</h1>
+                <p class="essay-subtitle">Avoiding slop</p>
+                <time datetime="2026-08-22T03:51:57Z">Aug 22, 2026</time>
+            </header>
+            <div class="essay-body">
+<figure class="essay-figure"><img src="https://substack-post-media.s3.amazonaws.com/public/images/2f517607-b9e0-47ba-a981-66341f393307_300x1600.png" alt="" width="58" height="309" loading="lazy"></figure><p>If you talk to LLMs a lot, you&#8217;ll notice how their responses lack diversity. Ask for a startup idea, and you&#8217;ll receive something that was served to thousands of others already. Ask an agent to design a webpage with no guidance, and you&#8217;ll get more of that sludge that&#8217;s now proliferating the web. </p><p>To get something interesting out, you need to stick something interesting in. So if you think of agents as processors or search engines rather than generators, they become more useful. But you need something interesting to process or search for in the first place. </p><p>Often you know what info you need processed, but sometimes all you need is input of a certain type, provided that it&#8217;s unique and of good quality. For example, if you&#8217;re prototyping a design with an agent, you might not know what color palette you want. But you want a palette that&#8217;s coherent and uncommon. </p><p>If you ask an LLM to think of a color scheme, it will come from that tiny imagination-space that agents share. You could try to draw colors with a random number generator, but it will look awful. Unique but incoherent. You instead need the ability to draw from a random reservoir of coherent color palettes, but where your sampling is uncorrelated with the preferences of your agent and everybody else&#8217;s agents. You must break away from the agent&#8217;s taste without breaking coherence.</p><p>One way I&#8217;ve been doing this for design is by downloading datasets of public domain historical paintings and extracting a color palette from each using a simple algorithm. Then I built a database of these color palettes that I can randomly draw from. While the agent will draw many palettes that don&#8217;t fit my vibe at all, I know that something interesting will show up if we keep trying. The variance has gone up. More bad designs, but also more good designs. A refreshing step away from slop either way. Even ugly beats slop.</p><p>Let&#8217;s try this idea for text. Say we&#8217;re lazy and want a little poem made for us. We can improve the outcome by making sure the LLM isn&#8217;t responsible for the words. For example, we can ask it to do the following:</p><blockquote><p><span>Go to </span>https://getrandomness.com/ <span>and draw 7 random Wikipedia pages. Pick a number N between 3 and 5 and write an N-line poem based on what you draw. Each line can be 8 words at most and must be a contiguous run of words from a single sentence on a single wiki page. You may cut words from the start or end but never rearrange, substitute, or delete from the middle. However, you may change tense, drop articles and pronouns, and change capitalization. You may use each wiki page only once. Cut aggressively. The goal is a coherent poem, not a list of interesting sentences. If you are having a hard time, opt for a shorter poem.</span></p></blockquote><p>In most cases it won&#8217;t be good, but it will at least be bad in interesting ways. You might even get something strange and amusing every now and then, like this one<a class="footnote-anchor" id="footnote-anchor-1" href="#footnote-1" target="_self">1</a></p><p><em><span>woke up in an old hotel tied to a piano<br>escaped, stole small boat, and crossed to France<br>only allowed to play friendly matches<br>Timothy Bell remains missing<br>the cast is only good in its sadness</span></em></p><p><span>or this</span><a class="footnote-anchor" id="footnote-anchor-2" href="#footnote-2" target="_self">2</a><span> </span></p><p><em>skull drove him to hallucinations, madness and death<br>suffered a stroke in 2004<br>died in Weimar in 1793<br>remains were interred at the Congressional Cemetery</em></p><p>or<a class="footnote-anchor" id="footnote-anchor-3" href="#footnote-3" target="_self">3</a>  </p><p><em>leave to become an actor<br>return to the club<br>win the championship<br>establish an agricultural utopia</em></p><p>or<a class="footnote-anchor" id="footnote-anchor-4" href="#footnote-4" target="_self">4</a></p><p><em>sweet and clear across the water,<br>corbels carved with gilded angels.<br>larger-than-life cardboard cutouts <br>could have fled.</em></p><p>None have the magic spark, but they do contain an element of surprise and don&#8217;t give you the same ick as LLM text.</p><p>Ever since I had the realization that my agents produce more interesting web designs when they have coherent randomness, I&#8217;ve started curating my own datasets. I now serve them on this little agent-optimized webpage: </p><p><a href="https://getrandomness.com/">https://getrandomness.com/</a></p><p>Currently it only supports font pairings, color palettes, and wiki pages. I&#8217;ll add more curated datasets there over time. The page will work for your agents on claude.ai or chatgpt.com, provided you mention the full URL verbatim in your message when asking the agent to draw some randomness.</p><p>Now, randomness does help fight the worst slop, but it is not a panacea. In order for you to produce something interesting that stands out, you still need to work hard and curate the details with your human judgement. But it&#8217;s one more tool in your toolbox.</p><figure class="essay-figure"><img src="https://substack-post-media.s3.amazonaws.com/public/images/d010a180-6cb2-419d-96e6-2a7f31aba98c_1800x1200.webp" alt="" width="1456" height="971" loading="lazy"><figcaption>An image I&#8217;ve made with a new visual arts synthesizer I&#8217;m building for painting with vector fields and two dimensional physics</figcaption></figure><div class="footnote"><a id="footnote-1" href="#footnote-anchor-1" class="footnote-number" contenteditable="false" target="_self">1</a><div class="footnote-content"><p><em>Home and Away: Revenge</em> &#8212; &#8220;Bianca wakes up in an old hotel tied to a piano.&#8221;</p><p><em>Fran&#231;ois Thurot</em> &#8212; &#8220;Thurot, who was being held aboard a prison hulk at Dover, escaped, stole a small boat, and crossed to France.&#8221;</p><p><em>Basque Country women&#8217;s football</em> &#8212; &#8220;It is not affiliated with FIFA or UEFA and therefore it is only allowed to play friendly matches.&#8221;</p><p><em>2004 Good Friday ambush</em> &#8212; &#8220;Timothy Bell remains missing and is presumed dead.&#8221;</p><p><em>Cool Breeze</em> &#8212; &#8220;The cast is only good in its sadness, and especially with Raymond St. Jacques as Mercer&#8230;&#8221;</p></div></div><div class="footnote"><a id="footnote-2" href="#footnote-anchor-2" class="footnote-number" contenteditable="false" target="_self">2</a><div class="footnote-content"><p><em>The Skull (film)</em> &#8212; &#8220;He in turn falls victim as the skull drives him to hallucinations, madness and death.&#8221;</p><p><em>Mildred Shay</em> &#8212; &#8220;Shay suffered a stroke in 2004.&#8221;</p><p><em>Johann Joachim Christoph Bode</em> &#8212; &#8220;He died in Weimar in 1793.&#8221;</p><p><em>William Pope Duval</em> &#8212; &#8220;William Pope Duval died in Washington, D.C.; his remains were interred at the Congressional Cemetery.&#8221;</p></div></div><div class="footnote"><a id="footnote-3" href="#footnote-anchor-3" class="footnote-number" contenteditable="false" target="_self">3</a><div class="footnote-content"><p><em>Marie Duval </em>&#8212; &#8220;She initially became a governess but left to become an actor.&#8221;</p><p><em>Daniel Doram</em> &#8212; &#8220;He returned to the club for their inaugural NEPL season in 2019 and during the season was selected for the NEPL Representative XI which played MCC.&#8221;</p><p><em>1992 Canadian Soccer League season </em>&#8212; &#8220;Winnipeg won the title becoming only the third club to win the championship, ending Vancouver&#8217;s four-year winning streak, snapping Vancouver&#8217;s 15 match playoff winning streak, handing them their first playoff loss since 1987.&#8221;</p><p><em>Abe Gubegna </em>&#8212; &#8220;He goes on to establish an agricultural utopia with his friends, which is destroyed when a government official lays claim to their land.&#8221;</p></div></div><div class="footnote"><a id="footnote-4" href="#footnote-anchor-4" class="footnote-number" contenteditable="false" target="_self">4</a><div class="footnote-content"><p><em><span>Frederick Delius &#8212; </span></em><span>&#8220;Delius never forgot the singing as he heard it, day or night, carried sweet and clear across the water to his verandah at Solano Grove, whenever a steam-ship passed.&#8221;</span></p><p><em><span>Church of St John the Divine, Morecambe &#8212;</span></em><span> &#8220;The chancel roof is carried on corbels carved with gilded angels.&#8221;</span></p><p><em><span>Brampton Arts Walk of Fame &#8212; </span></em><span>&#8220;Larger-than-life cardboard cutouts of celebrities were posted along a red carpet.&#8221; </span></p><p><em><span>Karl Landauer &#8212;</span></em><span> &#8220;Landauer could have fled to Sweden, but instead settled in the Netherlands.&#8221;</span></p></div></div>
+            </div>
+            <footer class="essay-footer">
+                <p>Originally published on <a href="https://extramediumplease.substack.com/p/your-ai-agent-needs-randomness" target="_blank" rel="noopener">Mechanics of Aesthetics</a></p>
+            </footer>
+        </article>
+    </main>
+    <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+
+</html>
