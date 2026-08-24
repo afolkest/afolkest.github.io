@@ -54,13 +54,13 @@
 :root {
     /* Paper color scheme. These seven roles are the palette-editing surface;
        component rules below should not introduce their own opaque colors. */
-    --color-canvas: hsl(32.3 43.3% 76.5%);   /* page surround */
-    --color-surface: hsl(38.2 52.4% 91.8%);  /* reading sheet */
+    --color-canvas: hsl(0 10% 24.3%);         /* page surround */
+    --color-surface: hsl(31.8 41.5% 94%);     /* reading sheet */
     --color-text-primary: #1b1815;
-    --color-text-secondary: #5d564d;
-    --color-text-muted: #635b4f;
-    --color-text-subtle: #a39a88;
-    --color-accent: #93381b;
+    --color-text-secondary: #5d564f;
+    --color-text-muted: #635b52;
+    --color-text-subtle: #a5998b;
+    --color-accent: hsl(180.8 28.9% 44.6%);
     --color-accent-hover: color-mix(
         in srgb,
         var(--color-accent) 70%,
@@ -69,9 +69,9 @@
 
     /* Material-effect ingredients. Alpha remains local to each shadow or
        texture layer, while its hue lives here with the color scheme. */
-    --rgb-texture-dark: 122 92 62;
-    --rgb-texture-light: 255 252 244;
-    --rgb-shadow: 94 70 46;
+    --rgb-texture-dark: 101 93 83;
+    --rgb-texture-light: 252 249 245;
+    --rgb-shadow: 20 19 22;
     --rgb-neutral-dark: 0 0 0;
     --rgb-neutral-light: 255 255 255;
     --serif: 'Heliotrope OT', Georgia, serif;
@@ -85,7 +85,7 @@
     /* Texture recipe contract: a neutral pattern, a contrast gain, and a
        midpoint bias. Strength changes opacity only; overlay blending keeps the
        mean surface color approximately fixed. */
-    --mat-texture-opacity: 0.305;
+    --mat-texture-opacity: 0.2;
     --sheet-texture-opacity: 0.45;
     /* The stacked SVG noise has a light bias before its final contrast pass;
        these calibrated inputs render to a 50% effective midpoint. */
