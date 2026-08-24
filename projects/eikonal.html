@@ -35,28 +35,29 @@
             <div class="essay-body">
                 <figure class="essay-figure">
                     <img src="/images/forgive_us_800.webp" srcset="/images/forgive_us_800.webp 800w, /images/forgive_us_1600.webp 1600w, /images/forgive_us_1800.webp 1800w" sizes="(max-width: 48rem) calc(100vw - 2.4rem), 51.5rem" width="1800" height="1200" fetchpriority="high" decoding="async" alt="forgive us — a dark figure reaching toward a starburst across pale blue and cream flow lines">
+                    <figcaption class="eikonal-artwork-caption">Image made by me in Eikonal</figcaption>
                 </figure>
 
-                <p>I’m currently building an opinionated visual arts instrument using the physics of field theory and so-called elliptic boundary value problems. It is turning into my homage to, and modern take on, impressionism. It’s in active development and still pre-release, though an early prototype is <a href="https://github.com/afolkest/elliptica" target="_blank" rel="noopener">open source on GitHub</a>.</p>
+                <p>I’m currently building an opinionated visual arts instrument using the physics of field theory and so-called elliptic boundary value problems. It is turning into my homage to, and modern take on, impressionism. It’s in active development and pre-release, though an early prototype is <a href="https://github.com/afolkest/elliptica" target="_blank" rel="noopener">open source on GitHub</a>.</p>
 
                 <p><strong>Eikonal tries to:</strong></p>
                 <ul>
                     <li>Automatically enforce coherence by virtue of its imposed grammar</li>
                     <li>Balance the abstract and the figurative by combining non-naturalistic rich microstructure with easy insertion of natural motifs</li>
-                    <li>Be continuous, so that the human can fine-tune and impose their taste in the details (in stark contrast to AI image gen)</li>
+                    <li>Be continuous, so that the human can fine-tune and impose their taste in the details (in contrast to AI image gen)</li>
                     <li>Be user-friendly by picking a curated-yet-rich set of dials in advance</li>
                 </ul>
 
-                <p><strong>Eikonal tries to actively avoid:</strong></p>
+                <p><strong>Eikonal tries to avoid:</strong></p>
                 <ul>
-                    <li>3D. It tends to look too computer-gamey for what I want to achieve. Furthermore, the 3D graphics space is heavily crowded, so it’s hard to do something new there.</li>
-                    <li>Becoming a general computational system, akin to TouchDesigner. Either you can work within a flexible tool and impose your own grammar within the system, or you can impose the grammar directly in the design of the software yourself. The latter gives a much nicer UI and UX at the cost of flexibility. A paintbrush imposes massive constraints, and that is part of its magic. Total freedom is not helpful when making art, and this is my attempt to define a set of liberating constraints.</li>
+                    <li>3D. The 3D graphics space is heavily crowded, so it’s hard to do something new there. Also, it’s hard to avoid it looking computer game-y.</li>
+                    <li>Being a general computational system, akin to TouchDesigner. Either you can work within a flexible tool and impose your own grammar within the system, or you can impose the grammar directly in the design of the software itself. The latter allows a nicer UX at the cost of flexibility. A paintbrush imposes massive constraints, and that is part of its magic. Total freedom is not helpful when making art, and this is my attempt to define a set of liberating constraints.</li>
                 </ul>
 
                 <section aria-labelledby="building-texture">
                     <h2 id="building-texture">Building texture</h2>
 
-                    <p>The most important ingredient of Eikonal is Line Integral Convolution (LIC). LIC is a texture-generation technique used for visualizing flow lines of vector fields. It is conceptually very simple. Start with pure noise and a vector field:</p>
+                    <p>The most important ingredient of Eikonal is Line Integral Convolution (LIC). LIC is a texture-generation technique used for visualizing flow lines of vector fields. It is conceptually simple. Start with pure noise and a vector field:</p>
 
                     <figure class="essay-figure">
                         <div class="eikonal-placeholder-sequence eikonal-media-sequence">
@@ -66,7 +67,7 @@
                         </div>
                     </figure>
 
-                    <p>Then smear this noise along the flow lines. This results in something like this:</p>
+                    <p>Then smear the noise along the flow lines:</p>
 
                     <figure class="essay-figure">
                         <img src="/images/eikonal/lic.png" width="900" height="600" loading="lazy" decoding="async" alt="Line integral convolution of the noise along the vector field">
@@ -74,13 +75,15 @@
 
                     <p>The beauty of the technique is that you get to choose any flow, and microstructure follows for free.</p>
 
-                    <p>In the academic literature LIC is usually described as a very heavy algorithm, but with agents I’ve built a GPU version of the algorithm that runs at 45 fps at 4K resolution.<a class="footnote-anchor" id="footnote-anchor-1" href="#footnote-1">1</a> I’ve shared this algorithm <a href="https://github.com/afolkest/metal-LIC" target="_blank" rel="noopener">open source on GitHub</a>.</p>
+                    <aside class="eikonal-technical-aside">
+                        <p><strong>Technical aside:</strong> In the academic literature LIC is usually described as a very heavy algorithm, but with agents I’ve built a GPU version of the algorithm that runs at 45 fps at 4K resolution.<a class="footnote-anchor" id="footnote-anchor-1" href="#footnote-1">1</a> I’ve shared this algorithm <a href="https://github.com/afolkest/metal-LIC" target="_blank" rel="noopener">open source on GitHub</a>.</p>
+                    </aside>
                 </section>
 
                 <section aria-labelledby="building-narrative">
                     <h2 id="building-narrative">Building narrative and flow lines</h2>
 
-                    <p>To get something more interesting you need more interesting motifs. You need a way of building flow lines. One of the main ways to do this in Eikonal is to generate flow lines from imported shapes. We use a physics-inspired technique to map</p>
+                    <p>To get something more interesting you need more interesting motifs. You need a way of building flow lines. One way Eikonal generates flow lines is from imported shapes. We use a physics-inspired technique to map</p>
 
                     <div class="essay-equation eikonal-map" role="math" aria-label="Collection of shapes maps to flow lines">
                         <span>Collection of shapes</span>
@@ -97,7 +100,7 @@
                         </div>
                     </figure>
 
-                    <p>In particular, we solve a so-called elliptic boundary value problem. It’s basically the type of equation you find in physics that describes the stationary states of extended field-like systems bounded by general walls. The particular equation used in Eikonal at the moment is the so-called Laplace equation:</p>
+                    <p>In particular, to map shapes to fields we solve a so-called elliptic boundary value problem. It’s basically the type of equation you find in physics that describes the stationary states of extended field-like systems bounded by general walls. Eikonal currently uses the Laplace equation:</p>
 
                     <div class="essay-equation">
                         <math display="block" aria-label="Nabla squared phi equals zero; phi sub shape i equals v sub i; vector V equals the gradient of phi">
@@ -105,7 +108,7 @@
                                 <msup><mo>∇</mo><mn>2</mn></msup><mi>φ</mi>
                                 <mo>=</mo><mn>0</mn><mo>,</mo>
                                 <mspace width="1em"></mspace>
-                                <msub><mi>φ</mi><mrow><mtext>shape </mtext><mi>i</mi></mrow></msub>
+                                <msub><mi>φ</mi><mrow><mtext>shape</mtext><mspace width="0.25em"></mspace><mi>i</mi></mrow></msub>
                                 <mo>=</mo>
                                 <msub><mi>v</mi><mi>i</mi></msub><mo>,</mo>
                                 <mspace width="1em"></mspace>
@@ -115,9 +118,9 @@
                         </math>
                     </div>
 
-                    <p>It doesn’t matter if you know what this equation is. The point is that this equation describes the electric field generated between metal walls held at fixed voltage (<var>v</var><sub><var>i</var></sub>). So essentially, we are painting with electrostatic fields by authoring with metal walls.</p>
+                    <p>It doesn’t matter if you know what this equation is. The point is that this equation describes the electric field generated between metal walls held at fixed voltage (<var>v</var><sub><var>i</var></sub>). In other words, we are painting with electrostatic fields by authoring with metal walls.</p>
 
-                    <p>The Laplace equation has a very nice property: long-range correlations. This means that the effect of some disturbance you make somewhere propagates globally. It is not exponentially damped as you move away from the disturbance. This means that as you insert the shapes that represent your artistic narrative, their shapes will leave a global imprint on the full canvas. It is a sort of “pattern autocomplete.” Insert as many shapes as you want, and the Laplace equation will fill in a smooth flow field in between them.</p>
+                    <p>The Laplace equation has a very nice property: long-range correlations. This means that the effect of some local disturbance propagates globally. It is not exponentially damped as you move away from the disturbance. This means that as you insert the shapes that represent your artistic narrative, their shapes will leave a global imprint on the full canvas. It is a sort of “pattern autocomplete.” Insert as many shapes as you want, and the Laplace equation will fill in a smooth flow field in between them.</p>
 
                     <p>The open source prototype already contains both these elements, although it is not real-time interactive, since the main computations are happening on the CPU.</p>
 
@@ -130,25 +133,25 @@
                 <section aria-labelledby="more-expressive">
                     <h2 id="more-expressive">Making the system more expressive</h2>
 
-                    <p>One problem I’m currently actively solving is how to make it more natural to author drama, inhomogeneities, and uneven focus. As Caravaggio will tell you, an interesting piece should not distribute your attention evenly across the canvas. One of the early images I made with the Eikonal prototype is this one:</p>
+                    <p>One problem I’m currently solving is how to make it more natural to author drama, inhomogeneities, and uneven focus. As Caravaggio will tell you, an interesting piece should not distribute your attention evenly across the canvas. Here is an early image from the Eikonal prototype:</p>
 
                     <figure class="essay-figure">
                         <img src="/images/electrogenesis_800.webp" srcset="/images/electrogenesis_800.webp 800w, /images/electrogenesis_1600.webp 1600w" sizes="(max-width: 48rem) calc(100vw - 2.4rem), 51.5rem" width="1600" height="832" loading="lazy" decoding="async" alt="electrogenesis — two figures reaching toward each other through flowing electric field lines">
                     </figure>
 
-                    <p>While it has some satisfying qualities, it has no foreground or background. One of the most interesting ways I’ve found to deal with this so far is to mix the pure noise with real images.</p>
+                    <p>While it has some satisfying qualities, it has no foreground or background. One way I’ve found to address this is to mix the pure noise with real images. This is what I did to create the opening image:</p>
 
                     <figure class="essay-figure">
                         <img src="/images/eikonal/forgive-us-in-the-making-800.webp" srcset="/images/eikonal/forgive-us-in-the-making-800.webp 800w, /images/eikonal/forgive-us-in-the-making-1600.webp 1600w" sizes="(max-width: 48rem) calc(100vw - 2.4rem), 51.5rem" width="1600" height="960" loading="lazy" decoding="async" alt="Eikonal interface showing forgive us in progress, with the source image, shape list, and LIC controls visible">
                     </figure>
 
-                    <p>Another interesting approach is to ditch the Laplace equation altogether and try to use an existing image to extract a vector field that is in some way derived from an image. Here is an example of that procedure:</p>
+                    <p>Another approach is to ditch the Laplace equation and extract a vector field from an existing image. For example:</p>
 
                     <figure class="essay-figure">
                         <img src="/images/eikonal/die-source-800.webp" srcset="/images/eikonal/die-source-800.webp 800w, /images/eikonal/die-source-1344.webp 1344w" sizes="(max-width: 48rem) calc(100vw - 2.4rem), 51.5rem" width="1344" height="896" loading="lazy" decoding="async" alt="Black-and-white photograph of a die balanced on one edge above its shadow">
                     </figure>
 
-                    <p>Then we can, afterwards, feed the original image mixed with noise through the smearing process and get something like this.</p>
+                    <p>Then we mix the original image with noise and feed it through the smearing process:</p>
 
                     <figure class="essay-figure">
                         <img src="/images/eikonal/die-smeared-800.webp" srcset="/images/eikonal/die-smeared-800.webp 800w, /images/eikonal/die-smeared-1600.webp 1600w" sizes="(max-width: 48rem) calc(100vw - 2.4rem), 51.5rem" width="1600" height="1067" loading="lazy" decoding="async" alt="The die and its shadow smeared into dense blue, red, and black flow lines">
@@ -159,7 +162,7 @@
                 <section aria-labelledby="roadmap">
                     <h2 id="roadmap">On the roadmap</h2>
 
-                    <p>There is much to do. I keep exploring rich threads to pull on. Things on the immediate roadmap are:</p>
+                    <p>There is much to do. I keep finding rich threads to pull on. The immediate roadmap includes:</p>
                     <ul>
                         <li>More carefully crafted UX</li>
                         <li>Time-dependent images by replacing static noise with cellular automata</li>
