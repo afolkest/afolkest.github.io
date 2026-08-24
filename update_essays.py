@@ -599,6 +599,7 @@ def update_sitemap(essay_posts):
         (f"{SITE_URL}/research.html", "0.8"),
         (f"{SITE_URL}/projects/eikonal.html", "0.6"),
         (f"{SITE_URL}/art.html", "0.8"),
+        (f"{SITE_URL}/art/forgive-us.html", "0.6"),
         (f"{SITE_URL}/art/god-is-nan.html", "0.6"),
         (f"{SITE_URL}/art/pragmatism.html", "0.6"),
         (f"{SITE_URL}/art/trees.html", "0.6"),

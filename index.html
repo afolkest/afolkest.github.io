@@ -28,7 +28,7 @@
         <div class="spread">
 
             <div class="col-left">
-                <header>
+                <header class="home-identity">
                     <h1>Åsmund<br>Folkestad<span class="stop">.</span></h1>
                     <p class="contact">
                         <a href="mailto:asmund.sf@gmail.com">asmund.sf@gmail.com</a><br>
@@ -36,7 +36,15 @@
                     </p>
                 </header>
 
-                <section>
+                <!-- The mobile reading order puts the introduction directly
+                     after the identity. Keep this copy in sync with the
+                     desktop introduction below. -->
+                <section class="about about-mobile">
+                    <p>I'm a theoretical physicist in San Francisco building AI tools for science. I did my PhD at MIT on black holes and quantum gravity. Now I’m a founding research engineer at the seed-stage startup <a href="https://app.undermind.ai/" class="ext">Undermind</a>.</p>
+                    <p>I write on aesthetics, pragmatism, and physics at <a href="https://extramediumplease.substack.com/" class="ext keep"><i>Mechanics of Aesthetics</i></a>. I also paint with electromagnetic fields, build visual arts algorithms and software, and produce electronic music with choirs and pipe organs. Next time you’re hosting an abandoned cathedral rave you should check it out.</p>
+                </section>
+
+                <section class="home-artworks">
                     <div class="head">
                         <a href="/art.html">
                             <h2>Artworks</h2><span class="all">all artworks <span class="arrow">→</span></span>
@@ -50,7 +58,7 @@
                     </figure>
                 </section>
 
-                <section>
+                <section class="home-music">
                     <div class="head">
                         <h2>Music</h2>
                     </div>
@@ -72,7 +80,7 @@
 
             <div class="col-right">
 
-                <section class="about">
+                <section class="about about-desktop">
                     <div class="head">
                         <h2>About</h2>
                     </div>
@@ -80,7 +88,7 @@
                     <p>I write on aesthetics, pragmatism, and physics at <a href="https://extramediumplease.substack.com/" class="ext keep"><i>Mechanics of Aesthetics</i></a>. I also paint with electromagnetic fields, build visual arts algorithms and software, and produce electronic music with choirs and pipe organs. Next time you’re hosting an abandoned cathedral rave you should check it out.</p>
                 </section>
 
-                <section>
+                <section class="home-projects">
                     <div class="head">
                         <h2>Current projects</h2>
                     </div>
@@ -94,7 +102,7 @@
                     </div>
                 </section>
 
-                <section>
+                <section class="home-essays">
                     <div class="head">
                         <a href="/essays.html">
                             <h2>Essays</h2><span class="all">all essays <span class="arrow">→</span></span>
@@ -119,7 +127,7 @@
                     </div>
                 </section>
 
-                <section>
+                <section class="home-papers">
                     <div class="head">
                         <a href="/research.html">
                             <h2>Papers</h2><span class="all">all papers <span class="arrow">→</span></span>
@@ -127,16 +135,16 @@
                     </div>
                     <div class="list">
                         <a class="row squeeze-title" href="https://arxiv.org/abs/2502.01723" target="_blank" rel="noopener">
-                            <span class="t">Holographic Time Crystals vs Penrose</span><span class="meta">JHEP · 2025</span>
+                            <span class="t">Holographic Time Crystals vs Penrose</span><span class="meta gloss">JHEP · 2025</span>
                         </a>
                         <a class="row squeeze-title" href="https://arxiv.org/abs/2311.09403" target="_blank" rel="noopener">
-                            <span class="t">Subregion independence in gravity</span><span class="meta">JHEP · 2024</span>
+                            <span class="t">Subregion independence in gravity</span><span class="meta gloss">JHEP · 2024</span>
                         </a>
                         <a class="row squeeze-title" href="https://arxiv.org/abs/2209.00013" target="_blank" rel="noopener" title="Penrose Inequality as a Constraint on the Low Energy Limit of Quantum Gravity">
-                            <span class="t">Penrose Inequality as a Constraint on the Low Energy Limit of Quantum Gravity</span><span class="meta">PRL · 2023</span>
+                            <span class="t">Penrose Inequality as a Constraint on the Low Energy Limit of Quantum Gravity</span><span class="meta gloss">PRL · 2023</span>
                         </a>
                         <a class="row squeeze-title" href="https://arxiv.org/abs/2012.11445" target="_blank" rel="noopener">
-                            <span class="t">Holography abhors visible trapped surfaces</span><span class="meta">JHEP · 2021</span>
+                            <span class="t">Holography abhors visible trapped surfaces</span><span class="meta gloss">JHEP · 2021</span>
                         </a>
                     </div>
                 </section>
