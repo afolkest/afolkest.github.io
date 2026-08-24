@@ -23,9 +23,9 @@
     /* Candidate color schemes. Every scheme holds the same ink ladder —
        L* 8.5 / 37.0 / 39.1 / 63.9 on the sheet, accent L* 36.2 — so contrast
        and reading hierarchy are constant and the mat is the variable.
-       matHsl/sheetHsl seed the two color sliders and matTexture the mat's
-       texture slider (a dark mat shows the same grain more, so it needs less);
-       the remaining tokens are set directly.
+       matHsl/sheetHsl seed the surface sliders, accent seeds the accent sliders,
+       and matTexture seeds the mat's texture slider (a dark mat shows the same
+       grain more, so it needs less); the remaining tokens are set directly.
        Promote a winner into paper.css and delete the rest. */
     const schemes = [
         {
@@ -85,11 +85,12 @@
             id: 'graphite',
             label: 'Graphite',
             note: 'violet-leaning charcoal — the blue and the warmth sit in the same tone',
-            matHsl: [247.5, 4.9, 31.8],
-            sheetHsl: [34.3, 36.8, 92.5],
-            matTexture: 35,
-            canvas: '#4e4d55',
-            surface: '#f3ede5',
+            matHsl: [247.5, 4.9, 22.4],
+            sheetHsl: [34.3, 27.5, 95.2],
+            matTexture: 63,
+            sheetTexture: 129,
+            canvas: '#37363c',
+            surface: '#f6f3ef',
             primary: '#1b1815',
             secondary: '#5c564f',
             muted: '#625b52',
@@ -140,11 +141,11 @@
             label: 'Gallery',
             note: 'warm-neutral wall against an achromatic sheet — the only color left on the page is the ink',
             matHsl: [60.0, 2.2, 25.0],
-            sheetHsl: [33.3, 0.0, 94.1],
+            sheetHsl: [33.3, 34.7, 94.1],
             matTexture: 55,
             sheetTexture: 75,
             canvas: '#41413e',
-            surface: '#f0f0f0',
+            surface: '#f5f1eb',
             primary: '#1b1815',
             secondary: '#5d564f',
             muted: '#635b52',
@@ -157,6 +158,36 @@
     ];
 
     const schemeById = id => schemes.find(entry => entry.id === id) || schemes[0];
+
+    function hexToHsl(hex) {
+        const value = hex.replace('#', '');
+        const red = Number.parseInt(value.slice(0, 2), 16) / 255;
+        const green = Number.parseInt(value.slice(2, 4), 16) / 255;
+        const blue = Number.parseInt(value.slice(4, 6), 16) / 255;
+        const max = Math.max(red, green, blue);
+        const min = Math.min(red, green, blue);
+        const delta = max - min;
+        const lightness = (max + min) / 2;
+        let hue = 0;
+
+        if (delta) {
+            if (max === red) hue = 60 * (((green - blue) / delta) % 6);
+            else if (max === green) hue = 60 * ((blue - red) / delta + 2);
+            else hue = 60 * ((red - green) / delta + 4);
+        }
+
+        const saturation = delta
+            ? delta / (1 - Math.abs(2 * lightness - 1))
+            : 0;
+
+        return [
+            (hue + 360) % 360,
+            saturation * 100,
+            lightness * 100,
+        ];
+    }
+
+    const originalAccentHsl = hexToHsl(schemes[0].accent);
 
     const defaults = {
         scheme: 'original',
@@ -172,6 +203,9 @@
         paperHue: 38.2,
         paperSaturation: 52.4,
         paperBrightness: 91.8,
+        accentHue: originalAccentHsl[0],
+        accentSaturation: originalAccentHsl[1],
+        accentBrightness: originalAccentHsl[2],
     };
 
     /* These sliders start from the active scheme, so double-clicking one
@@ -183,6 +217,9 @@
         paperHue: entry => entry.sheetHsl[0],
         paperSaturation: entry => entry.sheetHsl[1],
         paperBrightness: entry => entry.sheetHsl[2],
+        accentHue: entry => hexToHsl(entry.accent)[0],
+        accentSaturation: entry => hexToHsl(entry.accent)[1],
+        accentBrightness: entry => hexToHsl(entry.accent)[2],
         matTexture: entry => entry.matTexture ?? defaults.matTexture,
         sheetTexture: entry => entry.sheetTexture ?? defaults.sheetTexture,
     };
@@ -225,6 +262,14 @@
                 { key: 'paperBrightness', label: 'Brightness', min: 60, max: 100, step: 0.1, unit: '%', digits: 1 },
             ],
         },
+        {
+            title: 'Accent color',
+            controls: [
+                { key: 'accentHue', label: 'Hue', min: 0, max: 360, step: 0.1, unit: '°', digits: 1 },
+                { key: 'accentSaturation', label: 'Saturation', min: 0, max: 100, step: 0.1, unit: '%', digits: 1 },
+                { key: 'accentBrightness', label: 'Brightness', min: 0, max: 100, step: 0.1, unit: '%', digits: 1 },
+            ],
+        },
     ];
 
     const allControls = groups.flatMap(group => group.controls);
@@ -241,7 +286,12 @@
                     .map(([key, value]) => [key, Number(value)])
             );
             const stored = schemes.some(entry => entry.id === saved.scheme) ? saved.scheme : defaults.scheme;
-            return applyRequestedScheme({ ...defaults, ...valid, scheme: stored });
+            const next = { ...defaults, ...valid, scheme: stored };
+            const scheme = schemeById(stored);
+            Object.entries(schemeSeeds).forEach(([key, seed]) => {
+                if (!(key in valid)) next[key] = seed(scheme);
+            });
+            return applyRequestedScheme(next);
         } catch {
             return applyRequestedScheme({ ...defaults });
         }
@@ -278,14 +328,14 @@
         root.style.setProperty('--mat-texture-opacity', Math.min(1, state.matTexture / 100 * textureRecipe.matGain));
         root.style.setProperty('--sheet-texture-opacity', Math.min(1, state.sheetTexture / 100 * textureRecipe.sheetGain));
 
-        /* The scheme sets the ink, accent, and material hues; the mat and sheet
-           surfaces come from the sliders, which the scheme picker re-seeds. */
+        /* The scheme sets the ink and material hues; the mat, sheet, and accent
+           colors come from sliders that the scheme picker re-seeds. */
         const scheme = schemeById(state.scheme);
         root.style.setProperty('--color-text-primary', scheme.primary);
         root.style.setProperty('--color-text-secondary', scheme.secondary);
         root.style.setProperty('--color-text-muted', scheme.muted);
         root.style.setProperty('--color-text-subtle', scheme.subtle);
-        root.style.setProperty('--color-accent', scheme.accent);
+        root.style.setProperty('--color-accent', hsl(state.accentHue, state.accentSaturation, state.accentBrightness));
         root.style.setProperty('--rgb-shadow', scheme.shadow);
         root.style.setProperty('--rgb-texture-dark', scheme.textureDark);
         root.style.setProperty('--rgb-texture-light', scheme.textureLight);
@@ -293,8 +343,8 @@
         root.style.setProperty('--color-surface', hsl(state.paperHue, state.paperSaturation, state.paperBrightness));
     }
 
-    /* Switching schemes re-seeds the mat and sheet sliders so that the panel and
-       the page never disagree about the current surface colors. */
+    /* Switching schemes re-seeds the mat, sheet, and accent sliders so that the
+       panel and page never disagree about the current colors. */
     function selectScheme(id, { announce = true } = {}) {
         const scheme = schemeById(id);
         state.scheme = scheme.id;
@@ -344,6 +394,7 @@
             output.textContent = formatValue(control);
             applyState();
             saveState();
+            syncSchemeButtons();
             setStatus('Saved');
         });
 
@@ -353,6 +404,7 @@
             output.textContent = formatValue(control);
             applyState();
             saveState();
+            syncSchemeButtons();
             setStatus(`${control.label} reset`);
         });
 
@@ -374,6 +426,18 @@
             const active = button.dataset.scheme === state.scheme;
             button.classList.toggle('is-active', active);
             button.setAttribute('aria-pressed', String(active));
+
+            const scheme = schemeById(button.dataset.scheme);
+            const colors = active
+                ? [
+                    hsl(state.matHue, state.matSaturation, state.matBrightness),
+                    hsl(state.paperHue, state.paperSaturation, state.paperBrightness),
+                    hsl(state.accentHue, state.accentSaturation, state.accentBrightness),
+                ]
+                : [scheme.canvas, scheme.surface, scheme.accent];
+            button.querySelectorAll('.design-tuner__swatch span').forEach((chip, index) => {
+                chip.style.background = colors[index];
+            });
         });
         const scheme = schemeById(state.scheme);
         schemeNote.textContent = scheme.note;
@@ -389,7 +453,7 @@
     --color-text-secondary: ${scheme.secondary};
     --color-text-muted: ${scheme.muted};
     --color-text-subtle: ${scheme.subtle};
-    --color-accent: ${scheme.accent};
+    --color-accent: ${hsl(state.accentHue.toFixed(1), state.accentSaturation.toFixed(1), state.accentBrightness.toFixed(1))};
     --rgb-shadow: ${scheme.shadow};
     --rgb-texture-dark: ${scheme.textureDark};
     --rgb-texture-light: ${scheme.textureLight};
