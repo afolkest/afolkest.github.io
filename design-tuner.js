@@ -104,16 +104,17 @@
             id: 'charcoal',
             label: 'Charcoal',
             note: 'gallery-wall dark, warmest sheet — the page reads as lit',
-            matHsl: [250.0, 4.8, 24.3],
-            sheetHsl: [31.8, 41.5, 92.0],
-            matTexture: 50,
-            canvas: '#3c3b41',
-            surface: '#f3ebe2',
+            matHsl: [0.0, 10.0, 24.3],
+            sheetHsl: [31.8, 41.5, 94.0],
+            matTexture: 40,
+            canvas: '#443838',
+            surface: '#f6f0e9',
             primary: '#1b1815',
             secondary: '#5d564f',
             muted: '#635b52',
             subtle: '#a5998b',
             accent: '#93381b',
+            accentHsl: [180.8, 28.9, 44.6],
             shadow: '20 19 22',
             textureDark: '101 93 83',
             textureLight: '252 249 245',
@@ -187,7 +188,15 @@
         ];
     }
 
-    const originalAccentHsl = hexToHsl(schemes[0].accent);
+    function schemeAccentHsl(scheme) {
+        const accent = scheme.accentHsl
+            ? [...scheme.accentHsl]
+            : hexToHsl(scheme.accent);
+        if (scheme.id !== 'original' && !scheme.accentHsl) accent[0] = scheme.matHsl[0];
+        return accent;
+    }
+
+    const originalAccentHsl = schemeAccentHsl(schemes[0]);
 
     const defaults = {
         scheme: 'original',
@@ -217,9 +226,9 @@
         paperHue: entry => entry.sheetHsl[0],
         paperSaturation: entry => entry.sheetHsl[1],
         paperBrightness: entry => entry.sheetHsl[2],
-        accentHue: entry => hexToHsl(entry.accent)[0],
-        accentSaturation: entry => hexToHsl(entry.accent)[1],
-        accentBrightness: entry => hexToHsl(entry.accent)[2],
+        accentHue: entry => schemeAccentHsl(entry)[0],
+        accentSaturation: entry => schemeAccentHsl(entry)[1],
+        accentBrightness: entry => schemeAccentHsl(entry)[2],
         matTexture: entry => entry.matTexture ?? defaults.matTexture,
         sheetTexture: entry => entry.sheetTexture ?? defaults.sheetTexture,
     };
@@ -434,7 +443,7 @@
                     hsl(state.paperHue, state.paperSaturation, state.paperBrightness),
                     hsl(state.accentHue, state.accentSaturation, state.accentBrightness),
                 ]
-                : [scheme.canvas, scheme.surface, scheme.accent];
+                : [scheme.canvas, scheme.surface, hsl(...schemeAccentHsl(scheme))];
             button.querySelectorAll('.design-tuner__swatch span').forEach((chip, index) => {
                 chip.style.background = colors[index];
             });
@@ -713,7 +722,7 @@
         /* mat, sheet, accent — the three decisions each scheme actually makes */
         const swatch = document.createElement('span');
         swatch.className = 'design-tuner__swatch';
-        [scheme.canvas, scheme.surface, scheme.accent].forEach(color => {
+        [scheme.canvas, scheme.surface, hsl(...schemeAccentHsl(scheme))].forEach(color => {
             const chip = document.createElement('span');
             chip.style.background = color;
             swatch.append(chip);
