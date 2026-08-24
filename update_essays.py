@@ -31,6 +31,13 @@ ALL_END = "<!-- ESSAYS_END -->"
 KNOWN_DATES = {
     "beauty-as-entropic-fine-tuning": "2024-05-25T00:00:00Z",
     "beauty-opioids": "2024-08-14T01:35:25Z",
+    "n-beauty": "2024-07-23T21:49:34Z",
+}
+
+# Essays that should remain in the public catalog even after they age out of
+# Substack's finite RSS window.
+CATALOG_SLUGS = {
+    "n-beauty",
 }
 
 SELECTED_SLUGS = [
@@ -42,7 +49,7 @@ SELECTED_SLUGS = [
 ]
 
 DESCRIPTION_OVERRIDES = {
-    "god-is-nan": "pragmatist mysticism and the nonsense of Bayesian metaphysics",
+    "god-is-nan": "Pragmatist mysticism and the nonsense of Bayesian metaphysics",
 }
 
 SUBSTACK_CDN = "https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_center/"
@@ -366,7 +373,7 @@ ESSAY_TEMPLATE = """\
     <meta property="og:url" content="{page_url}">
     <meta property="og:type" content="article">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="theme-color" content="#ddc5a9">
+    <meta name="theme-color" content="#443838">
     <link rel="canonical" href="{canonical_url}">
     <link rel="preload" href="/fonts/equity/equity_ot_b_regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/equity/equity_ot_b_italic.woff2" as="font" type="font/woff2" crossorigin>
@@ -599,6 +606,8 @@ def update_sitemap(essay_posts):
         (f"{SITE_URL}/research.html", "0.8"),
         (f"{SITE_URL}/projects/eikonal.html", "0.6"),
         (f"{SITE_URL}/art.html", "0.8"),
+        (f"{SITE_URL}/art/forgive-us-ii.html", "0.6"),
+        (f"{SITE_URL}/art/god-is-nan-ii.html", "0.6"),
         (f"{SITE_URL}/art/forgive-us.html", "0.6"),
         (f"{SITE_URL}/art/god-is-nan.html", "0.6"),
         (f"{SITE_URL}/art/pragmatism.html", "0.6"),
@@ -613,7 +622,6 @@ def update_sitemap(essay_posts):
         (f"{SITE_URL}/art/gold-napoleon.html", "0.6"),
         (f"{SITE_URL}/art/electrogenesis.html", "0.6"),
         (f"{SITE_URL}/art/man-v-annulus.html", "0.6"),
-        (f"{SITE_URL}/art/stretch.html", "0.6"),
         (f"{SITE_URL}/essays.html", "0.8"),
     ]
     for p in essay_posts:
@@ -669,7 +677,7 @@ if __name__ == "__main__":
         }
     except (OSError, json.JSONDecodeError):
         pass
-    missing_slugs = (set(SELECTED_SLUGS) | indexed_slugs) - feed_slugs
+    missing_slugs = (set(SELECTED_SLUGS) | CATALOG_SLUGS | indexed_slugs) - feed_slugs
     for slug in sorted(missing_slugs):
         if slug not in feed_slugs:
             print(f"  Mirrored essay '{slug}' not in feed, fetching page...")

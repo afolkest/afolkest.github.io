@@ -51,10 +51,10 @@
                         </a>
                     </div>
                     <figure class="plate">
-                        <a class="mount" href="/art/forgive-us.html">
-                            <img src="/images/forgive_us_800.webp" srcset="/images/forgive_us_800.webp 800w, /images/forgive_us_1600.webp 1600w, /images/forgive_us_1800.webp 1800w" sizes="19rem" fetchpriority="high" alt="forgive us — a dark figure reaching toward a starburst across pale blue and cream flow lines" width="1800" height="1200">
+                        <a class="mount" href="/art/god-is-nan-ii.html">
+                            <img src="/images/god_is_nan_ii_800.webp" srcset="/images/god_is_nan_ii_800.webp 800w, /images/god_is_nan_ii_1600.webp 1600w, /images/god_is_nan_ii_1800.webp 1800w" sizes="19rem" fetchpriority="high" alt="God is NaN II — a dark seated figure facing a radiant disk across pale blue and oxblood contours" width="1800" height="1200">
                         </a>
-                        <figcaption><a href="/art/forgive-us.html">forgive us</a><span class="meta">2026</span></figcaption>
+                        <figcaption><a href="/art/god-is-nan-ii.html">God is NaN II</a><span class="meta">2026</span></figcaption>
                     </figure>
                 </section>
 
@@ -94,7 +94,7 @@
                     </div>
                     <div class="list">
                         <a class="row squeeze-meta" href="/projects/eikonal.html">
-                            <span class="t">Eikonal</span><span class="meta gloss">visual arts system for painting with field theory</span>
+                            <span class="t">Eikonal</span><span class="meta gloss">Visual arts system for painting with field theory</span>
                         </a>
                         <a class="row squeeze-meta" href="https://getrandomness.com/" target="_blank" rel="noopener">
                             <span class="t">getrandomness.com</span><span class="meta gloss">Curated randomness for agent creativity</span>
@@ -119,7 +119,7 @@
                             <span class="t">Spirits and the incompleteness of physics</span><span class="meta gloss">The spirits beyond the horizon of theory</span>
                         </a>
                         <a class="row squeeze-meta" href="/essays/god-is-nan.html">
-                            <span class="t">God is NaN</span><span class="meta gloss">pragmatist mysticism and the nonsense of Bayesian metaphysics</span>
+                            <span class="t">God is NaN</span><span class="meta gloss">Pragmatist mysticism and the nonsense of Bayesian metaphysics</span>
                         </a>
                         <a class="row squeeze-meta" href="/essays/beauty-as-entropic-fine-tuning.html">
                             <span class="t">Beauty as entropic fine-tuning</span><span class="meta gloss">Why beauty should be measured in bits</span>
@@ -153,7 +153,13 @@
 
         </div>
     </main>
-    <script src="/design-tuner.js"></script>
+    <script>
+        if (new URLSearchParams(window.location.search).has('tune')) {
+            const tuner = document.createElement('script');
+            tuner.src = '/design-tuner.js';
+            document.body.append(tuner);
+        }
+    </script>
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 

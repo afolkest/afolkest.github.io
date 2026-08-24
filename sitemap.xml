@@ -21,6 +21,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://afolkestad.com/art/forgive-us-ii.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://afolkestad.com/art/god-is-nan-ii.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://afolkestad.com/art/forgive-us.html</loc>
     <priority>0.6</priority>
   </url>
@@ -74,10 +82,6 @@
   </url>
   <url>
     <loc>https://afolkestad.com/art/man-v-annulus.html</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://afolkestad.com/art/stretch.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -166,6 +170,10 @@
   </url>
   <url>
     <loc>https://afolkestad.com/essays/beauty-opioids.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://afolkestad.com/essays/n-beauty.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
