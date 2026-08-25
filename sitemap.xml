@@ -21,7 +21,15 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://afolkestad.com/art/adam-in-rust.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://afolkestad.com/art/god-is-nan-ii.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://afolkestad.com/art/paths-pick.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
