@@ -5,10 +5,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://afolkestad.com/about.html</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://afolkestad.com/research.html</loc>
     <priority>0.8</priority>
   </url>
