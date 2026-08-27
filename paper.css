@@ -436,7 +436,10 @@ a.t:hover { color: var(--color-accent); }
 .stack .gloss { display: block; padding-top: 0.3rem; }
 
 .ext::after {
-    content: "↗";
+    /* U+FE0E forces the text glyph; mobile browsers otherwise substitute a
+       boxed/color emoji for the bare diagonal arrow. */
+    content: "\2197\FE0E";
+    font-variant-emoji: text;
     font-size: 0.68em;
     color: var(--color-accent);
     margin-left: 0.15em;
