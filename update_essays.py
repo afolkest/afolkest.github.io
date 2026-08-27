@@ -609,6 +609,7 @@ def update_sitemap(essay_posts):
         (f"{SITE_URL}/art/adam-in-rust.html", "0.6"),
         (f"{SITE_URL}/art/god-is-nan-ii.html", "0.6"),
         (f"{SITE_URL}/art/paths-pick.html", "0.6"),
+        (f"{SITE_URL}/art/re-place.html", "0.6"),
         (f"{SITE_URL}/art/forgive-us.html", "0.6"),
         (f"{SITE_URL}/art/god-is-nan.html", "0.6"),
         (f"{SITE_URL}/art/pragmatism.html", "0.6"),
