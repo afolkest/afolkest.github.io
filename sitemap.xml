@@ -17,6 +17,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://afolkestad.com/art/cezanne-in-crystal.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://afolkestad.com/art/cat-in-crystal.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://afolkestad.com/art/hammershoi-in-crystal.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://afolkestad.com/art/forgive-us-ii.html</loc>
     <priority>0.6</priority>
   </url>
