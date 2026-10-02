@@ -374,7 +374,8 @@ h2 {
 /* ---------- about ---------- */
 
 .about p {
-    font-size: 1.11rem;
+    font-family: var(--prose);
+    font-size: 1.17rem;
     line-height: var(--home-about-line-height);
     color: var(--color-text-primary);
 }
@@ -409,6 +410,9 @@ h2 {
     white-space: nowrap;
     transition: color 0.15s;
 }
+
+/* home: titles are content, so they take the reading face; glosses stay labels */
+body.home .t { font-family: var(--prose); font-size: 1.16rem; }
 
 .meta {
     font-size: 1rem;
