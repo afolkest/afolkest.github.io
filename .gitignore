@@ -15,8 +15,7 @@ trash/
 .playwright-mcp/
 images/originals/
 
-# Bulky prototype byproducts (screenshots, old archives) — keep the HTML/MD tracked
-prototypes/homepage-2026-08/shots/
-prototypes/archive/
+# Design prototypes stay local (files already tracked under it remain tracked)
+prototypes/
 __pycache__/
 artwork_paths.txt
