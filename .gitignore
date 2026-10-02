@@ -15,7 +15,7 @@ trash/
 .playwright-mcp/
 images/originals/
 
-# Design prototypes stay local (files already tracked under it remain tracked)
+# Design prototypes stay local
 prototypes/
 __pycache__/
 artwork_paths.txt
