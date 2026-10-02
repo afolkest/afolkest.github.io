@@ -34,6 +34,7 @@
             note: 'peach clay + cream, oxblood accent',
             matHsl: [32.3, 43.3, 76.5],
             sheetHsl: [38.2, 52.4, 91.8],
+            matTexture: 61,
             canvas: '#ddc5a9',
             surface: '#f5eddf',
             primary: '#1b1815',
@@ -196,25 +197,28 @@
         return accent;
     }
 
-    const originalAccentHsl = schemeAccentHsl(schemes[0]);
+    /* Reset returns to the palette paper.css ships, so keep this in step with
+       the scheme promoted there. */
+    const liveScheme = schemeById('charcoal');
+    const liveAccentHsl = schemeAccentHsl(liveScheme);
 
     const defaults = {
-        scheme: 'original',
+        scheme: liveScheme.id,
         headingGap: 0.4,
         listGap: 0,
         sectionGap: 2.82,
         aboutLineHeight: 1.45,
-        matTexture: 61,
+        matTexture: liveScheme.matTexture,
         sheetTexture: 90,
-        matHue: 32.3,
-        matSaturation: 43.3,
-        matBrightness: 76.5,
-        paperHue: 38.2,
-        paperSaturation: 52.4,
-        paperBrightness: 91.8,
-        accentHue: originalAccentHsl[0],
-        accentSaturation: originalAccentHsl[1],
-        accentBrightness: originalAccentHsl[2],
+        matHue: liveScheme.matHsl[0],
+        matSaturation: liveScheme.matHsl[1],
+        matBrightness: liveScheme.matHsl[2],
+        paperHue: liveScheme.sheetHsl[0],
+        paperSaturation: liveScheme.sheetHsl[1],
+        paperBrightness: liveScheme.sheetHsl[2],
+        accentHue: liveAccentHsl[0],
+        accentSaturation: liveAccentHsl[1],
+        accentBrightness: liveAccentHsl[2],
     };
 
     /* These sliders start from the active scheme, so double-clicking one
