@@ -180,7 +180,7 @@ body.artwork-detail-page {
 }
 
 /* the homepage reads best a notch above browser default */
-html:has(body.home) { font-size: 110%; }
+html:has(body.home) { font-size: 121%; }
 
 body {
     font-family: var(--serif);
@@ -1271,9 +1271,7 @@ body.artwork-detail-page .crumb .home {
 
 /* ================= narrow screens ================= */
 
-@media (max-width: 60rem) {
-    html:has(body.home) { font-size: 100%; }
-
+@media (max-width: 68rem) {
     body.home {
         align-items: flex-start;
         padding: 1rem;
@@ -1331,6 +1329,10 @@ body.artwork-detail-page .crumb .home {
         font-size: 0.96rem;
         line-height: 1.35;
     }
+}
+
+@media (max-width: 48rem) {
+    html:has(body.home) { font-size: 100%; }
 }
 
 @media (max-width: 48rem) {
