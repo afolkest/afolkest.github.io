@@ -40,6 +40,8 @@
             imageAttributes: Object.fromEntries(
                 ["src", "alt", "width", "height"].map((name) => [name, image.getAttribute(name)])
             ),
+            mediaNodes: Array.from(imageLink.childNodes, (node) => node.cloneNode(true)),
+            hasVideo: Boolean(imageLink.querySelector("video")),
             artworkWidth: stage.style.getPropertyValue("--artwork-width"),
             headingNodes: Array.from(heading.childNodes, (node) => node.cloneNode(true)),
             descriptionNode: description?.cloneNode(true) ?? null,
@@ -107,8 +109,13 @@
         imageLink.href = data.imageHref;
         imageLink.setAttribute("aria-label", data.imageLabel);
 
-        for (const [name, value] of Object.entries(data.imageAttributes)) {
-            image.setAttribute(name, value);
+        if (data.hasVideo || imageLink.querySelector("video")) {
+            imageLink.replaceChildren(...data.mediaNodes.map((node) => node.cloneNode(true)));
+            window.artworkVideo?.setupAll(imageLink);
+        } else {
+            for (const [name, value] of Object.entries(data.imageAttributes)) {
+                image.setAttribute(name, value);
+            }
         }
 
         stage.style.setProperty("--artwork-width", data.artworkWidth);

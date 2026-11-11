@@ -33,9 +33,27 @@
             <h1 class="sr-only">Artworks</h1>
 
             <section class="art-catalogue" aria-label="All artworks">
+                <a class="art-entry art-entry-link" id="forgive-us-iii" href="/art/forgive-us-iii.html">
+                    <span class="art-preview">
+                        <span class="artwork-video-frame" style="--artwork-aspect: 1.5">
+                            <img src="/images/forgive_us_iii_800.webp" srcset="/images/forgive_us_iii_800.webp 800w, /images/forgive_us_iii_1600.webp 1600w, /images/forgive_us_iii_1800.webp 1800w" sizes="(max-width: 48rem) calc(100vw - 3rem), 48rem" alt="Forgive us III — a dark figure reaching toward a bird in flight across shimmering violet, rose, and pale blue flecks" width="1800" height="1200" fetchpriority="high">
+                            <video class="artwork-video" muted playsinline preload="auto" poster="/images/forgive_us_iii_poster.webp" width="1800" height="1200" aria-hidden="true">
+                                <source data-src="/images/forgive_us_iii_hevc.mp4" type='video/mp4; codecs="hvc1.2.4.L120.B0"'>
+                                <source data-src="/images/forgive_us_iii_av1.mp4" type='video/mp4; codecs="av01.0.08M.10"'>
+                                <source data-src="/images/forgive_us_iii_h264.mp4" type='video/mp4; codecs="avc1.640032"'>
+                            </video>
+                        </span>
+                    </span>
+                    <span class="art-entry-caption">
+                        <strong>Forgive us III</strong>
+                        <span class="art-entry-meta">2026</span>
+                        <span class="art-entry-action">view <span aria-hidden="true">→</span></span>
+                    </span>
+                </a>
+
                 <a class="art-entry art-entry-link art-entry-portrait" id="cezanne-in-crystal" href="/art/cezanne-in-crystal.html">
                     <span class="art-preview">
-                        <img src="/images/cezanne_in_crystal_800.webp" srcset="/images/cezanne_in_crystal_800.webp 800w, /images/cezanne_in_crystal_1600.webp 1600w, /images/cezanne_in_crystal_1687.webp 1687w" sizes="(max-width: 48rem) 72vw, 26rem" alt="Cézanne, in crystal — a dark bearded portrait amid angular pale-blue and charcoal contours" width="1687" height="2000" fetchpriority="high">
+                        <img src="/images/cezanne_in_crystal_800.webp" srcset="/images/cezanne_in_crystal_800.webp 800w, /images/cezanne_in_crystal_1600.webp 1600w, /images/cezanne_in_crystal_1687.webp 1687w" sizes="(max-width: 48rem) 72vw, 26rem" alt="Cézanne, in crystal — a dark bearded portrait amid angular pale-blue and charcoal contours" width="1687" height="2000" loading="lazy">
                     </span>
                     <span class="art-entry-caption">
                         <strong>Cézanne, in crystal</strong>
@@ -257,6 +275,7 @@
         </article>
     </main>
 
+    <script src="/artwork-video.js"></script>
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 

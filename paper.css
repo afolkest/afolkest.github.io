@@ -1137,6 +1137,65 @@ body.artwork-detail-page .crumb .home {
         0 24px 52px rgb(var(--rgb-shadow) / 0.25);
 }
 
+/* Video artworks: the video plays with the still stacked above it, hidden.
+   At the end the still fades in over the video. The video layer itself is
+   left unanimated as a precaution against compositing hitches. */
+.artwork-video-frame {
+    position: relative;
+    display: block;
+    aspect-ratio: var(--artwork-aspect);
+}
+
+span.artwork-video-frame > img,
+span.artwork-video-frame > video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: cover;
+    box-shadow: none;
+    transform: none;
+}
+
+span.artwork-video-frame > img { z-index: 1; }
+
+span.artwork-video-frame > video {
+    display: none;
+    pointer-events: none;
+}
+
+.artwork-video-frame.is-video-active > video { display: block; }
+.artwork-video-frame.is-video-active:not(.is-video-done) > img { opacity: 0; }
+/* The transition sits on the done state only, so hiding the still at the start is instant. */
+.artwork-video-frame.is-video-done > img { transition: opacity 3s ease-in-out; }
+
+/* On the artwork page: sized like a contained image. */
+.artwork-image-link:has(.artwork-video-frame) { container-type: size; }
+
+.artwork-image-link .artwork-video-frame {
+    width: min(100cqw, 100cqh * var(--artwork-aspect), var(--artwork-max-width));
+    box-shadow:
+        0 0 0 1px rgb(var(--rgb-neutral-light) / 0.035),
+        0 7px 18px rgb(var(--rgb-shadow) / 0.31),
+        0 24px 52px rgb(var(--rgb-shadow) / 0.25);
+}
+
+/* In the gallery: sized like the other previews, but without the hover lift. */
+.art-preview .artwork-video-frame {
+    width: min(100%, 45rem);
+    box-shadow:
+        0 0 0 1px rgb(var(--rgb-neutral-light) / 0.035),
+        0 5px 14px rgb(var(--rgb-shadow) / 0.25),
+        0 18px 38px rgb(var(--rgb-shadow) / 0.19);
+}
+
+.art-entry-link:hover .art-preview .artwork-video-frame > img {
+    transform: none;
+    box-shadow: none;
+}
+
 .artwork-caption {
     max-width: 51.5rem;
     margin: 1.25rem auto 0;

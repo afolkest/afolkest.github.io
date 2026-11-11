@@ -605,6 +605,7 @@ def update_sitemap(essay_posts):
         (f"{SITE_URL}/research.html", "0.8"),
         (f"{SITE_URL}/projects/eikonal.html", "0.6"),
         (f"{SITE_URL}/art.html", "0.8"),
+        (f"{SITE_URL}/art/forgive-us-iii.html", "0.6"),
         (f"{SITE_URL}/art/cezanne-in-crystal.html", "0.6"),
         (f"{SITE_URL}/art/cat-in-crystal.html", "0.6"),
         (f"{SITE_URL}/art/hammershoi-in-crystal.html", "0.6"),
