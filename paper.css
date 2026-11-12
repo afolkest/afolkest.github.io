@@ -1182,6 +1182,9 @@ span.artwork-video-frame > video {
         0 24px 52px rgb(var(--rgb-shadow) / 0.25);
 }
 
+/* In an essay or project figure: full column width, like the images there. */
+.essay-figure .artwork-video-frame { width: 100%; }
+
 /* In the gallery: sized like the other previews, but without the hover lift. */
 .art-preview .artwork-video-frame {
     width: min(100%, 45rem);

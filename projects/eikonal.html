@@ -34,8 +34,15 @@
             </header>
             <div class="essay-body">
                 <figure class="essay-figure">
-                    <img src="/images/forgive_us_ii_800.webp" srcset="/images/forgive_us_ii_800.webp 800w, /images/forgive_us_ii_1600.webp 1600w, /images/forgive_us_ii_1800.webp 1800w" sizes="(max-width: 48rem) calc(100vw - 2.4rem), 51.5rem" width="1800" height="1200" fetchpriority="high" decoding="async" alt="Forgive us II — a dark figure reaching toward a starburst across rippling blue and oxblood lines">
-                    <figcaption class="eikonal-artwork-caption">Image made by me in Eikonal</figcaption>
+                    <span class="artwork-video-frame" style="--artwork-aspect: 1.5">
+                        <img src="/images/forgive_us_iii_800.webp" srcset="/images/forgive_us_iii_800.webp 800w, /images/forgive_us_iii_1600.webp 1600w, /images/forgive_us_iii_1800.webp 1800w" sizes="(max-width: 48rem) calc(100vw - 2.4rem), 51.5rem" width="1800" height="1200" fetchpriority="high" decoding="async" alt="Forgive us III — a dark figure reaching toward a bird in flight across shimmering violet, rose, and pale blue flecks">
+                        <video class="artwork-video" muted playsinline preload="auto" poster="/images/forgive_us_iii_poster.webp" width="1800" height="1200" aria-hidden="true">
+                            <source data-src="/images/forgive_us_iii_hevc.mp4" type='video/mp4; codecs="hvc1.2.4.L120.B0"'>
+                            <source data-src="/images/forgive_us_iii_av1.mp4" type='video/mp4; codecs="av01.0.08M.10"'>
+                            <source data-src="/images/forgive_us_iii_h264.mp4" type='video/mp4; codecs="avc1.640032"'>
+                        </video>
+                    </span>
+                    <figcaption class="eikonal-artwork-caption"><a href="/art/forgive-us-iii.html"><i>Forgive us III</i></a>, made by me in Eikonal</figcaption>
                 </figure>
 
                 <p>I’m currently building an opinionated visual arts instrument using the physics of field theory and so-called elliptic boundary value problems. It’s in active development and pre-release, though an early prototype is <a href="https://github.com/afolkest/elliptica" target="_blank" rel="noopener">open source on GitHub</a>.</p>
@@ -188,6 +195,7 @@
         </article>
     </main>
 
+    <script src="/artwork-video.js"></script>
     <script data-goatcounter="https://afolkest.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 
